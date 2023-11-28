@@ -1,9 +1,9 @@
-import './App.css';
+import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import Login from "./Views/Login";
+import Home from "./Views/Home";
 import { AuthorizedUserProvider } from "./Context/AuthUserContext";
-import { DataUserProvider } from "./Context/DataUserContext";
 
 function App() {
   return (
@@ -18,9 +18,12 @@ function App() {
 function MainContent() {
   return (
     <Router>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-        </Routes>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+      </Routes>
+      <Routes>
+        <Route exact path="/find-matches" element={<Home />} />
+      </Routes>
     </Router>
   );
 }
