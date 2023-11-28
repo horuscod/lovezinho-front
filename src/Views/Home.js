@@ -1,9 +1,10 @@
 import React from "react";
 import MainLayout from "../LayoutTemplate/MainLayout/MainLayout";
+import Match from "../Components/Match/Match";
 const Home = () => {
   return (
     <MainLayout>
-      <div>Conteúdo da Página Inicial</div>
+      <Match />
     </MainLayout>
   );
 };
