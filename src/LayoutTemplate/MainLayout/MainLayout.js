@@ -2,18 +2,24 @@ import React from "react";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import LateralMenu from "../LateralMenu/LateralMenu";
-import {} from "./StyledMainLayout";
+import {
+  BackgroundBody,
+  ContainerContent,
+  DynamicContent,
+} from "./StyledMainLayout";
+
+
 
 function MainLayout({ children }) {
   return (
-    <div>
+    <BackgroundBody>
       <Header />
-      <div style={{ display: "flex" }}>
+      <ContainerContent style={{ display: "flex" }}>
         <LateralMenu />
-        <main style={{ flex: 1 }}>{children}</main>
-      </div>
+        <DynamicContent style={{ flex: 1 }}>{children}</DynamicContent>
+      </ContainerContent>
       <Footer />
-    </div>
+    </BackgroundBody>
   );
 }
 

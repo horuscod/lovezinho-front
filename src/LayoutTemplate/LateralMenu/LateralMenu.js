@@ -1,45 +1,115 @@
 import React from "react";
 import {
+  BoxContentProfile,
+  BoxContentProfileInfo,
+  BoxImagePremium,
+  BoxImageProfile,
   BoxLateral,
+  ButtonPlus,
   ContentBox,
+  ContentImagesPremium,
+  ImagePremium,
   ItemLabelMenu,
   ItemMenu,
-  ItemSVGMenu,
   LineMenu,
+  NameProfile,
+  PopularProfile,
 } from "./StyledLateralMenu";
+
+import { WiDirectionUp } from "react-icons/wi";
+
+import { GiLovers } from "react-icons/gi";
+import { HiMiniUsers } from "react-icons/hi2";
+import { GrView } from "react-icons/gr";
+import { FaHeart } from "react-icons/fa";
+import { BsFillArrowThroughHeartFill } from "react-icons/bs";
+import { BiSolidDislike } from "react-icons/bi";
+import { FaFire } from "react-icons/fa";
+
+import ImageDefault from "../../../public/imgs/d-avatar.webp";
 
 const LateralMenu = () => {
   return (
     <BoxLateral>
-      <ContentBox>Componente do perfil dados</ContentBox>
+      <BoxContentProfile>
+        <BoxImageProfile src={ImageDefault} />
+        <BoxContentProfileInfo>
+          <NameProfile>Alana Nunes</NameProfile>
+          <PopularProfile>Popularidade: Muito baixo</PopularProfile>
+        </BoxContentProfileInfo>
+      </BoxContentProfile>
+
+      <ContentBox>
+        <ButtonPlus>
+          <WiDirectionUp />
+          Aumentar Popularidade
+        </ButtonPlus>
+      </ContentBox>
       <ContentBox>
         <ItemMenu>
-          <ItemSVGMenu></ItemSVGMenu>
+          <GiLovers />
           <ItemLabelMenu>Encontrar Matches</ItemLabelMenu>
         </ItemMenu>
         <ItemMenu>
-          <ItemSVGMenu></ItemSVGMenu>
+          <HiMiniUsers />
           <ItemLabelMenu>Matches</ItemLabelMenu>
         </ItemMenu>
         <ItemMenu>
-          <ItemSVGMenu></ItemSVGMenu>
+          <GrView />
           <ItemLabelMenu>Visitantes</ItemLabelMenu>
         </ItemMenu>
       </ContentBox>
       <LineMenu />
       <ContentBox>
         <ItemMenu>
-          <ItemSVGMenu></ItemSVGMenu>
+          <FaHeart />
           <ItemLabelMenu>Likes</ItemLabelMenu>
         </ItemMenu>
         <ItemMenu>
-          <ItemSVGMenu></ItemSVGMenu>
+          <BsFillArrowThroughHeartFill />
           <ItemLabelMenu>Pessoas que eu gostei</ItemLabelMenu>
         </ItemMenu>
         <ItemMenu>
-          <ItemSVGMenu></ItemSVGMenu>
+          <BiSolidDislike />
           <ItemLabelMenu>Pessoas que eu não gostei</ItemLabelMenu>
         </ItemMenu>
+      </ContentBox>
+      <LineMenu />
+      <ContentBox>
+        <ItemMenu>
+          <FaFire />
+          <ItemLabelMenu>Usuários Premium</ItemLabelMenu>
+        </ItemMenu>
+
+        <ContentImagesPremium>
+          <BoxImagePremium>
+            <ImagePremium src={ImageDefault} />
+          </BoxImagePremium>
+          <BoxImagePremium>
+            <ImagePremium src={ImageDefault} />
+          </BoxImagePremium>
+          <BoxImagePremium>
+            <ImagePremium src={ImageDefault} />
+          </BoxImagePremium>
+          <BoxImagePremium>
+            <ImagePremium src={ImageDefault} />
+          </BoxImagePremium>
+          <BoxImagePremium>
+            <ImagePremium src={ImageDefault} />
+          </BoxImagePremium>
+          <BoxImagePremium>
+            <ImagePremium src={ImageDefault} />
+          </BoxImagePremium>
+          <BoxImagePremium>
+            <ImagePremium src={ImageDefault} />
+          </BoxImagePremium>
+          <BoxImagePremium>
+            <ImagePremium src={ImageDefault} />
+          </BoxImagePremium>
+          <BoxImagePremium>
+            <ImagePremium src={ImageDefault} />
+          </BoxImagePremium>
+        </ContentImagesPremium>
       </ContentBox>
     </BoxLateral>
   );
