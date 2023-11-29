@@ -45,6 +45,9 @@ export const ButtonLike = styled.div`
   background: #fff;
   border-radius: 100%;
   padding: 10px 15px;
+  justify-content: center;
+  display: flex;
+  align-items: center;
   font-size: 25px;
   margin: 0 10px;
 `;

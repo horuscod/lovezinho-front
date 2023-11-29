@@ -44,6 +44,9 @@ export const ButtonPlus = styled.div`
   line-height: 28px;
   font-size: 16px;
   height: 32px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
 `;
 
 export const PopularProfile = styled.div``;
@@ -65,6 +68,10 @@ export const ItemLabelMenu = styled(Link)`
   margin: 0 0 0 10px;
   text-decoration: none;
   color: #737373;
+
+  &:hover {
+    color: black;
+  }
 `;
 
 export const LineMenu = styled.hr`

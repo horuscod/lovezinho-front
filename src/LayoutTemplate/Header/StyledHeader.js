@@ -18,6 +18,7 @@ export const ContentHeader = styled.div`
 export const BoxItemHeader = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
 `;
 
 export const LogoImgHeader = styled.img`
@@ -29,6 +30,10 @@ export const LogoImgHeader = styled.img`
 
 export const LinkRouterHeader = styled(Link)`
   text-decoration: none;
+    &:hover {
+      text-decoration: underline; color: Blue;}
+
+    }
 `;
 
 export const ItemSVGHeader = styled.svg`
@@ -48,4 +53,6 @@ export const ImageProfileHeader = styled.img`
   height: 35px;
   object-fit: cover;
   border-radius: 100%;
+  margin-left: 10px;
 `;
+

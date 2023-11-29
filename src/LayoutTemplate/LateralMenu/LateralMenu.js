@@ -48,7 +48,7 @@ const LateralMenu = () => {
       <ContentBox>
         <ItemMenu>
           <GiLovers />
-          <ItemLabelMenu>Encontrar Matches</ItemLabelMenu>
+          <ItemLabelMenu>Encontrar Matches </ItemLabelMenu>
         </ItemMenu>
         <ItemMenu>
           <HiMiniUsers />
