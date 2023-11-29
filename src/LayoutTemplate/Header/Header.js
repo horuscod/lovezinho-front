@@ -2,6 +2,7 @@ import React from "react";
 import {
   BoxImageProfileHeader,
   BoxItemHeader,
+  BoxLinkHeader,
   ContentHeader,
   HeaderBox,
   ImageProfileHeader,
@@ -25,7 +26,9 @@ const Header = () => {
       <Container>
         <ContentHeader>
           <BoxItemHeader>
-            <LogoImgHeader src={LogoExample} alt="Logo marca Lovezinho" />
+            <BoxLinkHeader to="/find-matches">
+              <LogoImgHeader src={LogoExample} alt="Logo marca Lovezinho" />
+            </BoxLinkHeader>
             <LinkRouterHeader to="/find-matches">
               Encontrar Matches
             </LinkRouterHeader>
@@ -37,7 +40,7 @@ const Header = () => {
             <SiGooglechat />
             <IoMdNotifications />
 
-            <BoxImageProfileHeader>
+            <BoxImageProfileHeader to="/profile">
               <ImageProfileHeader
                 src={ImageProfileDefault}
                 alt="Imagem do perfil"

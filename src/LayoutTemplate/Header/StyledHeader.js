@@ -43,10 +43,11 @@ export const ItemSVGHeader = styled.svg`
 
 /* Profile Header */
 
-export const BoxImageProfileHeader = styled.div`
+export const BoxImageProfileHeader = styled(Link)`
   width: 35px;
   height: 35px;
   border-radius: 100%;
+  display: block;
 `;
 export const ImageProfileHeader = styled.img`
   width: 35px;
@@ -56,3 +57,6 @@ export const ImageProfileHeader = styled.img`
   margin-left: 10px;
 `;
 
+export const BoxLinkHeader = styled(Link)`
+  display: block;
+`;
