@@ -29,6 +29,21 @@ function MainContent() {
         <Route exact path="/find-matches" element={<Home />} />
       </Routes>
       <Routes>
+        <Route exact path="/matches" element={<Home />} />
+      </Routes>
+      <Routes>
+        <Route exact path="/visitors" element={<Home />} />
+      </Routes>
+      <Routes>
+        <Route exact path="/likes" element={<Home />} />
+      </Routes>
+      <Routes>
+        <Route exact path="/your-likes" element={<Home />} />
+      </Routes>
+      <Routes>
+        <Route exact path="/unlikes" element={<Home />} />
+      </Routes>
+      <Routes>
         <Route exact path="/profile" element={<Profile />} />
       </Routes>
     </Router>

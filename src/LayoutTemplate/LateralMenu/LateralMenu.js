@@ -48,30 +48,30 @@ const LateralMenu = () => {
       <ContentBox>
         <ItemMenu>
           <GiLovers />
-          <ItemLabelMenu>Encontrar Matches </ItemLabelMenu>
+          <ItemLabelMenu to="/find-matches">Encontrar Matches </ItemLabelMenu>
         </ItemMenu>
         <ItemMenu>
           <HiMiniUsers />
-          <ItemLabelMenu>Matches</ItemLabelMenu>
+          <ItemLabelMenu to="/matches">Matches</ItemLabelMenu>
         </ItemMenu>
         <ItemMenu>
           <GrView />
-          <ItemLabelMenu>Visitantes</ItemLabelMenu>
+          <ItemLabelMenu to="/visitors">Visitantes</ItemLabelMenu>
         </ItemMenu>
       </ContentBox>
       <LineMenu />
       <ContentBox>
         <ItemMenu>
           <FaHeart />
-          <ItemLabelMenu>Likes</ItemLabelMenu>
+          <ItemLabelMenu to="/likes">Likes</ItemLabelMenu>
         </ItemMenu>
         <ItemMenu>
           <BsFillArrowThroughHeartFill />
-          <ItemLabelMenu>Pessoas que eu gostei</ItemLabelMenu>
+          <ItemLabelMenu to="/your-likes">Pessoas que eu gostei</ItemLabelMenu>
         </ItemMenu>
         <ItemMenu>
           <BiSolidDislike />
-          <ItemLabelMenu>Pessoas que eu não gostei</ItemLabelMenu>
+          <ItemLabelMenu to="/unlikes">Pessoas que eu não gostei</ItemLabelMenu>
         </ItemMenu>
       </ContentBox>
       <LineMenu />
@@ -80,7 +80,6 @@ const LateralMenu = () => {
           <FaFire />
           <ItemLabelMenu>Usuários Premium</ItemLabelMenu>
         </ItemMenu>
-
         <ContentImagesPremium>
           <BoxImagePremium>
             <ImagePremium src={ImageDefault} />
