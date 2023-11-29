@@ -53,7 +53,7 @@ const ProfileTemplate = () => {
 
               <ContentBoxSimpleInfoProfile>
                 <ProfileItemIcon>
-                  <IoLocationSharp />
+                  <IoLocationSharp/>
                   Brasil
                 </ProfileItemIcon>
                 <ProfileItemIcon>

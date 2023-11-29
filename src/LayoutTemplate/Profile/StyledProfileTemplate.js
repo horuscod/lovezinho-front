@@ -97,6 +97,11 @@ export const ButtonEdit = styled.div`
     Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
   align-items: center;
   display: flex;
+
+    &:hover{
+      background-color: #039be5;
+      color: white;
+    }
 `;
 
 export const ContentBoxSimpleInfoProfile = styled.div`

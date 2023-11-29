@@ -3,6 +3,7 @@ import {
   BoxContentImage,
   BoxContentMatch,
   ButtonLike,
+  ButtonPerfil,
   ButtonUnlike,
   CollumNextMatch,
   ContentButtons,
@@ -28,8 +29,8 @@ const Match = () => {
         <ContentImage src={ImageDef} />
         <ContentInfoPerson>
           <ContentNamePerson>Alana Nunes,</ContentNamePerson>
-          <ContentDetail>25</ContentDetail>
-          <ContentDetail>Brazil</ContentDetail>
+          <ContentDetail> 25 </ContentDetail>
+          <ContentDetail> Brazil</ContentDetail>
         </ContentInfoPerson>
         <ContentButtons>
           <ButtonLike>
@@ -43,6 +44,15 @@ const Match = () => {
       {/* Coluna 2*/}
       <DetailAbout>
         <DetailInfoName>Sobre Alana Nunes</DetailInfoName>
+        <DetailInfoName>Lingua preferida</DetailInfoName>
+        <detailInfoName2>Português</detailInfoName2>
+        <DetailInfoName>Altura</DetailInfoName>
+        <detailInfoName2>1,75</detailInfoName2>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <ButtonPerfil>Perfil</ButtonPerfil>
       </DetailAbout>
       {/* Coluna 3*/}
       <CollumNextMatch>

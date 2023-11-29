@@ -25,6 +25,7 @@ export const ContentInfoPerson = styled.div`
   position: absolute;
   top: 20px;
   left: 20px;
+  word-spacing: 5px;
 `;
 
 export const ContentNamePerson = styled.span``;
@@ -69,7 +70,33 @@ export const DetailAbout = styled.div`
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
 `;
 
-export const DetailInfoName = styled.div``;
+export const ButtonPerfil = styled.button`
+  
+  background-color: white;
+  color: #039be5;
+  border: 2px solid #039be5;
+  Border-radius: 10px;
+  width: 40%;
+  height: 25px;
+
+    &:hover{
+      background-color: #039be5;
+      color: white;
+    }
+`;
+
+export const DetailInfoName = styled.div`
+  word-spacing: 4px;
+  font-weight: bold;
+  font-size: 15px;
+  padding: 10px;
+`;
+
+
+export const DetailInfoName2 = styled.div`
+    font-size: 10px;
+
+`;
 
 export const DetailContentLang = styled.div``;
 
@@ -95,3 +122,5 @@ export const NextMatchImage = styled.img`
   display: block;
   margin: 10px 0;
 `;
+
+
