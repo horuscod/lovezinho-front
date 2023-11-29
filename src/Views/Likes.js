@@ -6,7 +6,7 @@ import CardsLike from "../Components/CardsLike/CardsLike";
 const Likes = () => {
   return (
     <MainLayout>
-      <CardsLike titlePage="Pessoas que eu gostei" />
+      <CardsLike titlePage="Meus Likes" />
     </MainLayout>
   );
 };
