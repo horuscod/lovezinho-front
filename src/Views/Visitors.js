@@ -1,5 +1,5 @@
 import React from "react";
-Visitantes;
+
 import MainLayout from "../LayoutTemplate/MainLayout/MainLayout";
 import CardsLike from "../Components/CardsLike/CardsLike";
 
