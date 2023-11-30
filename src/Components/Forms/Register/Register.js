@@ -18,11 +18,41 @@ const Register = () => {
   const [form, setForm] = useState([]);
   const navigate = useNavigate();
 
+  const createNewUser = () => {
+    const dataBody = {};
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    console.log(form);
+    /* if (!validateInput()) {
+      alert("Dados do formulário inválidos");
+      return;
+    } */
+    setLoading(true);
     try {
+      const response = await fetch(
+        "https://api-velho-rico-597ac8e8746d.herokuapp.com/newUserByForms",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(form),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Erro HTTP: ${response.status}`);
+      }
+
+      alert("Cadastro realizado com sucesso!");
+      navigate("/");
     } catch (err) {
-      alert("Algo deu errado com o Cadastro" + err);
+      alert("Algo deu errado com o Cadastro: " + err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -41,10 +71,10 @@ const Register = () => {
 
   return (
     <Container>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <h1>Faça o seu Cadastro 👋</h1>
         <Input
-          name="nome"
+          name="name"
           placeholder="Digite o seu nome"
           onChange={handleChange}
           type="text"
@@ -68,15 +98,10 @@ const Register = () => {
           onChange={handleChange}
           type="password"
         />
-        <Button
-          type="submit"
-          text="Efetuar Cadastro!"
-          onClick={handleSubmit}
-          disabled={loading === true || !validateInput()}
-        />
+        <Button type="submit" text="Efetuar Cadastro!" />
         <SubContainerSign>
           <p>Já possui conta?</p>
-          <NavLink to="*">Login</NavLink>
+          <NavLink to="/">Login</NavLink>
         </SubContainerSign>
       </Form>
     </Container>
