@@ -25,7 +25,7 @@ function MainContent() {
   return (
     <Router>
       <Routes>
-        <Route exact path="/login" element={<Login />} />
+        <Route exact path="/" element={<Login />} />
       </Routes>
       <Routes>
         <Route exact path="/signup" element={<Register />} />
