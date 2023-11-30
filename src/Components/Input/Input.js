@@ -1,7 +1,7 @@
 import React from "react";
 import { InputCuston, BoxInput, MensageValid } from "./styles";
 
-const Input = ({ name, placeholder, onChange, type, mensageValid }) => {
+const Input = ({ name, placeholder, onChange, type, valid, mensageValid }) => {
   const textValid = mensageValid || false;
   return (
     <BoxInput>
@@ -10,9 +10,9 @@ const Input = ({ name, placeholder, onChange, type, mensageValid }) => {
         placeholder={placeholder}
         onChange={onChange}
         type={type}
-        valid={textValid}
+        valid={valid}
       />
-      <MensageValid>Prencha o campo{textValid ? textValid : null}</MensageValid>
+      <MensageValid>{valid ? textValid : null}</MensageValid>
     </BoxInput>
   );
 };

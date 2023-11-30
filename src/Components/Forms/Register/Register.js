@@ -2,27 +2,40 @@ import React, { useState } from "react";
 import { Container, Form, SubContainerSign } from "./style.js";
 import Input from "../../Input/Input.js";
 import Button from "../../Button/index.js";
-import { validateEmail, validatePassword, validateName, validarConfirmarSenha } from "../../Val/validate.js";
 import { NavLink, useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [loading, setLoading] = useState(false);
-  const [form, setForm] = useState({ name: "", email: "", password: "", confirmarPassword: "" });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const [validName, setValidName] = useState(false);
+  const [validEmail, setValidEmail] = useState(false);
+  const [validPassword, setValidPassword] = useState(false);
+  const [confirmPassword, setValidConfirmPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!validateInput()) {
-      alert("Por favor, preencha todos os campos corretamente.");
+    const isValid = validForms();
+    if (!isValid) {
+      // Se não for válido, não prossiga com o envio
       return;
     }
     setLoading(true);
     try {
-      const response = await fetch("https://api-velho-rico-597ac8e8746d.herokuapp.com/newUserByForms", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
+      const response = await fetch(
+        "https://api-velho-rico-597ac8e8746d.herokuapp.com/newUserByForms",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(form),
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`Erro HTTP: ${response.status}`);
@@ -41,12 +54,24 @@ const Register = () => {
     setForm({ ...form, [event.target.name]: event.target.value });
   };
 
-  const validateInput = () => {
-    return (
-      validateName(form.name) &&
-      validateEmail(form.email) &&
-      validatePassword(form.password) &&
-      validarConfirmarSenha(form.password, form.confirmarPassword)
+  const validForms = () => {
+    const nameUser = form.name;
+    const emailUser = form.email;
+    const passwordUser = form.password;
+    const confirmPassword = form.confirmPassword;
+
+    setValidName(nameUser.trim() === "");
+    setValidEmail(emailUser.trim() === "");
+    setValidPassword(passwordUser.trim() === "" || passwordUser.length < 6);
+    setValidConfirmPassword(confirmPassword.trim() === "");
+
+    return !(
+      nameUser.trim() === "" ||
+      emailUser.trim() === "" ||
+      passwordUser.trim() === "" ||
+      confirmPassword.trim() === "" ||
+      passwordUser.length < 6 ||
+      confirmPassword !== passwordUser
     );
   };
 
@@ -54,11 +79,39 @@ const Register = () => {
     <Container>
       <Form onSubmit={handleSubmit}>
         <h1>Faça o seu Cadastro 👋</h1>
-        <Input name="name" placeholder="Digite o seu nome" onChange={handleChange} type="text" />
-        <Input name="email" placeholder="Digite o seu e-mail" onChange={handleChange} type="email" />
-        <Input name="password" placeholder="Digite a sua senha" onChange={handleChange} type="password" />
-        <Input name="confirmarPassword" placeholder="Confirme a sua senha" onChange={handleChange} type="password" />
-        <Button type="submit" text="Efetuar Cadastro!" disabled={loading || !validateInput()} />
+        <Input
+          name="name"
+          placeholder="Digite o seu nome"
+          onChange={handleChange}
+          type="text"
+          valid={validName}
+          mensageValid="Por Favor Preencha o campo"
+        />
+        <Input
+          name="email"
+          placeholder="Digite o seu e-mail"
+          onChange={handleChange}
+          type="email"
+          valid={validEmail}
+          mensageValid="Por Favor Preencha o campo"
+        />
+        <Input
+          name="password"
+          placeholder="Digite a sua senha"
+          onChange={handleChange}
+          type="password"
+          valid={validPassword}
+          mensageValid="Por Favor Preencha o campo"
+        />
+        <Input
+          name="confirmPassword"
+          placeholder="Confirme a sua senha"
+          onChange={handleChange}
+          type="password"
+          valid={confirmPassword}
+          mensageValid="Por Favor Preencha o campo"
+        />
+        <Button type="submit" text="Efetuar Cadastro!" />
         <SubContainerSign>
           <p>Já possui conta?</p>
           <NavLink to="/">Login</NavLink>
