@@ -39,8 +39,9 @@ const Register = () => {
 
       if (!response.ok) {
         throw new Error(`Erro HTTP: ${response.status}`);
+      } else {
+        navigate("/");
       }
-      navigate("/");
     } catch (err) {
       alert("Algo deu errado com o Cadastro: " + err);
     } finally {
