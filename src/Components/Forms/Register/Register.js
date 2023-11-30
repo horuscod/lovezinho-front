@@ -40,8 +40,6 @@ const Register = () => {
       if (!response.ok) {
         throw new Error(`Erro HTTP: ${response.status}`);
       }
-
-      alert("Cadastro realizado com sucesso!");
       navigate("/");
     } catch (err) {
       alert("Algo deu errado com o Cadastro: " + err);
