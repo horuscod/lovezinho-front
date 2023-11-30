@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Container, Form, SubContainerSign } from "./Styles.js";
-import Input from "../../Input/index.js";
+import Input from "../../Input/Input.js";
 import Button from "../../Button/index.js";
 import { validateEmail, validatePassword } from "../../Val/validate.js";
 //import UserService from '../../Services/UserService.js'
@@ -15,7 +15,7 @@ const Login = () => {
 
   const CreateSessionLogin = () => {
 
-    
+
 
 
   }
