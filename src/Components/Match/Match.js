@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   BoxContentImage,
   BoxContentMatch,
@@ -22,46 +22,87 @@ import { FaHeart } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 
 const Match = () => {
+  const [dataOldMan, setDataOldMan] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    fetch(`https://api-velho-rico-597ac8e8746d.herokuapp.com/findAllOldMan`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setDataOldMan(data);
+      })
+      .catch((error) => {
+        console.error(
+          "There has been a problem with your fetch operation:",
+          error
+        );
+      });
+  }, []);
+
+  const handleLike = () => {
+    const nextIndex = currentIndex + 1;
+    if (nextIndex < dataOldMan.length) {
+      setCurrentIndex(nextIndex);
+    } else {
+      // Aqui você pode lidar com o fim da lista
+      console.log("Fim da lista de matches");
+    }
+  };
+
+  const currentItem = dataOldMan[currentIndex];
+  const nextItems = dataOldMan.slice(currentIndex + 1, currentIndex + 7);
+  console.log(dataOldMan);
+
   return (
     <BoxContentMatch>
       {/* Coluna 1 */}
-      <BoxContentImage>
-        <ContentImage src={ImageDef} />
-        <ContentInfoPerson>
-          <ContentNamePerson>Alana Nunes,</ContentNamePerson>
-          <ContentDetail> 25 </ContentDetail>
-          <ContentDetail> Brazil</ContentDetail>
-        </ContentInfoPerson>
-        <ContentButtons>
-          <ButtonLike>
-            <FaHeart />
-          </ButtonLike>
-          <ButtonUnlike>
-            <IoClose />
-          </ButtonUnlike>
-        </ContentButtons>
-      </BoxContentImage>
+      {currentItem && (
+        <BoxContentImage>
+          <ContentImage src={currentItem.imageProfileURL} />
+          <ContentInfoPerson>
+            <ContentNamePerson>{currentItem.name},</ContentNamePerson>
+            <ContentDetail> {currentItem.age} </ContentDetail>
+            <ContentDetail> {currentItem.country}</ContentDetail>
+          </ContentInfoPerson>
+          <ContentButtons>
+            <ButtonLike onClick={handleLike}>
+              <FaHeart />
+            </ButtonLike>
+            <ButtonUnlike>
+              <IoClose />
+            </ButtonUnlike>
+          </ContentButtons>
+        </BoxContentImage>
+      )}
       {/* Coluna 2*/}
-      <DetailAbout>
-        <DetailInfoName>Sobre Alana Nunes</DetailInfoName>
-        <DetailInfoName>Lingua preferida</DetailInfoName>
-        <detailInfoName2>Português</detailInfoName2>
-        <DetailInfoName>Altura</DetailInfoName>
-        <detailInfoName2>1,75</detailInfoName2>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <ButtonPerfil>Perfil</ButtonPerfil>
-      </DetailAbout>
+      {currentItem && (
+        <DetailAbout>
+          {/* Substitua os seguintes detalhes pelos dados reais de currentItem */}
+          <DetailInfoName>Sobre {currentItem.name}</DetailInfoName>
+          <DetailInfoName>Língua preferida</DetailInfoName>
+          <detailInfoName2>{currentItem.language}</detailInfoName2>
+          <DetailInfoName>Altura</DetailInfoName>
+          <detailInfoName2>{currentItem.height}</detailInfoName2>
+          <br />
+          <br />
+          <br />
+          <br />
+          <ButtonPerfil>Perfil</ButtonPerfil>
+        </DetailAbout>
+      )}
       {/* Coluna 3*/}
       <CollumNextMatch>
-        <NextMatchImage src={ImageDef} />
-        <NextMatchImage src={ImageDef} />
-        <NextMatchImage src={ImageDef} />
-        <NextMatchImage src={ImageDef} />
-        <NextMatchImage src={ImageDef} />
-        <NextMatchImage src={ImageDef} />
+        {nextItems.map((item, index) => (
+          <NextMatchImage key={index} src={item.imageProfileURL} />
+        ))}
       </CollumNextMatch>
     </BoxContentMatch>
   );
