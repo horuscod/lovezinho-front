@@ -6,21 +6,23 @@ import {
   ContentHeader,
   HeaderBox,
   ImageProfileHeader,
-  ItemSVGHeader,
   LinkRouterHeader,
   LogoImgHeader,
 } from "./StyledHeader";
 import Container from "../../Components/Container/Container";
 
 import LogoExample from "../../../public/imgs/logo.png";
-import ImageProfileDefault from "../../../public/imgs/d-avatar.webp";
 
 import { SiGooglechat } from "react-icons/si";
 import { ImPower } from "react-icons/im";
 import { MdOutlineAttachMoney } from "react-icons/md";
 import { IoMdNotifications } from "react-icons/io";
 
+import { useAuthorizedUser } from "../../Context/AuthUserContext";
+
 const Header = () => {
+  const { userData } = useAuthorizedUser();
+
   return (
     <HeaderBox>
       <Container>
@@ -42,7 +44,7 @@ const Header = () => {
 
             <BoxImageProfileHeader to="/profile">
               <ImageProfileHeader
-                src={ImageProfileDefault}
+                src={userData ? userData.imageProfileURL : ""}
                 alt="Imagem do perfil"
               />
             </BoxImageProfileHeader>

@@ -13,6 +13,7 @@ import { useAuthorizedUser } from "../../../Context/AuthUserContext.js";
 const Login = () => {
   const navigate = useNavigate();
   const auth = getAuth(app);
+  const { loginUser } = useAuthorizedUser();
 
   const { setAuthorizedUser } = useAuthorizedUser();
 
@@ -40,12 +41,35 @@ const Login = () => {
         const token = user.accessToken;
 
         if (user) {
-          sessionStorage.setItem("accessToken", user.accessToken);
-          localStorage.setItem("accessToken", user.accessToken);
-          sessionStorage.setItem("uid", user.email);
-          localStorage.setItem("uid", user.email);
-          setAuthorizedUser(true);
-          navigate("/find-matches");
+          fetch(
+            `https://api-velho-rico-597ac8e8746d.herokuapp.com/findOndeUserByEmail/${user.email}`,
+            {
+              method: "GET",
+              headers: { "Content-Type": "application/json" },
+            }
+          )
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Network response was not ok");
+              }
+              return response.json();
+            })
+            .then((data) => {
+              loginUser(data);
+              sessionStorage.setItem("accessToken", user.accessToken);
+              localStorage.setItem("accessToken", user.accessToken);
+              sessionStorage.setItem("uid", user.email);
+              localStorage.setItem("uid", user.email);
+              setAuthorizedUser(true);
+            })
+            .catch((error) => {
+              console.error(
+                "There has been a problem with your fetch operation:",
+                error
+              );
+            });
+          /*   
+          navigate("/find-matches"); */
         } else {
           setAuthorizedUser(false);
         }
