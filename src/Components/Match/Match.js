@@ -17,8 +17,6 @@ import {
 } from "./StyledMatch";
 import { useAuthorizedUser } from "../../Context/AuthUserContext.js";
 
-import ImageDef from "../../../public/imgs/d-avatar.webp";
-
 import { FaHeart } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 
@@ -36,9 +34,11 @@ const Match = () => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
+        console.log("vai ter resposta");
         return response.json();
       })
       .then((data) => {
+        console.log("Retorno");
         setDataOldMan(data);
       })
       .catch((error) => {
@@ -52,7 +52,7 @@ const Match = () => {
   const handleLike = async () => {
     const nextIndex = currentIndex + 1;
     if (nextIndex < dataOldMan.length) {
-      const lastClickedPerson = dataOldMan[currentIndex]
+      const lastClickedPerson = dataOldMan[currentIndex];
 
       setCurrentIndex(nextIndex);
 
