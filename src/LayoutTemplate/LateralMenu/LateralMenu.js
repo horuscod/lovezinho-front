@@ -27,14 +27,18 @@ import { BiSolidDislike } from "react-icons/bi";
 import { FaFire } from "react-icons/fa";
 
 import ImageDefault from "../../../public/imgs/d-avatar.webp";
+import { useAuthorizedUser } from "../../Context/AuthUserContext";
 
 const LateralMenu = () => {
+  const { userData } = useAuthorizedUser();
   return (
     <BoxLateral>
       <BoxContentProfile>
-        <BoxImageProfile src={ImageDefault} />
+        <BoxImageProfile
+          src={userData ? userData.imageProfileURL : ImageDefault}
+        />
         <BoxContentProfileInfo>
-          <NameProfile>Alana Nunes</NameProfile>
+          <NameProfile>{userData.name}</NameProfile>
           <PopularProfile>Popularidade: Muito baixo</PopularProfile>
         </BoxContentProfileInfo>
       </BoxContentProfile>
