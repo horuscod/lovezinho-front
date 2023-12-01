@@ -15,6 +15,7 @@ import {
   DetailInfoName,
   NextMatchImage,
 } from "./StyledMatch";
+import { useAuthorizedUser } from "../../../Context/AuthUserContext.js";
 
 import ImageDef from "../../../public/imgs/d-avatar.webp";
 
@@ -24,6 +25,7 @@ import { IoClose } from "react-icons/io5";
 const Match = () => {
   const [dataOldMan, setDataOldMan] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const { userData } = useAuthorizedUser();
 
   useEffect(() => {
     fetch(`https://api-velho-rico-597ac8e8746d.herokuapp.com/findAllOldMan`, {
@@ -61,11 +63,12 @@ const Match = () => {
 
         try {
           const response = await fetch(
-            "https://api-velho-rico-597ac8e8746d.herokuapp.com/sendFifthMan",
+            "https://api-velho-rico-597ac8e8746d.herokuapp.com/newMatch",
             {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
+                email: userData.email,
                 imageProfileBot: imageProfileURL,
                 nameProfileBot: name,
               }),
