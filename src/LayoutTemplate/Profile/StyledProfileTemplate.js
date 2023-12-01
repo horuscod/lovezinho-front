@@ -19,7 +19,7 @@ export const BoxContentImage = styled.div`
   overflow: hidden;
 `;
 
-export const BoxImageProfileUser = styled.div`
+export const BoxImageProfileUser = styled.img`
   width: 95%;
   height: 250px;
   background: #ccc;
@@ -98,10 +98,10 @@ export const ButtonEdit = styled.div`
   align-items: center;
   display: flex;
 
-    &:hover{
-      background-color: #039be5;
-      color: white;
-    }
+  &:hover {
+    background-color: #039be5;
+    color: white;
+  }
 `;
 
 export const ContentBoxSimpleInfoProfile = styled.div`

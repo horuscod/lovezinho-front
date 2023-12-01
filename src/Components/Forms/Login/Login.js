@@ -21,9 +21,9 @@ const Login = () => {
   const [usePassword, setUsePassword] = useState("");
 
   useEffect(() => {
-    const handleEnterKey = (e) => {
+    const handleEnterKey = async (e) => {
       if (e.keyCode === 13) {
-        loginWithEmailHandler(auth, useEmail, usePassword);
+        await loginWithEmailHandler();
       }
     };
 
@@ -32,62 +32,52 @@ const Login = () => {
     return () => {
       window.removeEventListener("keydown", handleEnterKey);
     };
-  }, [auth, useEmail, usePassword]);
+  }, []);
 
-  function loginWithEmailHandler(auth, useEmail, usePassword) {
-    signInWithEmailAndPassword(auth, useEmail, usePassword)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        const token = user.accessToken;
+  const loginWithEmailHandler = async () => {
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        useEmail,
+        usePassword
+      );
+      const user = userCredential.user;
 
-        if (user) {
-          fetch(
-            `https://api-velho-rico-597ac8e8746d.herokuapp.com/findOndeUserByEmail/${user.email}`,
-            {
-              method: "GET",
-              headers: { "Content-Type": "application/json" },
-            }
-          )
-            .then((response) => {
-              if (!response.ok) {
-                throw new Error("Network response was not ok");
-              }
-              return response.json();
-            })
-            .then((data) => {
-              loginUser(data);
-              sessionStorage.setItem("accessToken", user.accessToken);
-              localStorage.setItem("accessToken", user.accessToken);
-              sessionStorage.setItem("uid", user.email);
-              localStorage.setItem("uid", user.email);
-              setAuthorizedUser(true);
-            })
-            .catch((error) => {
-              console.error(
-                "There has been a problem with your fetch operation:",
-                error
-              );
-            });
-          /*   
-          navigate("/find-matches"); */
-        } else {
-          setAuthorizedUser(false);
+      if (user) {
+        const response = await fetch(
+          `https://api-velho-rico-597ac8e8746d.herokuapp.com/findOndeUserByEmail/${user.email}`,
+          {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
         }
-      })
-      .catch((error) => {
-        console.log("Entrou no erro aqui ");
-        const errorCode = error.code;
-        const errorMessage = error.message;
 
-        console.log(errorCode);
-        console.log(errorMessage);
+        const data = await response.json();
+        loginUser(data);
+        sessionStorage.setItem("accessToken", user.accessToken);
+        localStorage.setItem("accessToken", user.accessToken);
+        sessionStorage.setItem("email", user.email);
+        localStorage.setItem("email", user.email);
+        localStorage.setItem("urlImgProfile", user.imageProfileURL);
+        setAuthorizedUser(true);
+
+        // navigate("/find-matches");
+      } else {
         setAuthorizedUser(false);
-      });
-  }
+      }
+    } catch (error) {
+      console.error("Erro no login:", error);
+      setAuthorizedUser(false);
+    }
+  };
 
-  const GoToLogin = (event) => {
+  const GoToLogin = async (event) => {
     event.preventDefault();
-    loginWithEmailHandler(auth, useEmail, usePassword);
+    await loginWithEmailHandler();
   };
 
   return (

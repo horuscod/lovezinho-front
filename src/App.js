@@ -11,6 +11,7 @@ import Matches from "./Views/Matches";
 import Likes from "./Views/Likes";
 import YourLikes from "./Views/YourLikes";
 import Unlikes from "./Views/Unlikes";
+import ChatPage from "./Views/ChatPage";
 import {
   AuthorizedUserProvider,
   useAuthorizedUser,
@@ -33,6 +34,9 @@ function MainContent() {
         <>
           <Routes>
             <Route exact path="/" element={<Home />} />
+          </Routes>
+          <Routes>
+            <Route exact path="/chat" element={<ChatPage />} />
           </Routes>
           <Routes>
             <Route exact path="/find-matches" element={<Home />} />
