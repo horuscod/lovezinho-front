@@ -47,7 +47,7 @@ const Match = () => {
       });
   }, []);
 
-  const handleLike = () => {
+  const handleLike = async () => {
     const nextIndex = currentIndex + 1;
     if (nextIndex < dataOldMan.length) {
       const lastClickedPerson = dataOldMan[currentIndex]
@@ -56,6 +56,29 @@ const Match = () => {
 
       if (nextIndex === 4) {
         console.log("Quinta pessoa clicada: ", lastClickedPerson);
+
+        const { imageProfileURL, name } = lastClickedPerson;
+
+        try {
+          const response = await fetch(
+            "https://api-velho-rico-597ac8e8746d.herokuapp.com/sendFifthMan",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                imageProfileBot: imageProfileURL,
+                nameProfileBot: name,
+              }),
+            }
+          );
+          if (!response.ok) {
+            throw new Error(`Erro HTTP: ${response.status}`);
+          } else {
+            console.log("Dados enviados com sucesso!");
+          }
+        } catch (err) {
+          console.error("Erro no envio dos dados para o backend:", err);
+        }
       }
     } else {
       // Aqui você pode lidar com o fim da lista
