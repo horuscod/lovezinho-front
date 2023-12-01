@@ -26,8 +26,11 @@ import { BackgroundBody } from "../MainLayout/StyledMainLayout";
 import { IoLocationSharp } from "react-icons/io5";
 import { FaHeart } from "react-icons/fa";
 import { GrView } from "react-icons/gr";
+import { useAuthorizedUser } from "../../Context/AuthUserContext.js";
 
 const ProfileTemplate = () => {
+  const { userData } = useAuthorizedUser();
+  console.log('userData:', userData)
   return (
     <BackgroundBody>
       <Container>
@@ -47,13 +50,13 @@ const ProfileTemplate = () => {
             <MensageToProfile>Carregue pelo menos 5 imagens.</MensageToProfile>
             <BoxSimpleInfoProfile>
               <HeaderBoxSimpleInfoProfile>
-                <ProfileName>Alana Nunes, 18</ProfileName>
+                <ProfileName>{userData.name}</ProfileName>
                 <ButtonEdit>Editar</ButtonEdit>
               </HeaderBoxSimpleInfoProfile>
 
               <ContentBoxSimpleInfoProfile>
                 <ProfileItemIcon>
-                  <IoLocationSharp/>
+                  <IoLocationSharp />
                   Brasil
                 </ProfileItemIcon>
                 <ProfileItemIcon>

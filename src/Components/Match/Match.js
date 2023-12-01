@@ -15,8 +15,7 @@ import {
   DetailInfoName,
   NextMatchImage,
 } from "./StyledMatch";
-
-import ImageDef from "../../../public/imgs/d-avatar.webp";
+import { useAuthorizedUser } from "../../Context/AuthUserContext.js";
 
 import { FaHeart } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
@@ -24,6 +23,7 @@ import { IoClose } from "react-icons/io5";
 const Match = () => {
   const [dataOldMan, setDataOldMan] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const { userData } = useAuthorizedUser();
 
   useEffect(() => {
     fetch(`https://api-velho-rico-597ac8e8746d.herokuapp.com/findAllOldMan`, {
@@ -34,9 +34,11 @@ const Match = () => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
+        console.log("vai ter resposta");
         return response.json();
       })
       .then((data) => {
+        console.log("Retorno");
         setDataOldMan(data);
       })
       .catch((error) => {
@@ -47,10 +49,40 @@ const Match = () => {
       });
   }, []);
 
-  const handleLike = () => {
+  const handleLike = async () => {
     const nextIndex = currentIndex + 1;
     if (nextIndex < dataOldMan.length) {
+      const lastClickedPerson = dataOldMan[currentIndex];
+
       setCurrentIndex(nextIndex);
+
+      if (nextIndex === 4) {
+        console.log("Quinta pessoa clicada: ", lastClickedPerson);
+
+        const { imageProfileURL, name } = lastClickedPerson;
+
+        try {
+          const response = await fetch(
+            "https://api-velho-rico-597ac8e8746d.herokuapp.com/newMatch",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                email: userData.email,
+                imageProfileBot: imageProfileURL,
+                nameProfileBot: name,
+              }),
+            }
+          );
+          if (!response.ok) {
+            throw new Error(`Erro HTTP: ${response.status}`);
+          } else {
+            console.log("Dados enviados com sucesso!");
+          }
+        } catch (err) {
+          console.error("Erro no envio dos dados para o backend:", err);
+        }
+      }
     } else {
       // Aqui você pode lidar com o fim da lista
       console.log("Fim da lista de matches");

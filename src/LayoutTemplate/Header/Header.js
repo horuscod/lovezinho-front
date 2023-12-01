@@ -11,7 +11,7 @@ import {
 } from "./StyledHeader";
 import Container from "../../Components/Container/Container";
 
-import LogoExample from "../../../public/imgs/logo.png";
+import LogoExample from "../../../public/imgs/meu-velho.png";
 
 import { SiGooglechat } from "react-icons/si";
 import { ImPower } from "react-icons/im";

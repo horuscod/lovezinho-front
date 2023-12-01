@@ -12,6 +12,13 @@ export function AuthorizedUserProvider({ children }) {
     name: "",
     email: "",
     imageProfileURL: "",
+    photoURL: "",
+    typeProfile: "",
+    uid: "",
+    uidAuth: "",
+    cupons: "",
+    location: "",
+    urlImageBot: "",
   });
   const loginUser = (data) => {
     setAuthorizedUser(data);
