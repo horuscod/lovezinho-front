@@ -11,7 +11,10 @@ import Matches from "./Views/Matches";
 import Likes from "./Views/Likes";
 import YourLikes from "./Views/YourLikes";
 import Unlikes from "./Views/Unlikes";
-import { AuthorizedUserProvider } from "./Context/AuthUserContext";
+import {
+  AuthorizedUserProvider,
+  useAuthorizedUser,
+} from "./Context/AuthUserContext";
 
 function App() {
   return (
@@ -22,35 +25,47 @@ function App() {
 }
 
 function MainContent() {
+  const { authorizedUser } = useAuthorizedUser();
+  const authToken = localStorage.getItem("accessToken");
   return (
     <Router>
-      <Routes>
-        <Route exact path="/" element={<Login />} />
-      </Routes>
-      <Routes>
-        <Route exact path="/signup" element={<Register />} />
-      </Routes>
-      <Routes>
-        <Route exact path="/find-matches" element={<Home />} />
-      </Routes>
-      <Routes>
-        <Route exact path="/matches" element={<Matches />} />
-      </Routes>
-      <Routes>
-        <Route exact path="/visitors" element={<Visitors />} />
-      </Routes>
-      <Routes>
-        <Route exact path="/likes" element={<Likes />} />
-      </Routes>
-      <Routes>
-        <Route exact path="/your-likes" element={<YourLikes />} />
-      </Routes>
-      <Routes>
-        <Route exact path="/unlikes" element={<Unlikes />} />
-      </Routes>
-      <Routes>
-        <Route exact path="/profile" element={<Profile />} />
-      </Routes>
+      {authorizedUser || authToken ? (
+        <>
+          <Routes>
+            <Route exact path="/" element={<Home />} />
+          </Routes>
+          <Routes>
+            <Route exact path="/find-matches" element={<Home />} />
+          </Routes>
+          <Routes>
+            <Route exact path="/matches" element={<Matches />} />
+          </Routes>
+          <Routes>
+            <Route exact path="/visitors" element={<Visitors />} />
+          </Routes>
+          <Routes>
+            <Route exact path="/likes" element={<Likes />} />
+          </Routes>
+          <Routes>
+            <Route exact path="/your-likes" element={<YourLikes />} />
+          </Routes>
+          <Routes>
+            <Route exact path="/unlikes" element={<Unlikes />} />
+          </Routes>
+          <Routes>
+            <Route exact path="/profile" element={<Profile />} />
+          </Routes>
+        </>
+      ) : (
+        <>
+          <Routes>
+            <Route exact path="/" element={<Login />} />
+          </Routes>
+          <Routes>
+            <Route exact path="/signup" element={<Register />} />
+          </Routes>
+        </>
+      )}
     </Router>
   );
 }
