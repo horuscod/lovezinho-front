@@ -50,7 +50,13 @@ const Match = () => {
   const handleLike = () => {
     const nextIndex = currentIndex + 1;
     if (nextIndex < dataOldMan.length) {
+      const lastClickedPerson = dataOldMan[currentIndex]
+
       setCurrentIndex(nextIndex);
+
+      if (nextIndex === 4) {
+        console.log("Quinta pessoa clicada: ", lastClickedPerson);
+      }
     } else {
       // Aqui você pode lidar com o fim da lista
       console.log("Fim da lista de matches");
