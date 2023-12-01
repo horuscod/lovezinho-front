@@ -15,7 +15,7 @@ import {
   DetailInfoName,
   NextMatchImage,
 } from "./StyledMatch";
-import { useAuthorizedUser } from "../../../Context/AuthUserContext.js";
+import { useAuthorizedUser } from "../../Context/AuthUserContext.js";
 
 import ImageDef from "../../../public/imgs/d-avatar.webp";
 
