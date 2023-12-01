@@ -34,7 +34,7 @@ export const ItemCard = styled.div`
   margin-bottom: 35px;
 `;
 
-export const ImageCardLike = styled.div`
+export const ImageCardLike = styled.img`
   width: 160px;
   height: 160px;
   border-radius: 100%;
@@ -42,6 +42,7 @@ export const ImageCardLike = styled.div`
   margin-bottom: 35px;
   margin-left: auto;
   margin-right: auto;
+  object-fit: cover;
 `;
 
 export const NamePersonLike = styled.div`

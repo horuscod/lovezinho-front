@@ -49,7 +49,6 @@ const Chat = () => {
 
   const handleSendMessage = () => {
     if (inputMessage) {
-      // Adiciona a mensagem do usuário e a próxima resposta do bot
       const nextBotMessage =
         selectedBotMessages[
           (userMessages.length / 2) % selectedBotMessages.length
