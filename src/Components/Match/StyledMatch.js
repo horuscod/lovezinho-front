@@ -12,11 +12,14 @@ export const BoxContentImage = styled.div`
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
   position: sticky;
   box-sizing: border-box;
+  max-heigth: 500px;
+  width: 50%;
 `;
 
 export const ContentImage = styled.img`
   border-radius: 5px;
   height: 100%;
+  max-height: 500px;
   width: 100%;
   object-fit: cover;
 `;
@@ -71,18 +74,17 @@ export const DetailAbout = styled.div`
 `;
 
 export const ButtonPerfil = styled.button`
-  
   background-color: white;
   color: #039be5;
   border: 2px solid #039be5;
-  Border-radius: 10px;
+  border-radius: 10px;
   width: 40%;
   height: 25px;
 
-    &:hover{
-      background-color: #039be5;
-      color: white;
-    }
+  &:hover {
+    background-color: #039be5;
+    color: white;
+  }
 `;
 
 export const DetailInfoName = styled.div`
@@ -92,10 +94,8 @@ export const DetailInfoName = styled.div`
   padding: 10px;
 `;
 
-
 export const DetailInfoName2 = styled.div`
-    font-size: 10px;
-
+  font-size: 10px;
 `;
 
 export const DetailContentLang = styled.div``;
@@ -122,5 +122,3 @@ export const NextMatchImage = styled.img`
   display: block;
   margin: 10px 0;
 `;
-
-

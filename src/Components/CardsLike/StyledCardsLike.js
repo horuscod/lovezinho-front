@@ -43,6 +43,7 @@ export const ImageCardLike = styled.img`
   margin-left: auto;
   margin-right: auto;
   object-fit: cover;
+  
 `;
 
 export const NamePersonLike = styled.div`
