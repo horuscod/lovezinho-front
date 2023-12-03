@@ -4,6 +4,11 @@ export const BoxContentMatch = styled.div`
   display: flex;
   padding: 20px;
   justify-content: space-between;
+
+    @media (max-width: 800px) {
+      width: 90%;
+      height: 90%;
+    }
 `;
 
 export const BoxContentImage = styled.div`
@@ -51,6 +56,12 @@ export const ButtonLike = styled.div`
   align-items: center;
   font-size: 25px;
   margin: 0 10px;
+
+
+    &:hover {
+      -webkit-transform: scale(1.5);
+      transform: scale(1.5);
+    }
 `;
 export const ButtonUnlike = styled.div`
   color: black;
@@ -58,6 +69,11 @@ export const ButtonUnlike = styled.div`
   border-radius: 100%;
   padding: 10px 15px;
   font-size: 25px;
+
+  &:hover {
+    -webkit-transform: scale(1.5);
+    transform: scale(1.5);
+  }
 `;
 
 /* Descrição itens */
@@ -68,6 +84,13 @@ export const DetailAbout = styled.div`
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+
+    @media (max-width: 800px) {
+      display: flex;
+      align-itens: center;
+      justify-content: center;
+      flex-direction: column;
+    }
 `;
 
 export const ButtonPerfil = styled.button`
@@ -82,6 +105,11 @@ export const ButtonPerfil = styled.button`
     &:hover{
       background-color: #039be5;
       color: white;
+    }
+
+    @media (max-width: 800px) {
+      margin: 45px;
+
     }
 `;
 

@@ -4,6 +4,10 @@ import styled from "styled-components";
 export const BoxLateral = styled.div`
   padding: 20px;
   width: 260px;
+
+    @media screen and (max-width: 800px) {
+      display: none;
+    }
 `;
 
 export const BoxContentProfile = styled.div`
@@ -96,3 +100,4 @@ export const ImagePremium = styled.img`
   border-radius: 100%;
   object-fit: cover;
 `;
+
