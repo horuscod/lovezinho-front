@@ -30,16 +30,14 @@ import { useAuthorizedUser } from "../../Context/AuthUserContext.js";
 
 const ProfileTemplate = () => {
   const { userData } = useAuthorizedUser();
-  console.log('userData:', userData)
+  console.log("userData:", userData);
   return (
     <BackgroundBody>
       <Container>
         <ProfileBox>
           <BoxContentLittle>
             <BoxContentImage>
-              <BoxImageProfileUser>
-                <BoxLabel>Sob Revisão</BoxLabel>
-              </BoxImageProfileUser>
+              <BoxImageProfileUser src={userData.imageProfileURL} />
 
               <BoxContentPopularity>
                 PopularidadeMuito baixo Aumentar

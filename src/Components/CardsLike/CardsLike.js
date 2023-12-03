@@ -12,51 +12,21 @@ import {
 
 import { FaHeart } from "react-icons/fa";
 
-const CardsLike = ({ titlePage }) => {
+const CardsLike = ({ titlePage, data }) => {
   return (
     <ContentCards>
       <TitlePage>{titlePage}</TitlePage>
       <LineCards>
-        <ItemCard>
-          <ImageCardLike></ImageCardLike>
-          <NamePersonLike>Nome da Pessoa</NamePersonLike>
-          <LabelLastLike>2 dias atrás</LabelLastLike>
-          <ButtonUnlike>
-            <FaHeart />
-          </ButtonUnlike>
-        </ItemCard>
-        <ItemCard>
-          <ImageCardLike></ImageCardLike>
-          <NamePersonLike>Nome da Pessoa</NamePersonLike>
-          <LabelLastLike>2 dias atrás</LabelLastLike>
-          <ButtonUnlike>
-            <FaHeart />
-          </ButtonUnlike>
-        </ItemCard>
-        <ItemCard>
-          <ImageCardLike></ImageCardLike>
-          <NamePersonLike>Nome da Pessoa</NamePersonLike>
-          <LabelLastLike>2 dias atrás</LabelLastLike>
-          <ButtonUnlike>
-            <FaHeart />
-          </ButtonUnlike>
-        </ItemCard>
-        <ItemCard>
-          <ImageCardLike></ImageCardLike>
-          <NamePersonLike>Nome da Pessoa</NamePersonLike>
-          <LabelLastLike>2 dias atrás</LabelLastLike>
-          <ButtonUnlike>
-            <FaHeart />
-          </ButtonUnlike>
-        </ItemCard>
-        <ItemCard>
-          <ImageCardLike></ImageCardLike>
-          <NamePersonLike>Nome da Pessoa</NamePersonLike>
-          <LabelLastLike>2 dias atrás</LabelLastLike>
-          <ButtonUnlike>
-            <FaHeart />
-          </ButtonUnlike>
-        </ItemCard>
+        {data.map((item, index) => (
+          <ItemCard key={index}>
+            <ImageCardLike src={item.urlImageMatch} />
+            <NamePersonLike>{item.nameMatch}</NamePersonLike>
+            <LabelLastLike>2 dias atrás</LabelLastLike>
+            <ButtonUnlike>
+              <FaHeart />
+            </ButtonUnlike>
+          </ItemCard>
+        ))}
       </LineCards>
     </ContentCards>
   );
