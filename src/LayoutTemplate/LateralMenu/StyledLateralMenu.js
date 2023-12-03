@@ -18,6 +18,10 @@ export const BoxLateral = styled.div`
   @media ${devices.mediumLarge} {
     display: none;
   }
+
+    @media screen and (max-width: 800px) {
+      display: none;
+    }
 `;
 
 export const BoxContentProfile = styled.div`
@@ -110,3 +114,4 @@ export const ImagePremium = styled.img`
   border-radius: 100%;
   object-fit: cover;
 `;
+

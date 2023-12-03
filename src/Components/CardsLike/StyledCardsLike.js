@@ -2,7 +2,20 @@ import styled from "styled-components";
 
 export const ContentCards = styled.div`
   padding: 20px;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
+
+export const ContainerContent = styled.div`
+  @media (max-width: 800px) {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+`
 export const TitlePage = styled.div`
   font-size: 18px;
   margin: 0 0 14px;
@@ -17,6 +30,13 @@ export const LineCards = styled.div`
   margin: 35px 0;
   justify-content: space-between;
   flex-wrap: wrap;
+  
+    @media (max-width: 800px) {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+    }
 `;
 
 export const ItemCard = styled.div`
