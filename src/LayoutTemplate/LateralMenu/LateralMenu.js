@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   BoxContentProfile,
   BoxContentProfileInfo,
@@ -31,6 +31,44 @@ import { useAuthorizedUser } from "../../Context/AuthUserContext";
 
 const LateralMenu = () => {
   const { userData } = useAuthorizedUser();
+  const dataUserPremium = [];
+
+  useEffect(() => {
+    getAllUsersPremium();
+  }, []);
+
+  const getAllUsersPremium = () => {
+    fetch(`https://api-velho-rico-597ac8e8746d.herokuapp.com/allUsersPremium`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        console.log("vai ter resposta");
+        return response.json();
+      })
+      .then((data) => {
+        console.log("RESPOTA DO PREMIUM");
+        console.log(data);
+        dataUserPremium.push(...data);
+        console.log(dataUserPremium);
+        sessionStorage.setItem("dataPremium", JSON.stringify(data));
+      })
+      .catch((error) => {
+        console.error(
+          "There has been a problem with your fetch operation:",
+          error
+        );
+      });
+  };
+
+  const SessionDataPremiumString = sessionStorage.getItem("dataPremium");
+  const SessionDataPremium = SessionDataPremiumString
+    ? JSON.parse(SessionDataPremiumString)
+    : [];
+
   return (
     <BoxLateral>
       <BoxContentProfile>
@@ -85,33 +123,13 @@ const LateralMenu = () => {
           <ItemLabelMenu>Usuários Premium</ItemLabelMenu>
         </ItemMenu>
         <ContentImagesPremium>
-          <BoxImagePremium>
-            <ImagePremium src={ImageDefault} />
-          </BoxImagePremium>
-          <BoxImagePremium>
-            <ImagePremium src={ImageDefault} />
-          </BoxImagePremium>
-          <BoxImagePremium>
-            <ImagePremium src={ImageDefault} />
-          </BoxImagePremium>
-          <BoxImagePremium>
-            <ImagePremium src={ImageDefault} />
-          </BoxImagePremium>
-          <BoxImagePremium>
-            <ImagePremium src={ImageDefault} />
-          </BoxImagePremium>
-          <BoxImagePremium>
-            <ImagePremium src={ImageDefault} />
-          </BoxImagePremium>
-          <BoxImagePremium>
-            <ImagePremium src={ImageDefault} />
-          </BoxImagePremium>
-          <BoxImagePremium>
-            <ImagePremium src={ImageDefault} />
-          </BoxImagePremium>
-          <BoxImagePremium>
-            <ImagePremium src={ImageDefault} />
-          </BoxImagePremium>
+          {SessionDataPremium && SessionDataPremium.length > 0
+            ? SessionDataPremium.map((item, index) => (
+                <BoxImagePremium key={index}>
+                  <ImagePremium src={item.imageProfileURL} />
+                </BoxImagePremium>
+              ))
+            : null}
         </ContentImagesPremium>
       </ContentBox>
     </BoxLateral>

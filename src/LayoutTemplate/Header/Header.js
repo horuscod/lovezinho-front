@@ -54,7 +54,7 @@ const Header = () => {
 
             <BoxImageProfileHeader to="/profile">
               <ImageProfileHeader
-                src={userData ? userData[0].imageProfileURL : ""}
+                src={userData && userData.length > 0 ? userData[0].imageProfileURL : ""}
                 alt="Imagem do perfil"
               />
             </BoxImageProfileHeader>

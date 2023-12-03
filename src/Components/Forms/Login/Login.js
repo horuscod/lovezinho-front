@@ -2,21 +2,15 @@ import React, { useState, useEffect } from "react";
 import { Container, Form, SubContainerSign } from "./Styles.js";
 import Input from "../../Input/Input.js";
 import Button from "../../Button/index.js";
-import { validateEmail, validatePassword } from "../../Val/validate.js";
-//import UserService from '../../Services/UserService.js'
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import { app } from "../../../Config/FirebaseConfig.js";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useAuthorizedUser } from "../../../Context/AuthUserContext.js";
 
 const Login = () => {
-  const navigate = useNavigate();
   const auth = getAuth(app);
-  const { loginUser } = useAuthorizedUser();
-
   const { setAuthorizedUser } = useAuthorizedUser();
-
   const [useEmail, setUseEmail] = useState("");
   const [usePassword, setUsePassword] = useState("");
 
@@ -41,39 +35,11 @@ const Login = () => {
         useEmail,
         usePassword
       );
-      const user = userCredential.user;
-
-      if (user) {
-        const response = await fetch(
-          `https://api-velho-rico-597ac8e8746d.herokuapp.com/findOndeUserByEmail/${user.email}`,
-          {
-            method: "GET",
-            headers: { "Content-Type": "application/json" },
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
-        if (data) {
-          console.log(data);
-          loginUser(data);
-          sessionStorage.setItem("accessToken", user.accessToken);
-          localStorage.setItem("accessToken", user.accessToken);
-          sessionStorage.setItem("email", user.email);
-          localStorage.setItem("email", user.email);
-          localStorage.setItem("urlImgProfile", data[0].imageProfileURL);
-          setAuthorizedUser(true);
-        }
-
-        // navigate("/find-matches");
-      } else {
-        setAuthorizedUser(false);
-      }
+      const { email } = userCredential.user;
+      localStorage.setItem("email", email);
+      setAuthorizedUser(true);
     } catch (error) {
-      console.error("Erro no login:", error);
-      setAuthorizedUser(false);
+      console.error("Error:", error);
     }
   };
 
