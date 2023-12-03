@@ -1,9 +1,23 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+import { devices } from "../../LayoutTemplate/MediaQueryCss/MediaQueryCss";
+
 export const BoxLateral = styled.div`
   padding: 20px;
   width: 260px;
+  @media ${devices.small} {
+    display: none;
+  }
+  @media ${devices.smallMedium} {
+    display: none;
+  }
+  @media ${devices.medium} {
+    display: none;
+  }
+  @media ${devices.mediumLarge} {
+    display: none;
+  }
 `;
 
 export const BoxContentProfile = styled.div`

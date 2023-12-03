@@ -6,6 +6,7 @@ import {
   ContentHeader,
   HeaderBox,
   ImageProfileHeader,
+  ItemSVGHeader,
   LinkRouterHeader,
   LogoImgHeader,
 } from "./StyledHeader";
@@ -37,10 +38,19 @@ const Header = () => {
           </BoxItemHeader>
 
           <BoxItemHeader>
-            <ImPower />
-            <MdOutlineAttachMoney />
-            <SiGooglechat />
-            <IoMdNotifications />
+            <ItemSVGHeader>
+              <ImPower />
+            </ItemSVGHeader>
+            <ItemSVGHeader>
+              <MdOutlineAttachMoney />
+            </ItemSVGHeader>
+
+            <ItemSVGHeader>
+              <SiGooglechat />
+            </ItemSVGHeader>
+            <ItemSVGHeader>
+              <IoMdNotifications />
+            </ItemSVGHeader>
 
             <BoxImageProfileHeader to="/profile">
               <ImageProfileHeader

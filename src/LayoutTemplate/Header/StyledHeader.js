@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { devices } from "../../LayoutTemplate/MediaQueryCss/MediaQueryCss";
 
 export const HeaderBox = styled.header`
   background-color: #fff;
@@ -36,9 +37,21 @@ export const LinkRouterHeader = styled(Link)`
     }
 `;
 
-export const ItemSVGHeader = styled.svg`
+export const ItemSVGHeader = styled.div`
   width: 20px;
   height: 20px;
+  @media ${devices.small} {
+    display: none;
+  }
+  @media ${devices.smallMedium} {
+    display: none;
+  }
+  @media ${devices.medium} {
+    display: none;
+  }
+  @media ${devices.mediumLarge} {
+    display: none;
+  }
 `;
 
 /* Profile Header */

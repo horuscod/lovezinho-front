@@ -1,4 +1,6 @@
-import styled from 'styled-components'
+import styled from "styled-components";
+
+import { devices } from "../../../LayoutTemplate/MediaQueryCss/MediaQueryCss";
 
 export const Container = styled.div`
   display: flex;
@@ -6,9 +8,12 @@ export const Container = styled.div`
   align-items: center;
   height: 100vh;
   min-width: 100vw;
-  background-color: #383838
+  background-color: #383838;
 
-`
+  @media ${devices.betweenSmallAndMedium} {
+    padding: 20px;
+  }
+`;
 
 export const Form = styled.form`
   display: flex;
@@ -31,19 +36,25 @@ export const Form = styled.form`
   p {
     color: white;
     font-size: 16px;
-    font-weight: bold; 
+    font-weight: bold;
   }
 
   a {
     color: white;
     font-size: 14px;
   }
-`
+
+  @media ${devices.betweenSmallAndMedium} {
+    width: 280px;
+    margin: 0 auto;
+    max-width: 100%;
+    overflow: hidden;
+  }
+`;
 
 export const SubContainerSign = styled.div`
   display: flex;
   flex-direction: row;
   gap: 0px 20px;
   align-items: center;
-`
-
+`;
