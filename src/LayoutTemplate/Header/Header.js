@@ -24,6 +24,14 @@ import { useAuthorizedUser } from "../../Context/AuthUserContext";
 const Header = () => {
   const { userData } = useAuthorizedUser();
 
+  console.log("---------HOOKS DATA");
+  console.log(userData);
+
+  const dataUser = localStorage.getItem("userData");
+  const imgUlrProfile = dataUser.imageProfileURL;
+
+  console.log("---------degu data user");
+  console.log(dataUser);
   return (
     <HeaderBox>
       <Container>
@@ -54,7 +62,9 @@ const Header = () => {
 
             <BoxImageProfileHeader to="/profile">
               <ImageProfileHeader
-                src={userData && userData.length > 0 ? userData[0].imageProfileURL : ""}
+                src={
+                  userData ? userData.imageProfileURL : dataUser.imgUlrProfile
+                }
                 alt="Imagem do perfil"
               />
             </BoxImageProfileHeader>

@@ -7,7 +7,6 @@ export function useAuthorizedUser() {
 
 export function AuthorizedUserProvider({ children }) {
   const [authorizedUser, setAuthorizedUser] = useState(null);
-
   const saveToLocalStorage = (data) => {
     localStorage.setItem("userData", JSON.stringify(data));
   };
@@ -36,8 +35,34 @@ export function AuthorizedUserProvider({ children }) {
 
   const loginUser = (data) => {
     setAuthorizedUser(data);
-    setUserData(data);
     saveToLocalStorage(data);
+  };
+
+  const fetchDataUser = async () => {
+    try {
+      const email = localStorage.getItem("email");
+      const data = { email: email };
+      console.log("____________AUTH DATA");
+
+      const response = await fetch(`http://195.35.18.158:1998/getByOneUser`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "same-origin",
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Erro HTTP: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log("Success:", result);
+
+      localStorage.setItem("userData", JSON.stringify(result[0]));
+      return result; // Retorne os dados se necessário
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   const logout = () => {
@@ -45,6 +70,10 @@ export function AuthorizedUserProvider({ children }) {
     setUserData({});
     clearLocalStorage();
   };
+
+  if (authorizedUser) {
+    fetchDataUser();
+  }
 
   return (
     <AuthorizedUserContext.Provider
