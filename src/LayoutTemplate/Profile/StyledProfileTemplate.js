@@ -1,21 +1,16 @@
 import styled from "styled-components";
 
-
-
 export const ProfileBox = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 35px 0;
 
-    @media (max-width: 800px) {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-
-    }
-
-    
+  @media (max-width: 800px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 export const BoxContentLittle = styled.div`
@@ -30,7 +25,7 @@ export const BoxContentLittle = styled.div`
 
 export const BoxContentImage = styled.div`
   background: #fff;
-  margin: 0 auto 25px;
+  text-align: center;
   padding: 10px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
   border-radius: 7px;
@@ -94,9 +89,8 @@ export const HeaderBoxSimpleInfoProfile = styled.div`
   @media (max-width: 800px) {
     display: flex;
     align-items: center;
-    justify-content: center;   
+    justify-content: center;
   }
-    
 `;
 
 export const ProfileName = styled.div`
@@ -123,10 +117,10 @@ export const ButtonEdit = styled.div`
   align-items: center;
   display: flex;
 
-    &:hover{
-      background-color: #039be5;
-      color: white;
-    }
+  &:hover {
+    background-color: #039be5;
+    color: white;
+  }
 `;
 
 export const ContentBoxSimpleInfoProfile = styled.div`
@@ -156,8 +150,6 @@ export const BoxImagesProfile = styled.div`
     align-items: center;
     padding: 10px;
     margin: 5px;
-
-
   }
 `;
 
@@ -181,7 +173,7 @@ export const BoxInformationProfile = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;   
+    flex-direction: column;
   }
 `;
 
