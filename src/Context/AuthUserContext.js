@@ -34,7 +34,6 @@ export function AuthorizedUserProvider({ children }) {
   });
 
   const loginUser = (data) => {
-    setAuthorizedUser(data);
     saveToLocalStorage(data);
   };
 
@@ -71,10 +70,6 @@ export function AuthorizedUserProvider({ children }) {
     clearLocalStorage();
   };
 
-  if (authorizedUser) {
-    fetchDataUser();
-  }
-
   return (
     <AuthorizedUserContext.Provider
       value={{
@@ -84,6 +79,7 @@ export function AuthorizedUserProvider({ children }) {
         logout,
         userData,
         setUserData,
+        fetchDataUser,
       }}
     >
       {children}

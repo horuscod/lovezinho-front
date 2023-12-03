@@ -6,11 +6,14 @@ import { NavLink } from "react-router-dom";
 
 import { app } from "../../../Config/FirebaseConfig.js";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { useAuthorizedUser } from "../../../Context/AuthUserContext.js";
+import {
+  useAuthorizedUser,
+  fetchDataUser,
+} from "../../../Context/AuthUserContext.js";
 
 const Login = () => {
   const auth = getAuth(app);
-  const { setAuthorizedUser } = useAuthorizedUser();
+  const { setAuthorizedUser, fetchDataUser } = useAuthorizedUser();
   const [useEmail, setUseEmail] = useState("");
   const [usePassword, setUsePassword] = useState("");
 
@@ -37,6 +40,7 @@ const Login = () => {
       );
       const { email } = userCredential.user;
       localStorage.setItem("email", email);
+      await fetchDataUser();
       setAuthorizedUser(true);
     } catch (error) {
       console.error("Error:", error);

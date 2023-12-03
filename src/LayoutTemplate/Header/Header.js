@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   BoxImageProfileHeader,
   BoxItemHeader,
@@ -22,16 +22,25 @@ import { IoMdNotifications } from "react-icons/io";
 import { useAuthorizedUser } from "../../Context/AuthUserContext";
 
 const Header = () => {
-  const { userData } = useAuthorizedUser();
-
-  console.log("---------HOOKS DATA");
-  console.log(userData);
-
   const dataUser = localStorage.getItem("userData");
-  const imgUlrProfile = dataUser.imageProfileURL;
+  const { fetchDataUser, userData, setUserData } = useAuthorizedUser();
 
-  console.log("---------degu data user");
-  console.log(dataUser);
+  useEffect(() => {
+    const fetchUserData = async () => {
+      // Substitua isso pela sua função assíncrona
+      const userData = await fetchDataUser();
+
+      localStorage.setItem("userData", JSON.stringify(userData));
+      setUserData(userData);
+    };
+
+    const localDataUser = localStorage.getItem("userData");
+    if (localDataUser) {
+      setUserData(JSON.parse(localDataUser));
+    } else {
+      fetchUserData();
+    }
+  }, []);
   return (
     <HeaderBox>
       <Container>
@@ -62,9 +71,7 @@ const Header = () => {
 
             <BoxImageProfileHeader to="/profile">
               <ImageProfileHeader
-                src={
-                  userData ? userData.imageProfileURL : dataUser.imgUlrProfile
-                }
+                src={userData ? userData.imageProfileURL : null}
                 alt="Imagem do perfil"
               />
             </BoxImageProfileHeader>

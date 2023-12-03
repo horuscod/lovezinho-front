@@ -28,12 +28,10 @@ function App() {
 
 function MainContent() {
   const { authorizedUser } = useAuthorizedUser();
-  const authToken = localStorage.getItem("accessToken");
-
-  const { userData } = useAuthorizedUser();
+  const userData = localStorage.getItem("userData");
   return (
     <Router>
-      {authorizedUser || authToken || userData ? (
+      {authorizedUser || userData ? (
         <>
           <Routes>
             <Route exact path="/" element={<Home />} />

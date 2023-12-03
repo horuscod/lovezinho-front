@@ -61,6 +61,8 @@ const Chat = () => {
       setInputMessage(""); // Limpa o input
     }
   };
+
+  
   return (
     <ContentChat>
       <TitleChat>Converse com quem deu Match</TitleChat>
