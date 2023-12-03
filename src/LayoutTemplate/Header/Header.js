@@ -62,7 +62,7 @@ const Header = () => {
               <MdOutlineAttachMoney />
             </ItemSVGHeader>
 
-            <ItemSVGHeader>
+            <ItemSVGHeader to="/chat">
               <SiGooglechat />
             </ItemSVGHeader>
             <ItemSVGHeader>
