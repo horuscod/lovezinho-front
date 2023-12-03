@@ -20,10 +20,23 @@ import { useAuthorizedUser } from "../../Context/AuthUserContext.js";
 import { FaHeart } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 
+import { useNavigate } from "react-router-dom";
+
 const Match = () => {
   const [dataOldMan, setDataOldMan] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const { userData } = useAuthorizedUser();
+  const navigate = useNavigate();
+
+  /* Função que embaralha o Array */
+
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]]; // troca de elementos
+    }
+    return array;
+  }
 
   useEffect(() => {
     fetch(`https://api-velho-rico-597ac8e8746d.herokuapp.com/findAllOldMan`, {
@@ -39,7 +52,8 @@ const Match = () => {
       })
       .then((data) => {
         console.log("Retorno");
-        setDataOldMan(data);
+        const shuffledData = shuffleArray(data);
+        setDataOldMan(shuffledData);
       })
       .catch((error) => {
         console.error(
@@ -60,28 +74,28 @@ const Match = () => {
         console.log("Quinta pessoa clicada: ", lastClickedPerson);
 
         const { imageProfileURL, name } = lastClickedPerson;
-
-        try {
-          const response = await fetch(
-            "https://api-velho-rico-597ac8e8746d.herokuapp.com/newMatch",
-            {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                email: userData.email,
-                imageProfileBot: imageProfileURL,
-                nameProfileBot: name,
-              }),
+        fetch("https://api-velho-rico-597ac8e8746d.herokuapp.com/newMatch", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: userData[0].email,
+            imageProfileBot: imageProfileURL,
+            nameProfileBot: name,
+          }),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(`Erro HTTP: ${response.status}`);
             }
-          );
-          if (!response.ok) {
-            throw new Error(`Erro HTTP: ${response.status}`);
-          } else {
-            console.log("Dados enviados com sucesso!");
-          }
-        } catch (err) {
-          console.error("Erro no envio dos dados para o backend:", err);
-        }
+            return response.json(); // Presumindo que a resposta seja JSON
+          })
+          .then((data) => {
+            console.log("Dados enviados com sucesso!", data);
+            navigate("/chat");
+          })
+          .catch((error) => {
+            console.error("Erro na requisição:", error);
+          });
       }
     } else {
       // Aqui você pode lidar com o fim da lista

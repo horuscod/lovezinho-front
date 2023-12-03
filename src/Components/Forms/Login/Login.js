@@ -55,15 +55,17 @@ const Login = () => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
-
         const data = await response.json();
-        loginUser(data);
-        sessionStorage.setItem("accessToken", user.accessToken);
-        localStorage.setItem("accessToken", user.accessToken);
-        sessionStorage.setItem("email", user.email);
-        localStorage.setItem("email", user.email);
-        localStorage.setItem("urlImgProfile", user.imageProfileURL);
-        setAuthorizedUser(true);
+        if (data) {
+          console.log(data);
+          loginUser(data);
+          sessionStorage.setItem("accessToken", user.accessToken);
+          localStorage.setItem("accessToken", user.accessToken);
+          sessionStorage.setItem("email", user.email);
+          localStorage.setItem("email", user.email);
+          localStorage.setItem("urlImgProfile", data[0].imageProfileURL);
+          setAuthorizedUser(true);
+        }
 
         // navigate("/find-matches");
       } else {

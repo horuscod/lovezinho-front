@@ -35,10 +35,10 @@ const LateralMenu = () => {
     <BoxLateral>
       <BoxContentProfile>
         <BoxImageProfile
-          src={userData ? userData.imageProfileURL : ImageDefault}
+          src={userData ? userData[0].imageProfileURL : ImageDefault}
         />
         <BoxContentProfileInfo>
-          <NameProfile>{userData.name}</NameProfile>
+          <NameProfile>{userData[0].name}</NameProfile>
           <PopularProfile>Popularidade: Muito baixo</PopularProfile>
         </BoxContentProfileInfo>
       </BoxContentProfile>
