@@ -1,25 +1,24 @@
 {
-  "short_name": "Meu Velho",
-  "name": "Meu Velho Rico",
+  "background_color": "#ffffff",
+  "description": "Meu Velho Rico - Encontre seu par perfeito",
+  "dir": "ltr",
+  "display": "fullscreen",
+  "name": "Meu Velho",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "MeuVelho",
+  "start_url": "/",
+  "theme_color": "#ffffff",
+  "categories": ["education"],
+  "screenshots": [],
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
+      "src": "https://firebasestorage.googleapis.com/v0/b/projeto-leilao-69276.appspot.com/o/website%2Ficons-site%2Fms-icon-310x310.png?alt=media&token=c9ba80c9-deed-41d8-9265-1cabc063f6bf"
+    },
+    {
+      "src": "/assets/logo-icon.ico",
       "type": "image/x-icon"
-    },
-    {
-      "src": "logo192.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "logo512.png",
-      "type": "image/png",
-      "sizes": "512x512"
     }
   ],
-  "start_url": "/index.html",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "lang": "es"
 }
