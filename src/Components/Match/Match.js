@@ -133,16 +133,12 @@ const Match = () => {
       {currentItem && (
         <DetailAbout>
           {/* Substitua os seguintes detalhes pelos dados reais de currentItem */}
-          <DetailInfoName>Sobre {currentItem.name}</DetailInfoName>
+          <DetailInfoName>Sobre: </DetailInfoName>
+          <detailInfoName2>{currentItem.name}</detailInfoName2>
           <DetailInfoName>Língua preferida</DetailInfoName>
           <detailInfoName2>{currentItem.language}</detailInfoName2>
           <DetailInfoName>Altura</DetailInfoName>
           <detailInfoName2>{currentItem.height}</detailInfoName2>
-          <br />
-          <br />
-          <br />
-          <br />
-          <ButtonPerfil>Perfil</ButtonPerfil>
         </DetailAbout>
       )}
       {/* Coluna 3*/}

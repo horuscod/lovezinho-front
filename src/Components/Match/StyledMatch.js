@@ -1,32 +1,37 @@
 import styled from "styled-components";
 
 export const BoxContentMatch = styled.div`
-  display: flex;
-  padding: 20px;
-  justify-content: space-between;
-
-    @media (max-width: 800px) {
-      width: 90%;
-      height: 90%;
-    }
+  padding: 20px 5px;
+  display: block;
+  @media (min-width: 800px) {
+    width: 90%;
+    height: 90%;
+    display: flex;
+    justify-content: space-between;
+  }
+  box-sizing: border-box;
 `;
 
 export const BoxContentImage = styled.div`
-  max-width: 50%;
-  border-radius: 5px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  border-radius: 5px;
   position: sticky;
   box-sizing: border-box;
   max-heigth: 500px;
-  width: 50%;
+  width: 100%;
+  @media (min-width: 800px) {
+    max-width: 50%;
+    width: 50%;
+  }
 `;
 
 export const ContentImage = styled.img`
   border-radius: 5px;
   height: 100%;
   max-height: 500px;
-  width: 100%;
+  width: 95%;
   object-fit: cover;
+  box-sizing: border-box;
 `;
 
 export const ContentInfoPerson = styled.div`
@@ -60,11 +65,10 @@ export const ButtonLike = styled.div`
   font-size: 25px;
   margin: 0 10px;
 
-
-    &:hover {
-      -webkit-transform: scale(1.5);
-      transform: scale(1.5);
-    }
+  &:hover {
+    -webkit-transform: scale(1.5);
+    transform: scale(1.5);
+  }
 `;
 export const ButtonUnlike = styled.div`
   color: black;
@@ -82,18 +86,19 @@ export const ButtonUnlike = styled.div`
 /* Descrição itens */
 
 export const DetailAbout = styled.div`
-  background: #fff;
-  width: 35%;
-  padding: 20px;
   border-radius: 5px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
-
-    @media (max-width: 800px) {
-      display: flex;
-      align-itens: center;
-      justify-content: center;
-      flex-direction: column;
-    }
+  padding: 20px;
+  background: #fff;
+  display: flex;
+  align-itens: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 35px 0;
+  @media (min-width: 800px) {
+    width: 35%;
+    margin: 0;
+  }
 `;
 
 export const ButtonPerfil = styled.button`
@@ -104,15 +109,14 @@ export const ButtonPerfil = styled.button`
   width: 40%;
   height: 25px;
 
-    &:hover{
-      background-color: #039be5;
-      color: white;
-    }
+  &:hover {
+    background-color: #039be5;
+    color: white;
+  }
 
-    @media (max-width: 800px) {
-      margin: 45px;
-
-    }
+  @media (max-width: 800px) {
+    margin: 45px;
+  }
 `;
 
 export const DetailInfoName = styled.div`
@@ -139,7 +143,13 @@ export const DetailButton = styled.div``;
 /* Terceira coluna */
 
 export const CollumNextMatch = styled.div`
-  width: 10%;
+  width: 100%;
+  display: flex;
+  overview: hidden;
+  @media (min-width: 800px) {
+    width: 10%;
+    display: block;
+  }
 `;
 
 export const NextMatchImage = styled.img`
