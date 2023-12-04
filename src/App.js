@@ -30,6 +30,9 @@ function App() {
 function MainContent() {
   const { authorizedUser } = useAuthorizedUser();
   const userData = localStorage.getItem("userData");
+
+  localStorage.clear()
+  sessionStorage.clear()
   return (
     <Router>
       {authorizedUser || userData ? (
