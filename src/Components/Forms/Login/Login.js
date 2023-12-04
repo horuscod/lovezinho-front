@@ -3,7 +3,7 @@ import { Container, Form, SubContainerSign } from "./Styles.js";
 import Input from "../../Input/Input.js";
 import Button from "../../Button/index.js";
 import { NavLink } from "react-router-dom";
-import InstallButton from "../../ButtonDownload/index.js";
+
 
 
 import { app } from "../../../Config/FirebaseConfig.js";
@@ -15,6 +15,8 @@ import {
 
 const Login = () => {
 
+  
+
   const handleInstallClick = () => {
     
     console.log('Função handleInstallClick chamada!');
@@ -23,6 +25,8 @@ const Login = () => {
   const { setAuthorizedUser, fetchDataUser } = useAuthorizedUser();
   const [useEmail, setUseEmail] = useState("");
   const [usePassword, setUsePassword] = useState("");
+  const [showInstallButton, setShowInstallButton] = useState(false);
+  const [deferredPrompt, setDeferredPrompt] = useState(null);
 
   useEffect(() => {
     const handleEnterKey = async (e) => {
@@ -59,27 +63,21 @@ const Login = () => {
     await loginWithEmailHandler();
   };
 
- /* const GoToAlert = async (event) => {
-      
-  };*/
-  const InstallButton = () => {
-    alert ("testando");
-    const [deferredPrompt, setDeferredPrompt] = useState(null);
-    const [showInstallButton, setShowInstallButton] = useState(false);
-  
-    useEffect(() => {
-      const handleBeforeInstallPrompt = (event) => {
-        event.preventDefault();
-        setDeferredPrompt(event);
-        setShowInstallButton(true);
-      };
-  
-      window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-  
-      return () => {
-        window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-      };
-    }, []);
+  const handleInstall = async () => {
+
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const choiceResult = await deferredPrompt.userChoice;
+
+      if (choiceResult.outcome === 'accepted') {
+        console.log('Usuário aceitou a instalação');
+      } else {
+        console.log('Usuário recusou a instalação');
+      }
+
+      setDeferredPrompt(null);
+      setShowInstallButton(false);
+    }
   };
 
   return (
@@ -100,7 +98,8 @@ const Login = () => {
         />
 
         <Button type="submit" text="Entrar!" onClick={GoToLogin} />
-        <Button type="submit" text="Install" onClick={InstallButton} />
+        <Button type="button" text="Instalar" onClick={handleInstall} />
+        
         
         
 
