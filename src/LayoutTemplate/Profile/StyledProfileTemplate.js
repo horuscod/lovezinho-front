@@ -138,6 +138,11 @@ export const ProfileItemIcon = styled.div`
   margin: 0 10px 0 0px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+
+      @media (max-width: 800px) {
+        height: 50px;
+        width: 50px;
+      }
 `;
 
 export const BoxImagesProfile = styled.div`
