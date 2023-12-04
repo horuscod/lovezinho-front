@@ -17,6 +17,7 @@ import {
   useAuthorizedUser,
   userData,
 } from "./Context/AuthUserContext";
+import DownloadButton from "./Components/DownloadButton/DownloadButton";
 
 function App() {
   return (
@@ -71,6 +72,7 @@ function MainContent() {
           </Routes>
         </>
       )}
+      <DownloadButton />
     </Router>
   );
 }
