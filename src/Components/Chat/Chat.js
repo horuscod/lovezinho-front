@@ -19,10 +19,18 @@ import {
 
 import imgChat from "../../../public/imgs/d-avatar.webp";
 
+import { useAuthorizedUser } from "../../Context/AuthUserContext";
+
 const Chat = () => {
   const [userMessages, setUserMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
   const [selectedBotMessages, setSelectedBotMessages] = useState([]);
+  const [dataLocation, setDataLocation] = useState([]);
+  const dataChatLo = localStorage.getItem("userData");
+  const parsedDataChatLo = JSON.parse(dataChatLo);
+
+  const { dataChat, setDataChat, findAllChat } = useAuthorizedUser();
+
   const botMessages1 = [
     "Oii",
     "Estou bem, como você está?",
@@ -45,6 +53,12 @@ const Chat = () => {
     const allBotMessages = [botMessages1, botMessages2, botMessages3];
     const randomIndex = Math.floor(Math.random() * allBotMessages.length);
     setSelectedBotMessages(allBotMessages[randomIndex]);
+
+    const fetchAllChat = async () => {
+      const chatData = await findAllChat();
+      setDataChat(chatData);
+    };
+    fetchAllChat();
   }, []);
 
   const handleSendMessage = () => {
@@ -62,53 +76,28 @@ const Chat = () => {
     }
   };
 
-  
+  console.log();
+
+  let arrayBox = parsedDataChatLo.boxMensages;
   return (
     <ContentChat>
       <TitleChat>Converse com quem deu Match</TitleChat>
       <BoxContentMensage>
-        <ItemPersonChat>
-          <ImagePersonChat src={imgChat} />
-          <PersonContentChat>
-            <NamePersonChat>João Da Silva</NamePersonChat>
-            <LastMensageChat>Oooi, como está</LastMensageChat>
-          </PersonContentChat>
-        </ItemPersonChat>
-        <ItemPersonChat>
-          <ImagePersonChat src={imgChat} />
-          <PersonContentChat>
-            <NamePersonChat>João Da Silva</NamePersonChat>
-            <LastMensageChat>Oooi, como está</LastMensageChat>
-          </PersonContentChat>
-        </ItemPersonChat>
-        <ItemPersonChat>
-          <ImagePersonChat src={imgChat} />
-          <PersonContentChat>
-            <NamePersonChat>João Da Silva</NamePersonChat>
-            <LastMensageChat>Oooi, como está</LastMensageChat>
-          </PersonContentChat>
-        </ItemPersonChat>
-        <ItemPersonChat>
-          <ImagePersonChat src={imgChat} />
-          <PersonContentChat>
-            <NamePersonChat>João Da Silva</NamePersonChat>
-            <LastMensageChat>Oooi, como está</LastMensageChat>
-          </PersonContentChat>
-        </ItemPersonChat>
-        <ItemPersonChat>
-          <ImagePersonChat src={imgChat} />
-          <PersonContentChat>
-            <NamePersonChat>João Da Silva</NamePersonChat>
-            <LastMensageChat>Oooi, como está</LastMensageChat>
-          </PersonContentChat>
-        </ItemPersonChat>
-        <ItemPersonChat>
-          <ImagePersonChat src={imgChat} />
-          <PersonContentChat>
-            <NamePersonChat>Ultimo matches</NamePersonChat>
-            <LastMensageChat>Oooi, como está</LastMensageChat>
-          </PersonContentChat>
-        </ItemPersonChat>
+        {Array.isArray(parsedDataChatLo.boxMensages)
+          ? parsedDataChatLo.boxMensages.map((item, index) => (
+              <ItemPersonChat key={index}>
+                <ImagePersonChat src={imgChat} />
+                <PersonContentChat>
+                  <NamePersonChat>
+                    {item.nameMatch}
+                  </NamePersonChat>
+                  <LastMensageChat>
+                    {item.InitMensage}
+                  </LastMensageChat>
+                </PersonContentChat>
+              </ItemPersonChat>
+            ))
+          : null}
       </BoxContentMensage>
 
       <BoxChatMensage>
