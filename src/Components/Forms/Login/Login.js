@@ -4,23 +4,11 @@ import Input from "../../Input/Input.js";
 import Button from "../../Button/index.js";
 import { NavLink } from "react-router-dom";
 
-
-
 import { app } from "../../../Config/FirebaseConfig.js";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import {
-  useAuthorizedUser,
-  fetchDataUser,
-} from "../../../Context/AuthUserContext.js";
+import { useAuthorizedUser } from "../../../Context/AuthUserContext.js";
 
 const Login = () => {
-
-  
-
-  const handleInstallClick = () => {
-    
-    console.log('Função handleInstallClick chamada!');
-  };
   const auth = getAuth(app);
   const { setAuthorizedUser, fetchDataUser } = useAuthorizedUser();
   const [useEmail, setUseEmail] = useState("");
@@ -64,15 +52,14 @@ const Login = () => {
   };
 
   const handleInstall = async () => {
-
     if (deferredPrompt) {
       deferredPrompt.prompt();
       const choiceResult = await deferredPrompt.userChoice;
 
-      if (choiceResult.outcome === 'accepted') {
-        console.log('Usuário aceitou a instalação');
+      if (choiceResult.outcome === "accepted") {
+        console.log("Usuário aceitou a instalação");
       } else {
-        console.log('Usuário recusou a instalação');
+        console.log("Usuário recusou a instalação");
       }
 
       setDeferredPrompt(null);
@@ -99,9 +86,6 @@ const Login = () => {
 
         <Button type="submit" text="Entrar!" onClick={GoToLogin} />
         <Button type="button" text="Instalar" onClick={handleInstall} />
-        
-        
-        
 
         <SubContainerSign>
           <p>Não possui conta?</p>
