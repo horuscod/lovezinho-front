@@ -3,25 +3,20 @@ import styled from "styled-components";
 import { devices } from "../../../LayoutTemplate/MediaQueryCss/MediaQueryCss";
 
 export const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  min-width: 100vw;
   background-color: #383838;
-  background-color: white;
-
-    @media screen and (max-width: 800px) {
-      
-    }
-
-  @media ${devices.betweenSmallAndMedium} {
-    padding: 20px;
+  box-sizing: border-box;
+  min-height: 800px;
+  height: 100%;
+  padding: 35px 0;
+  @media screen and (min-width: 800px) {
+    height: 100vh;
   }
+  position: sticky;
 `;
 
 export const Form = styled.form`
   display: flex;
+  margin: 0 auto;
   padding: 3rem;
   flex-direction: column;
   align-items: center;
@@ -48,12 +43,11 @@ export const Form = styled.form`
     color: white;
     font-size: 14px;
   }
-
   @media ${devices.betweenSmallAndMedium} {
-    width: 280px;
-    margin: 0 auto;
-    max-width: 100%;
+    max-width: 92.5%;
     overflow: hidden;
+    padding: 20px 10px;
+    box-sizing: border-box;
   }
 `;
 

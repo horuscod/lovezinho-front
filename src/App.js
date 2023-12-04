@@ -15,7 +15,6 @@ import ChatPage from "./Views/ChatPage";
 import {
   AuthorizedUserProvider,
   useAuthorizedUser,
-  userData,
 } from "./Context/AuthUserContext";
 import DownloadButton from "./Components/DownloadButton/DownloadButton";
 
@@ -30,9 +29,6 @@ function App() {
 function MainContent() {
   const { authorizedUser } = useAuthorizedUser();
   const userData = localStorage.getItem("userData");
-
-  localStorage.clear()
-  sessionStorage.clear()
   return (
     <Router>
       {authorizedUser || userData ? (
