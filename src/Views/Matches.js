@@ -32,7 +32,7 @@ const Matches = () => {
         setDataOldMan(data);
       })
       .catch((error) => {
-        console.error("EROOOOOO CRKL:", error);
+        console.error("", error);
       });
   };
 

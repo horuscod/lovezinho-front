@@ -51,21 +51,7 @@ const Login = () => {
     await loginWithEmailHandler();
   };
 
-  const handleInstall = async () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      const choiceResult = await deferredPrompt.userChoice;
-
-      if (choiceResult.outcome === "accepted") {
-        console.log("Usuário aceitou a instalação");
-      } else {
-        console.log("Usuário recusou a instalação");
-      }
-
-      setDeferredPrompt(null);
-      setShowInstallButton(false);
-    }
-  };
+ 
 
   return (
     <Container>
@@ -85,7 +71,6 @@ const Login = () => {
         />
 
         <Button type="submit" text="Entrar!" onClick={GoToLogin} />
-        <Button type="button" text="Instalar" onClick={handleInstall} />
 
         <SubContainerSign>
           <p>Não possui conta?</p>

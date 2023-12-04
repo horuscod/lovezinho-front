@@ -32,7 +32,7 @@ const Chat = () => {
   const { dataChat, setDataChat, findAllChat } = useAuthorizedUser();
 
   const botMessages1 = [
-    "Oii, tudo bem ?",
+    " tudo bem ?",
     "Estou bem ",
     "O que procura aqui?",
     "Ah legal, eu me sinto só ai gosto de conversar",
@@ -58,12 +58,13 @@ const Chat = () => {
   ];
 
   const botMessages3 = [
-    "Oi como está?",
+    " como está?",
     "Estou bem, O que faz de bom?",
-    "Me sinto muito solitario as vezes, ai gosto de conversar?",
+    "Me sinto muito solitario as vezes, ai gosto de conversar",
     "De onde voce é?",
     "Legal, ja fui ai algumas vezes, gostei bastante",
     "Gostaria de ir novamente ^^",
+    "me passa seu whastapp pra gente conversar melhor",
   ];
 
   useEffect(() => {
