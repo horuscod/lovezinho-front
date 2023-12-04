@@ -15,6 +15,7 @@ import ChatPage from "./Views/ChatPage";
 import {
   AuthorizedUserProvider,
   useAuthorizedUser,
+  userData,
 } from "./Context/AuthUserContext";
 
 function App() {
@@ -27,10 +28,10 @@ function App() {
 
 function MainContent() {
   const { authorizedUser } = useAuthorizedUser();
-  const authToken = localStorage.getItem("accessToken");
+  const userData = localStorage.getItem("userData");
   return (
     <Router>
-      {authorizedUser || authToken ? (
+      {authorizedUser || userData ? (
         <>
           <Routes>
             <Route exact path="/" element={<Home />} />

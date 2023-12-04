@@ -5,7 +5,7 @@ import CardsLike from "../Components/CardsLike/CardsLike";
 
 const Matches = () => {
   const [dataOldMan, setDataOldMan] = useState([]);
-  const emailUser = sessionStorage.getItem("email");
+  const emailUser = localStorage.getItem("email");
 
   const fetchData = () => {
     // Verificar se já existem dados carregados
@@ -18,13 +18,10 @@ const Matches = () => {
       return;
     }
 
-    fetch(
-      `https://api-velho-rico-597ac8e8746d.herokuapp.com/getAllMatch/${emailUser}`,
-      {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      }
-    )
+    fetch(`http://195.35.18.158:1998/getAllMatch/${emailUser}`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    })
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -32,7 +29,6 @@ const Matches = () => {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
         setDataOldMan(data);
       })
       .catch((error) => {

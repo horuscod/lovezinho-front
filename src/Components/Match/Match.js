@@ -74,11 +74,12 @@ const Match = () => {
         console.log("Quinta pessoa clicada: ", lastClickedPerson);
 
         const { imageProfileURL, name } = lastClickedPerson;
+        const emailLocal = localStorage.getItem("email");
         fetch("https://api-velho-rico-597ac8e8746d.herokuapp.com/newMatch", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            email: userData[0].email,
+            email: emailLocal,
             imageProfileBot: imageProfileURL,
             nameProfileBot: name,
           }),

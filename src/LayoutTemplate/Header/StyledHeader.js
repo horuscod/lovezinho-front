@@ -37,7 +37,7 @@ export const LinkRouterHeader = styled(Link)`
     }
 `;
 
-export const ItemSVGHeader = styled.div`
+export const ItemSVGHeader = styled(Link)`
   width: 20px;
   height: 20px;
   @media ${devices.small} {
@@ -52,6 +52,8 @@ export const ItemSVGHeader = styled.div`
   @media ${devices.mediumLarge} {
     display: none;
   }
+  text-decoration: none;
+  color: #8c8c8c;
 `;
 
 /* Profile Header */

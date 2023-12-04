@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   BoxImageProfileHeader,
   BoxItemHeader,
@@ -22,8 +22,25 @@ import { IoMdNotifications } from "react-icons/io";
 import { useAuthorizedUser } from "../../Context/AuthUserContext";
 
 const Header = () => {
-  const { userData } = useAuthorizedUser();
+  const dataUser = localStorage.getItem("userData");
+  const { fetchDataUser, userData, setUserData } = useAuthorizedUser();
 
+  useEffect(() => {
+    const fetchUserData = async () => {
+      // Substitua isso pela sua função assíncrona
+      const userData = await fetchDataUser();
+
+      localStorage.setItem("userData", JSON.stringify(userData));
+      setUserData(userData);
+    };
+
+    const localDataUser = localStorage.getItem("userData");
+    if (localDataUser) {
+      setUserData(JSON.parse(localDataUser));
+    } else {
+      fetchUserData();
+    }
+  }, []);
   return (
     <HeaderBox>
       <Container>
@@ -45,7 +62,7 @@ const Header = () => {
               <MdOutlineAttachMoney />
             </ItemSVGHeader>
 
-            <ItemSVGHeader>
+            <ItemSVGHeader to="/chat">
               <SiGooglechat />
             </ItemSVGHeader>
             <ItemSVGHeader>
@@ -54,7 +71,7 @@ const Header = () => {
 
             <BoxImageProfileHeader to="/profile">
               <ImageProfileHeader
-                src={userData ? userData[0].imageProfileURL : ""}
+                src={userData ? userData.imageProfileURL : null}
                 alt="Imagem do perfil"
               />
             </BoxImageProfileHeader>
