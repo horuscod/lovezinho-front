@@ -14,6 +14,7 @@ export const ContentChat = styled.div`
   box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
+
 `;
 
 export const TitleChat = styled.div`
@@ -45,6 +46,11 @@ export const BoxContentMensage = styled.div`
   /* Estilizando o polegar da barra de rolagem ao passar o mouse */
   ::-webkit-scrollbar-thumb:hover {
     background: #555; /* Cor do polegar ao passar o mouse */
+  }
+
+  @media (max-width: 800px) {
+    display: none !important;
+    
   }
 `;
 
@@ -83,6 +89,10 @@ export const BoxChatMensage = styled.div`
   height: 350px;
   max-height: 350px;
   position: sticky;
+    @media (max-width: 800px) {
+      width: 100%;
+      padding: none;
+    }
 `;
 
 export const MessageBot = styled.div``;
@@ -111,7 +121,12 @@ export const InputMensage = styled.input`
   width: 100%;
   border: 1px solid #7d60d0;
   border-radius: 20px;
-  margin-right: 20px;
+  margin-right: 10px;
+
+    @media (max-width: 800px) {
+      width: 170px;
+      text-align: center;
+    }
 `;
 
 export const ButtonMensage = styled.div`

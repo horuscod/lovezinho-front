@@ -3,6 +3,8 @@ import { Container, Form, SubContainerSign } from "./Styles.js";
 import Input from "../../Input/Input.js";
 import Button from "../../Button/index.js";
 import { NavLink } from "react-router-dom";
+import InstallButton from "../../ButtonDownload/index.js";
+
 
 import { app } from "../../../Config/FirebaseConfig.js";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
@@ -12,6 +14,11 @@ import {
 } from "../../../Context/AuthUserContext.js";
 
 const Login = () => {
+
+  const handleInstallClick = () => {
+    
+    console.log('Função handleInstallClick chamada!');
+  };
   const auth = getAuth(app);
   const { setAuthorizedUser, fetchDataUser } = useAuthorizedUser();
   const [useEmail, setUseEmail] = useState("");
@@ -52,6 +59,29 @@ const Login = () => {
     await loginWithEmailHandler();
   };
 
+ /* const GoToAlert = async (event) => {
+      
+  };*/
+  const InstallButton = () => {
+    alert ("testando");
+    const [deferredPrompt, setDeferredPrompt] = useState(null);
+    const [showInstallButton, setShowInstallButton] = useState(false);
+  
+    useEffect(() => {
+      const handleBeforeInstallPrompt = (event) => {
+        event.preventDefault();
+        setDeferredPrompt(event);
+        setShowInstallButton(true);
+      };
+  
+      window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+  
+      return () => {
+        window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      };
+    }, []);
+  };
+
   return (
     <Container>
       <Form>
@@ -70,6 +100,9 @@ const Login = () => {
         />
 
         <Button type="submit" text="Entrar!" onClick={GoToLogin} />
+        <Button type="submit" text="Install" onClick={InstallButton} />
+        
+        
 
         <SubContainerSign>
           <p>Não possui conta?</p>

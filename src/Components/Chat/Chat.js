@@ -32,15 +32,29 @@ const Chat = () => {
   const { dataChat, setDataChat, findAllChat } = useAuthorizedUser();
 
   const botMessages1 = [
-    "Oii",
-    "Estou bem, como você está?",
-    "Como você se chama?",
+    "Oii, tudo bem ?",
+    "Estou bem ",
+    "O que procura aqui?",
+    "Ah legal, eu me sinto só ai gosto de conversar",
+    "Mas dificil alguem que fique conversando, sempre saem",
+    "Voce é de onde ?",
+    "Bacana, ja fui algumas vezes ai",
+    "Gosto bastante de viajar, porem sem ninguem pra ir comigo",
+    "Eu até pagaria so pra ter uma companhia",
   ];
 
   const botMessages2 = [
     "Oii bebe",
     "Eu gostaria de saber como você está?",
-    "Como você se chama?",
+    "Voce é de onde ?",
+    "Legal, ja fui algumas vezes",
+    "O que gosta de fazer ?",
+    "Serio? Que legal",
+    "Eu gosto de jogar golf no meu tempo live",
+    "O procura aqui no app ?",
+    "hmm, eu me sinto só as vezes, ai gosto de conversar",
+    "As vezes ate pago pra alguem ficar conversando comigo, se eu gostar",
+    "Gosta de viajar ?",
   ];
 
   const botMessages3 = [
@@ -79,13 +93,13 @@ const Chat = () => {
           ...prevUserMessages,
           { sender: "bot", text: nextBotMessage },
         ]);
-      }, 3000); // 3000 milissegundos = 3 segundos
+      }, 9000); // 3000 milissegundos = 3 segundos
     }
   };
 
   return (
     <ContentChat>
-      <TitleChat>Converse com quem deu Match</TitleChat>
+      <TitleChat>Chat</TitleChat>
       <BoxContentMensage>
         {Array.isArray(parsedDataChatLo.boxMensages)
           ? parsedDataChatLo.boxMensages.map((item, index) => (

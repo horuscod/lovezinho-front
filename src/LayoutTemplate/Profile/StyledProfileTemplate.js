@@ -20,6 +20,8 @@ export const BoxContentLittle = styled.div`
     display: flex;
     height: 100%;
     width: 100%;
+    align-items: center;
+    justify-content: center;
   }
 `;
 
@@ -125,6 +127,8 @@ export const ButtonEdit = styled.div`
 
 export const ContentBoxSimpleInfoProfile = styled.div`
   display: flex;
+
+    
 `;
 export const ProfileItemIcon = styled.div`
   display: flex;
