@@ -63,22 +63,26 @@ const Chat = () => {
 
   const handleSendMessage = () => {
     if (inputMessage) {
-      const nextBotMessage =
-        selectedBotMessages[
-          (userMessages.length / 2) % selectedBotMessages.length
-        ];
-      setUserMessages([
-        ...userMessages,
-        { sender: "user", text: inputMessage },
-        { sender: "bot", text: nextBotMessage },
-      ]);
+      // Adiciona a mensagem do usuário imediatamente
+      setUserMessages([...userMessages, { sender: "user", text: inputMessage }]);
       setInputMessage(""); // Limpa o input
+  
+      // Define um atraso para a mensagem do bot
+      setTimeout(() => {
+        const nextBotMessage =
+          selectedBotMessages[
+            Math.floor(userMessages.length / 2) % selectedBotMessages.length
+          ];
+  
+        // Adiciona a mensagem do bot após 3 segundos
+        setUserMessages((prevUserMessages) => [
+          ...prevUserMessages,
+          { sender: "bot", text: nextBotMessage },
+        ]);
+      }, 3000); // 3000 milissegundos = 3 segundos
     }
   };
 
-  console.log();
-
-  let arrayBox = parsedDataChatLo.boxMensages;
   return (
     <ContentChat>
       <TitleChat>Converse com quem deu Match</TitleChat>
