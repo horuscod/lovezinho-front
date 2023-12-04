@@ -15,9 +15,7 @@ export const Container = styled.div`
       
     }
 
-  @media ${devices.betweenSmallAndMedium} {
-    padding: 20px;
-  }
+  
 `;
 
 export const Form = styled.form`

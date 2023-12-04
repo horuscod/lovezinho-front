@@ -58,9 +58,12 @@ const Chat = () => {
   ];
 
   const botMessages3 = [
-    "ai como está",
-    "Estou bem, como você está?",
-    "Como você se chama?",
+    "Oi como está?",
+    "Estou bem, O que faz de bom?",
+    "Me sinto muito solitario as vezes, ai gosto de conversar?",
+    "De onde voce é?",
+    "Legal, ja fui ai algumas vezes, gostei bastante",
+    "Gostaria de ir novamente ^^",
   ];
 
   useEffect(() => {
