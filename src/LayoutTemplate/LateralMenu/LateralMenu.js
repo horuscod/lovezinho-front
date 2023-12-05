@@ -96,20 +96,12 @@ const LateralMenu = () => {
           <HiMiniUsers />
           <ItemLabelMenu to="/matches">Matches</ItemLabelMenu>
         </ItemMenu>
-        <ItemMenu>
-          <GrView />
-          <ItemLabelMenu to="/visitors">Visitantes</ItemLabelMenu>
-        </ItemMenu>
       </ContentBox>
       <LineMenu />
       <ContentBox>
         <ItemMenu>
           <FaHeart />
           <ItemLabelMenu to="/likes">Likes</ItemLabelMenu>
-        </ItemMenu>
-        <ItemMenu>
-          <BsFillArrowThroughHeartFill />
-          <ItemLabelMenu to="/your-likes">Pessoas que eu gostei</ItemLabelMenu>
         </ItemMenu>
         <ItemMenu>
           <BiSolidDislike />
