@@ -81,7 +81,7 @@ const Match = () => {
         setShowModal(true);
         const { imageProfileURL, name } = lastClickedPerson;
         const emailLocal = localStorage.getItem("email");
-        fetch("https://api-velho-rico-597ac8e8746d.herokuapp.com/newMatch", {
+        fetch("https://api.velhorico.xyz/newMatch", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -94,7 +94,7 @@ const Match = () => {
             if (!response.ok) {
               throw new Error(`Erro HTTP: ${response.status}`);
             }
-            return response.json(); // Presumindo que a resposta seja JSON
+            return response.json();
           })
           .then((data) => {
             console.log("Dados enviados com sucesso!", data);
