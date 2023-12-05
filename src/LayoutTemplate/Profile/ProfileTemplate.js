@@ -1,6 +1,7 @@
 import React from "react";
 import Container from "../../Components/Container/Container";
 import {
+  BoxContainer,
   BoxContentImage,
   BoxContentInformation,
   BoxContentLittle,
@@ -27,13 +28,13 @@ import { IoLocationSharp } from "react-icons/io5";
 import { FaHeart } from "react-icons/fa";
 import { GrView } from "react-icons/gr";
 import { useAuthorizedUser } from "../../Context/AuthUserContext.js";
-
+import MenuMobile from "../MenuMobile/MenuMobile.js";
 const ProfileTemplate = () => {
   const { userData } = useAuthorizedUser();
   console.log("userData:", userData);
   return (
     <BackgroundBody>
-      <Container>
+      <BoxContainer>
         <ProfileBox>
           <BoxContentLittle>
             <BoxContentImage>
@@ -90,7 +91,8 @@ const ProfileTemplate = () => {
             </BoxInformationProfile>
           </BoxContentInformation>
         </ProfileBox>
-      </Container>
+      </BoxContainer>
+      <MenuMobile />
     </BackgroundBody>
   );
 };
