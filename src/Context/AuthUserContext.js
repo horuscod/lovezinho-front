@@ -44,7 +44,7 @@ export function AuthorizedUserProvider({ children }) {
       const data = { email: email };
       console.log("____________AUTH DATA");
 
-      const response = await fetch(`http://195.35.18.158/getByOneUser`, {
+      const response = await fetch(`https://api.velhorico.xyz/getByOneUser`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "same-origin",
@@ -75,7 +75,7 @@ export function AuthorizedUserProvider({ children }) {
     try {
       const getEmail = localStorage.getItem("email");
       const response = await fetch(
-        `http://195.35.18.158/getAllChat/${getEmail}`,
+        `https://api.velhorico.xyz/getAllChat/${getEmail}`,
         {
           method: "GET",
           headers: { "Content-Type": "application/json" },
