@@ -12,6 +12,7 @@ import Likes from "./Views/Likes";
 import YourLikes from "./Views/YourLikes";
 import Unlikes from "./Views/Unlikes";
 import ChatPage from "./Views/ChatPage";
+import Logout from "./Views/Logout";
 import {
   AuthorizedUserProvider,
   useAuthorizedUser,
@@ -27,9 +28,8 @@ function App() {
 }
 
 function MainContent() {
-  const { authorizedUser } = useAuthorizedUser();
+  const { authorizedUser, setAuthorizedUser } = useAuthorizedUser();
   const userData = localStorage.getItem("userData");
-  localStorage.clear();
 
   return (
     <Router>
@@ -62,6 +62,9 @@ function MainContent() {
           <Routes>
             <Route exact path="/profile" element={<Profile />} />
           </Routes>
+          <Routes>
+            <Route path="/logout" element={<Logout />} />
+          </Routes>
         </>
       ) : (
         <>
@@ -70,6 +73,9 @@ function MainContent() {
           </Routes>
           <Routes>
             <Route exact path="/signup" element={<Register />} />
+          </Routes>
+          <Routes>
+            <Route path="/logout" element={<Logout />} />
           </Routes>
         </>
       )}
