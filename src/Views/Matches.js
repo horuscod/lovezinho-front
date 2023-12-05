@@ -30,6 +30,7 @@ const Matches = () => {
       })
       .then((data) => {
         setDataOldMan(data);
+        console.log(data);
       })
       .catch((error) => {
         console.error("", error);
