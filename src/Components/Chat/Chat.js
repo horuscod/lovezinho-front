@@ -17,19 +17,11 @@ import {
   TitleChat,
 } from "./StyledChat";
 
-import imgChat from "../../../public/imgs/d-avatar.webp";
-
-import { useAuthorizedUser } from "../../Context/AuthUserContext";
 
 const Chat = () => {
   const [userMessages, setUserMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
   const [selectedBotMessages, setSelectedBotMessages] = useState([]);
-  const [dataLocation, setDataLocation] = useState([]);
-  const dataChatLo = localStorage.getItem("userData");
-  const parsedDataChatLo = JSON.parse(dataChatLo);
-
-  const { dataChat, setDataChat, findAllChat } = useAuthorizedUser();
 
   const botMessages1 = [
     " tudo bem ?",
@@ -71,31 +63,21 @@ const Chat = () => {
     const allBotMessages = [botMessages1, botMessages2, botMessages3];
     const randomIndex = Math.floor(Math.random() * allBotMessages.length);
     setSelectedBotMessages(allBotMessages[randomIndex]);
-
-    const fetchAllChat = async () => {
-      const chatData = await findAllChat();
-      setDataChat(chatData);
-    };
-    fetchAllChat();
+    fetchData();
   }, []);
 
   const handleSendMessage = () => {
     if (inputMessage) {
-      // Adiciona a mensagem do usuário imediatamente
       setUserMessages([
         ...userMessages,
         { sender: "user", text: inputMessage },
       ]);
       setInputMessage(""); // Limpa o input
-
-      // Define um atraso para a mensagem do bot
       setTimeout(() => {
         const nextBotMessage =
           selectedBotMessages[
             Math.floor(userMessages.length / 2) % selectedBotMessages.length
           ];
-
-        // Adiciona a mensagem do bot após 3 segundos
         setUserMessages((prevUserMessages) => [
           ...prevUserMessages,
           { sender: "bot", text: nextBotMessage },
@@ -104,14 +86,46 @@ const Chat = () => {
     }
   };
 
+  const [dataChat, setDataChat] = useState([]);
+  const emailUser = localStorage.getItem("email");
+
+  const fetchData = () => {
+    if (dataChat.length > 0) {
+      return;
+    }
+
+    if (!emailUser) {
+      console.error("Email do usuário não encontrado.");
+      return;
+    }
+
+    fetch(`https://api.velhorico.xyz/getAllChat/${emailUser}`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setDataChat(data[0]);
+        console.log(data[0]);
+      })
+      .catch((error) => {
+        console.error("", error);
+      });
+  };
+
   return (
     <ContentChat>
       <TitleChat>Chat</TitleChat>
       <BoxContentMensage>
-        {Array.isArray(parsedDataChatLo.boxMensages)
-          ? parsedDataChatLo.boxMensages.map((item, index) => (
+        {dataChat
+          ? dataChat.map((item, index) => (
               <ItemPersonChat key={index}>
-                <ImagePersonChat src={imgChat} />
+                <ImagePersonChat src={item.urlImageMatch} />
                 <PersonContentChat>
                   <NamePersonChat>{item.nameMatch}</NamePersonChat>
                   <LastMensageChat>{item.InitMensage}</LastMensageChat>
