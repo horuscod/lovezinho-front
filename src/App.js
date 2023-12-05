@@ -29,6 +29,12 @@ function App() {
 function MainContent() {
   const { authorizedUser } = useAuthorizedUser();
   const userData = localStorage.getItem("userData");
+  if (userData === null || userData === "") {
+    localStorage.clear();
+  } else {
+    console.log("userData existe e tem algum conteúdo.");
+  }
+  
   return (
     <Router>
       {authorizedUser || userData ? (
