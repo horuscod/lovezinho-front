@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import {
   BoxContentImage,
   BoxContentMatch,
+  Button,
   ButtonLike,
   ButtonPerfil,
   ButtonUnlike,
@@ -13,7 +14,11 @@ import {
   ContentNamePerson,
   DetailAbout,
   DetailInfoName,
+  ModalContent,
+  ModalMatchOkay,
   NextMatchImage,
+  Overlay,
+  TitleMensage,
 } from "./StyledMatch";
 import { useAuthorizedUser } from "../../Context/AuthUserContext.js";
 
@@ -147,6 +152,14 @@ const Match = () => {
           <NextMatchImage key={index} src={item.imageProfileURL} />
         ))}
       </CollumNextMatch>
+      <Overlay />
+      <ModalMatchOkay>
+        <ModalContent>
+          <TitleMensage> Deu Match</TitleMensage>
+          Clique no botão abaixo e comece a conversar agora!
+        </ModalContent>
+        <Button to="/chat">INICIAR CONVERSA</Button>
+      </ModalMatchOkay>
     </BoxContentMatch>
   );
 };

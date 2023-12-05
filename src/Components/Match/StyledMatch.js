@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const BoxContentMatch = styled.div`
@@ -159,4 +160,58 @@ export const NextMatchImage = styled.img`
   object-fit: cover;
   display: block;
   margin: 10px 0;
+`;
+
+export const ModalMatchOkay = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  width: 80%;
+  text-align: center;
+`;
+
+export const ModalContent = styled.div`
+  margin-bottom: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+`;
+
+export const TitleMensage = styled.div`
+  font-size: 20px;
+  color: #7d60d0;
+  margin: 35px 0;
+  font-weight: 700;
+`;
+export const Button = styled(Link)`
+  text-align: center;
+  border-radius: 2em;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  word-spacing: 1px;
+  margin: 20px auto;
+  border: 1px solid #7d60d0;
+  background: 0 0;
+  color: #7d60d0;
+  line-height: 28px;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 10px 20px;
+  font-size: 16px;
+  text-decoration: none;  
+`;
+
+export const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 999;
 `;
