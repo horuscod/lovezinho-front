@@ -18,7 +18,7 @@ const Matches = () => {
       return;
     }
 
-    fetch(`https://api.velhorico.xyz/getAllMatch/${emailUser}`, {
+    fetch(`http://195.35.18.158/getAllMatch/${emailUser}`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     })
