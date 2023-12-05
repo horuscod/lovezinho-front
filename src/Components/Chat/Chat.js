@@ -82,16 +82,19 @@ const Chat = () => {
   const handleSendMessage = () => {
     if (inputMessage) {
       // Adiciona a mensagem do usuário imediatamente
-      setUserMessages([...userMessages, { sender: "user", text: inputMessage }]);
+      setUserMessages([
+        ...userMessages,
+        { sender: "user", text: inputMessage },
+      ]);
       setInputMessage(""); // Limpa o input
-  
+
       // Define um atraso para a mensagem do bot
       setTimeout(() => {
         const nextBotMessage =
           selectedBotMessages[
             Math.floor(userMessages.length / 2) % selectedBotMessages.length
           ];
-  
+
         // Adiciona a mensagem do bot após 3 segundos
         setUserMessages((prevUserMessages) => [
           ...prevUserMessages,
@@ -110,12 +113,8 @@ const Chat = () => {
               <ItemPersonChat key={index}>
                 <ImagePersonChat src={imgChat} />
                 <PersonContentChat>
-                  <NamePersonChat>
-                    {item.nameMatch}
-                  </NamePersonChat>
-                  <LastMensageChat>
-                    {item.InitMensage}
-                  </LastMensageChat>
+                  <NamePersonChat>{item.nameMatch}</NamePersonChat>
+                  <LastMensageChat>{item.InitMensage}</LastMensageChat>
                 </PersonContentChat>
               </ItemPersonChat>
             ))

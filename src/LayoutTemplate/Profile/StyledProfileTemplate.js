@@ -185,7 +185,7 @@ export const BoxInformationProfile = styled.div`
   border-radius: 7px;
   overflow: hidden;
 
-  @media (max-width: 800px) {
+  @media (min-width: 800px) {
     display: flex;
     align-items: center;
     justify-content: center;
