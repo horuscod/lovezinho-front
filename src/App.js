@@ -79,7 +79,6 @@ function MainContent() {
           </Routes>
         </>
       )}
-      <DownloadButton />
     </Router>
   );
 }
