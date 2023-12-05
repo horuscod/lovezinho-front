@@ -31,6 +31,7 @@ const Match = () => {
   const [dataOldMan, setDataOldMan] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const { userData } = useAuthorizedUser();
+  const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
   /* Função que embaralha o Array */
@@ -77,7 +78,7 @@ const Match = () => {
 
       if (nextIndex === 4) {
         console.log("Quinta pessoa clicada: ", lastClickedPerson);
-
+        setShowModal(true);
         const { imageProfileURL, name } = lastClickedPerson;
         const emailLocal = localStorage.getItem("email");
         fetch("https://api-velho-rico-597ac8e8746d.herokuapp.com/newMatch", {
@@ -97,7 +98,6 @@ const Match = () => {
           })
           .then((data) => {
             console.log("Dados enviados com sucesso!", data);
-            navigate("/chat");
           })
           .catch((error) => {
             console.error("Erro na requisição:", error);
@@ -152,14 +152,18 @@ const Match = () => {
           <NextMatchImage key={index} src={item.imageProfileURL} />
         ))}
       </CollumNextMatch>
-      <Overlay />
-      <ModalMatchOkay>
-        <ModalContent>
-          <TitleMensage> Deu Match</TitleMensage>
-          Clique no botão abaixo e comece a conversar agora!
-        </ModalContent>
-        <Button to="/chat">INICIAR CONVERSA</Button>
-      </ModalMatchOkay>
+      {showModal ? (
+        <>
+          <Overlay />
+          <ModalMatchOkay>
+            <ModalContent>
+              <TitleMensage> Deu Match</TitleMensage>
+              Clique no botão abaixo e comece a conversar agora!
+            </ModalContent>
+            <Button to="/chat">INICIAR CONVERSA</Button>
+          </ModalMatchOkay>
+        </>
+      ) : null}
     </BoxContentMatch>
   );
 };
