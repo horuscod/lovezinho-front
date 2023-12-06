@@ -4,6 +4,9 @@ import { FaHeart } from "react-icons/fa";
 import { FaFire } from "react-icons/fa";
 import { SiGooglechat } from "react-icons/si";
 import { CgProfile } from "react-icons/cg";
+import { GiMoneyStack } from "react-icons/gi";
+
+
 
 const MenuMobile = () => {
   return (
@@ -23,6 +26,10 @@ const MenuMobile = () => {
       <ItemMenuMobile to="/profile">
         <CgProfile />
         <ItemTitleMenu>Profile</ItemTitleMenu>
+      </ItemMenuMobile>
+      <ItemMenuMobile to="/saque">
+        <GiMoneyStack />
+        <ItemTitleMenu>Saque</ItemTitleMenu>
       </ItemMenuMobile>
     </BoxMenu>
   );

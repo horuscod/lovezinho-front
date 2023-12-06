@@ -33,3 +33,4 @@ export const ItemTitleMenu = styled.div`
   color: black;
   font-weight: 700;
 `;
+

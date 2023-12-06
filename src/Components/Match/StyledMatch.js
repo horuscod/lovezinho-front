@@ -42,9 +42,23 @@ export const ContentInfoPerson = styled.div`
   word-spacing: 5px;
 `;
 
-export const ContentNamePerson = styled.span``;
+export const ContentNamePerson = styled.span`
+  font-weight: 700;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  color: black; 
+  font-size: 20px; 
+  margin-right: 5px; 
+`;
 
-export const ContentDetail = styled.span``;
+export const ContentDetail = styled.span`
+  font-weight: 700;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  color: black; 
+  font-size: 20px; 
+  margin-right: 5px; 
+`;
 
 export const ContentButtons = styled.div`
   display: flex;
@@ -87,18 +101,20 @@ export const ButtonUnlike = styled.div`
 /* Descrição itens */
 
 export const DetailAbout = styled.div`
-  border-radius: 5px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
   background: #fff;
   display: flex;
-  align-itens: center;
+  align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin: 35px 0;
+  margin: 20px 0;
+  text-align: center;
+
   @media (min-width: 800px) {
-    width: 35%;
-    margin: 0;
+    width: 70%;
+    margin: 0 auto;
   }
 `;
 
@@ -121,14 +137,17 @@ export const ButtonPerfil = styled.button`
 `;
 
 export const DetailInfoName = styled.div`
-  word-spacing: 4px;
-  font-weight: bold;
-  font-size: 15px;
-  padding: 10px;
+  font-weight: 600;
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 5px;
 `;
 
 export const DetailInfoName2 = styled.div`
-  font-size: 10px;
+  font-weight: 400;
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 15px;
 `;
 
 export const DetailContentLang = styled.div``;

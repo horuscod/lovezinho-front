@@ -85,6 +85,7 @@ export const BoxSimpleInfoProfile = styled.div`
   @media (min-width: 800px) {
     margin: 0 auto 25px;
   }
+  
 `;
 
 export const HeaderBoxSimpleInfoProfile = styled.div`
@@ -107,6 +108,7 @@ export const ProfileName = styled.div`
     Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 
   color: rgba(0, 0, 0, 0.87);
+    
 `;
 
 export const ButtonEdit = styled.div`

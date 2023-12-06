@@ -140,9 +140,11 @@ const Match = () => {
           {/* Substitua os seguintes detalhes pelos dados reais de currentItem */}
           <DetailInfoName>Sobre: </DetailInfoName>
           <detailInfoName2>{currentItem.name}</detailInfoName2>
-          <DetailInfoName>Língua preferida</DetailInfoName>
+          <DetailInfoName>Idade</DetailInfoName>
           <detailInfoName2>{currentItem.language}</detailInfoName2>
           <DetailInfoName>Altura</DetailInfoName>
+          <detailInfoName2>{currentItem.height}</detailInfoName2>
+          <DetailInfoName>Profissão</DetailInfoName>
           <detailInfoName2>{currentItem.height}</detailInfoName2>
         </DetailAbout>
       )}

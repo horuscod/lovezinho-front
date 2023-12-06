@@ -50,7 +50,6 @@ const ProfileTemplate = () => {
             <BoxSimpleInfoProfile>
               <HeaderBoxSimpleInfoProfile>
                 <ProfileName>{userData.name}</ProfileName>
-                <ButtonEdit>Editar</ButtonEdit>
               </HeaderBoxSimpleInfoProfile>
 
               <ContentBoxSimpleInfoProfile>

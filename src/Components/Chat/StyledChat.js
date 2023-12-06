@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+
+
 export const ContentChat = styled.div`
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
@@ -84,33 +86,42 @@ export const LastMensageChat = styled.div`
 `;
 
 export const BoxChatMensage = styled.div`
-  width: 50%;
-  padding: 20px;
-  height: 350px;
-  max-height: 300px;
-  position: sticky;
-  overflow: auto;
-  ::-webkit-scrollbar {
-    width: 5px; /* Largura da barra de rolagem */
-  }
+    width: 50%;
+    padding: 20px;
+    height: 350px;
+    max-height: 300px;
+    position: sticky;
+    overflow: auto;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
-  /* Estilizando a trilha da barra de rolagem */
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1; /* Cor de fundo da trilha */
-  }
+    /* Barra de rolagem */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
 
-  /* Estilizando o polegar da barra de rolagem */
-  ::-webkit-scrollbar-thumb {
-    background: #888; /* Cor do polegar */
-  }
+    /* Trilha da barra de rolagem */
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
 
-  /* Estilizando o polegar da barra de rolagem ao passar o mouse */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555; /* Cor do polegar ao passar o mouse */
-  }
+    /* Polegar da barra de rolagem */
+    ::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 4px;
+    }
+
+    /* Polegar da barra de rolagem ao passar o mouse */
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+
     @media (max-width: 800px) {
       width: 100%;
-      padding: none;
+      padding: 15px;
+      border-radius: 0;
+      box-shadow: none;
     }
 `;
 

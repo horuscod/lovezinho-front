@@ -30,11 +30,27 @@ export const LogoImgHeader = styled.img`
 `;
 
 export const LinkRouterHeader = styled(Link)`
-  text-decoration: none;
-    &:hover {
-      text-decoration: underline; color: Blue;}
+    background-color: #4caf50; 
+    border: none; 
+    color: white; 
+    padding: 10px 20px; 
+    text-align: center; 
+    text-decoration: none; 
+    display: inline-block; 
+    font-size: 16px; 
+    cursor: pointer; 
+    border-radius: 5px; 
+    transition: background-color 0.3s; 
+    font-weight: 600;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 
+    &:hover {
+      background-color: #45a049; /* Mudar a cor de fundo ao passar o mouse */
+      text-decoration: underline; /* Adicionar sublinhado ao passar o mouse */
     }
+    
+    
 `;
 
 export const ItemSVGHeader = styled(Link)`
