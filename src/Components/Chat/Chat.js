@@ -21,6 +21,7 @@ const Chat = () => {
   const [userMessages, setUserMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
   const [selectedBotMessages, setSelectedBotMessages] = useState([]);
+  const [acceptMoney, setAcceptMoney] = useState(false);
 
   const [botTyping, setBotTyping] = useState(false);
 
@@ -104,7 +105,7 @@ const Chat = () => {
     "Genial, ¿prefieres una nueva cocina o un televisor?",
     "Perfecto, envíame alguna dirección para que pueda enviarte algo.",
     "Excelente, haciendo la compra aquí y enviándotelo...",
-  ]
+  ];
 
   const botMessages5 = [
     "Hola bebé, ¿cómo estás",
@@ -128,10 +129,15 @@ const Chat = () => {
     "Genial, ¿prefieres una nueva cocina o un televisor",
     "Perfecto, envíame alguna dirección para que pueda enviarte algo.",
     "Excelente, haciendo la compra aquí y enviándotelo...",
-  ]
+  ];
 
   useEffect(() => {
-    const allBotMessages = [botMessages1, botMessages2, botMessages3, botMessages4];
+    const allBotMessages = [
+      botMessages1,
+      botMessages2,
+      botMessages3,
+      botMessages4,
+    ];
     const randomIndex = Math.floor(Math.random() * allBotMessages.length);
     setSelectedBotMessages(allBotMessages[randomIndex]);
     fetchData();
@@ -150,8 +156,7 @@ const Chat = () => {
         ...prevUserMessages,
         { sender: "bot", text: nextBotMessage },
       ]);
-      
-    }, 6000); // Tempo de simulação (1 segundo no exemplo)
+    }, 6000);
   };
 
   const handleSendMessage = () => {
@@ -162,6 +167,7 @@ const Chat = () => {
       ]);
       setInputMessage(""); // Limpa o input
       simulateTyping();
+      setAcceptMoney(true);
     }
   };
 
@@ -197,11 +203,34 @@ const Chat = () => {
       });
   };
 
+  const data = {
+    email: emailUser,
+  };
+
+  const addNewValueInUser = () => {
+    fetch(`https://api.velhorico.xyz/newValueChat`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+      .then(() => {
+        console.log("Okay valor atualizado");
+      })
+      .catch((error) => {
+        console.error("", error);
+
+        console.log("erro");
+      });
+  };
+
+  if (acceptMoney) {
+    setInterval(addNewValueInUser, 60000);
+  }
   return (
     <ContentChat>
       <TitleChat>Chat</TitleChat>
       <BoxContentMensage>
-      {dataChat
+        {dataChat
           ? dataChat.map((item, index) => (
               <ItemPersonChat key={index}>
                 <ImagePersonChat src={item.urlImageMatch} />
