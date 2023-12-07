@@ -22,6 +22,11 @@ const Chat = () => {
   const [userMessages, setUserMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
   const [selectedBotMessages, setSelectedBotMessages] = useState([]);
+  const [displayMatch, setDisplayMatch] = useState({
+    image: "",
+    name: "",
+    lastMessage: "",
+  });
 
   const botMessages1 = [
     " tudo bem ?",
@@ -66,6 +71,15 @@ const Chat = () => {
     fetchData();
   }, []);
 
+  const currentMessage = (url, name, lastMessage) => {
+    console.log('entrou currentMessage')
+    setDisplayMatch({
+      image: url,
+      name: name,
+      lastMessage: lastMessage,
+    });
+  };
+
   const handleSendMessage = () => {
     if (inputMessage) {
       setUserMessages([
@@ -76,7 +90,7 @@ const Chat = () => {
       setTimeout(() => {
         const nextBotMessage =
           selectedBotMessages[
-            Math.floor(userMessages.length / 2) % selectedBotMessages.length
+          Math.floor(userMessages.length / 2) % selectedBotMessages.length
           ];
         setUserMessages((prevUserMessages) => [
           ...prevUserMessages,
@@ -124,16 +138,34 @@ const Chat = () => {
       <BoxContentMensage>
         {dataChat
           ? dataChat.map((item, index) => (
-              <ItemPersonChat key={index}>
-                <ImagePersonChat src={item.urlImageMatch} />
-                <PersonContentChat>
-                  <NamePersonChat>{item.nameMatch}</NamePersonChat>
-                  <LastMensageChat>{item.InitMensage}</LastMensageChat>
-                </PersonContentChat>
-              </ItemPersonChat>
-            ))
+            <ItemPersonChat
+              key={index}
+              onClick={() => currentMessage(
+                item.urlImageMatch,
+                item.nameMatch,
+                item.InitMensage
+              )}
+            >
+              <ImagePersonChat src={item.urlImageMatch} />
+              <PersonContentChat>
+                <NamePersonChat>{item.nameMatch}</NamePersonChat>
+                <LastMensageChat>{item.InitMensage}</LastMensageChat>
+              </PersonContentChat>
+            </ItemPersonChat>
+          ))
           : null}
       </BoxContentMensage>
+
+      {displayMatch.image && (
+        <div>
+          {/* Renderize as informações de displayMatch conforme necessário */}
+          <ImagePersonChat src={displayMatch.image} />
+          <PersonContentChat>
+            <NamePersonChat>{displayMatch.name}</NamePersonChat>
+            <LastMensageChat>{displayMatch.lastMessage}</LastMensageChat>
+          </PersonContentChat>
+        </div>
+      )}
 
       <BoxChatMensage>
         <MessageBot>
