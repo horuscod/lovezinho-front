@@ -7,7 +7,7 @@ import {
   HeaderBox,
   ImageProfileHeader,
   ItemSVGHeader,
-  ItemSVGMoney,   
+  ItemSVGMoney,
   LogoImgHeader,
 } from "./StyledHeader";
 import Container from "../../Components/Container/Container";
@@ -78,7 +78,7 @@ const Header = () => {
             <ItemSVGHeader>
               <ImPower />
             </ItemSVGHeader>
-            <ItemSVGMoney>
+            <ItemSVGMoney to="/withDraw">
               <MdOutlineAttachMoney />
               {dataValueMoney ? dataValueMoney : null}
             </ItemSVGMoney>
