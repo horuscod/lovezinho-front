@@ -13,6 +13,7 @@ import YourLikes from "./Views/YourLikes";
 import Unlikes from "./Views/Unlikes";
 import ChatPage from "./Views/ChatPage";
 import Logout from "./Views/Logout";
+import WithDraw from "./Views/withDraw";
 import {
   AuthorizedUserProvider,
   useAuthorizedUser,
@@ -64,6 +65,9 @@ function MainContent() {
           </Routes>
           <Routes>
             <Route path="/logout" element={<Logout />} />
+          </Routes>
+          <Routes>
+            <Route path="/withDraw" element={<WithDraw />} />
           </Routes>
         </>
       ) : (

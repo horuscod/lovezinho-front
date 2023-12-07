@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import {
-    BankDetailsFormContainer,
-    Form,
-    Label,
-    Input,
-    Button,
-  } from "./styles.js";
+  Container,
+  ContainerFormsWithDraw,
+  Form,
+  SubContainerSign,
+  Label,
+  ButtonWithDraw,
+} from "./styles.js";
+import Input from "../../Input/Input.js";
 
 const Saque = () => {
   const [formData, setFormData] = useState({
@@ -36,54 +38,61 @@ const Saque = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Nome:
-        <input
-          type="text"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-        />
-      </label>
-      <label>
-        Número da Conta:
-        <input
-          type="text"
-          name="accountNumber"
-          value={formData.accountNumber}
-          onChange={handleChange}
-        />
-      </label>
-      <label>
-        Agência:
-        <input
-          type="text"
-          name="agency"
-          value={formData.agency}
-          onChange={handleChange}
-        />
-      </label>
-      <label>
-        Endereço:
-        <input
-          type="text"
-          name="address"
-          value={formData.address}
-          onChange={handleChange}
-        />
-      </label>
-      <label>
-        CPF:
-        <input
-          type="text"
-          name="cpf"
-          value={formData.cpf}
-          onChange={handleChange}
-        />
-      </label>
-      <button type="submit">Cadastrar Dados Bancários</button>
-    </form>
+    <ContainerFormsWithDraw>
+      <Form onSubmit={handleSubmit}>
+        <Label>
+          Nome:
+          <Input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            placeholder="Digite seu nome"
+          />
+        </Label>
+        <Label>
+          Número da Conta:
+          <Input
+            type="text"
+            name="accountNumber"
+            value={formData.accountNumber}
+            onChange={handleChange}
+            placeholder="Digite seu numero da conta"
+          />
+        </Label>
+        <Label>
+          Agência:
+          <Input
+            type="text"
+            name="agency"
+            value={formData.agency}
+            onChange={handleChange}
+            placeholder="Digite sua agencia"
+          />
+        </Label>
+        <Label>
+          Endereço:
+          <Input
+            type="text"
+            name="address"
+            value={formData.address}
+            onChange={handleChange}
+            placeholder="Digite seu endereço"
+          />
+        </Label>
+        <Label>
+          CPF:
+          <Input
+            type="text"
+            name="cpf"
+            value={formData.cpf}
+            onChange={handleChange}
+            placeholder="Digite seu CPF"
+          />
+        </Label>
+        <ButtonWithDraw type="submit">Cadastrar Dados Bancários</ButtonWithDraw>
+      </Form>
+    </ContainerFormsWithDraw>
   );
 };
 
