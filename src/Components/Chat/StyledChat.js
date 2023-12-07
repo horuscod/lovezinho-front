@@ -80,7 +80,7 @@ export const ImagePersonChat = styled.img`
 `;
 
 export const PersonContentChat = styled.div`
-  display: none;
+
 `;
 
 
