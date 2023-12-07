@@ -23,6 +23,8 @@ const Chat = () => {
   const [selectedBotMessages, setSelectedBotMessages] = useState([]);
   const [acceptMoney, setAcceptMoney] = useState(false);
 
+  const [allConversations, setAllConversations] = useState([]);
+
   const [botTyping, setBotTyping] = useState(false);
 
   const botMessages1 = [
@@ -156,20 +158,20 @@ const Chat = () => {
         ...prevUserMessages,
         { sender: "bot", text: nextBotMessage },
       ]);
-    }, 6000);
+    }, 3000);
   };
 
-  const handleSendMessage = () => {
-    if (inputMessage) {
-      setUserMessages([
-        ...userMessages,
-        { sender: "user", text: inputMessage },
-      ]);
-      setInputMessage(""); // Limpa o input
-      simulateTyping();
-      setAcceptMoney(true);
-    }
-  };
+ const handleSendMessage = () => {
+  if (inputMessage) {
+    const newUserMessage = { sender: "user", text: inputMessage };
+    setUserMessages([...userMessages, newUserMessage]);
+    setAllConversations([...allConversations, newUserMessage]);
+
+    setInputMessage(""); // Limpa o input
+    simulateTyping();
+    setAcceptMoney(true);
+  }
+};
 
   const [dataChat, setDataChat] = useState([]);
   const emailUser = localStorage.getItem("email");
