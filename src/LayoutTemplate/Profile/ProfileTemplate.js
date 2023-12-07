@@ -75,7 +75,6 @@ const ProfileTemplate = () => {
             <BoxInformationProfile>
               <HeaderBoxSimpleInfoProfile>
                 <ProfileName>Informações do perfil</ProfileName>
-                <ButtonEdit>Editar</ButtonEdit>
               </HeaderBoxSimpleInfoProfile>
               <RowInformationProfile>
                 <BoxItemInformation>

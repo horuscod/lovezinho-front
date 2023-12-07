@@ -12,12 +12,12 @@ export const ContentChat = styled.div`
   transition: all 0.15s;
   border-radius: 5px;
   position: sticky;
-  margin: 35px;
+  margin: 20px;
   min-height: 450px;
   box-sizing: border-box;
 
   @media (max-width: 800px) {
-    width: 45%;
+    width: 42%;
     flex-direction: column;
     align-items: center;  // ou flex-start, dependendo do seu design
   }
@@ -32,14 +32,15 @@ export const TitleChat = styled.div`
 `;
 
 export const BoxContentMensage = styled.div`
-  height: 100%;
-  width: 40%;
-  border-right: 1px solid rgba(0, 0, 0, 0.15);
-  max-height: 350px;
-  overflow: auto;
+  display: flex;
+  overflow-x: auto; // Adiciona uma barra de rolagem horizontal quando necessário
+  white-space: nowrap; // Impede que os itens quebrem para a próxima linha
+  -webkit-overflow-scrolling: touch; // Adiciona suporte à rolagem suave no iOS
+  scrollbar-width: thin; // Estilo da barra de rolagem (pode variar em alguns navegadores)
+  scrollbar-color: #888 #f1f1f1;
 
   ::-webkit-scrollbar {
-    width: 5px;
+    width: 8px;
   }
 
   ::-webkit-scrollbar-track {
@@ -48,6 +49,7 @@ export const BoxContentMensage = styled.div`
 
   ::-webkit-scrollbar-thumb {
     background: #888;
+    border-radius: 4px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
@@ -58,29 +60,53 @@ export const BoxContentMensage = styled.div`
     width: 100%;
     border-right: none;
     order: 2;
-    display: flex;
+  }
+
+`;
+
+
+export const ItemPersonChat = styled.div`
+  padding: 15px;
+  display: inline-block; // Exibe os itens em linha
+  margin: 15px;
+  border-radius: 15px;
+  overflow: hidden;
+  transition: box-shadow 0.3s, transform 0.3s;
+
+  &:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+  }
+
+  @media (max-width: 800px) {
+    padding: 10px;
+    margin: 10px;
+    width: 70px; // Largura fixa para exibir apenas 3 itens na tela
+    flex-shrink: 0; // Impede que os itens diminuam para se ajustar à tela
+  }
+}`;
+
+export const ImagePersonChat = styled.img`
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 800px) {
+    width: 70px;
+    height: 70px;
+    margin-right: 10px;
   }
 `;
 
-export const ItemPersonChat = styled.div`
-  padding: 10px;
-  display: flex;
-  margin: 10px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
-  align-items: center;
-`;
-
-export const ImagePersonChat = styled.img`
-  width: 50px;
-  height: 50px;
-  border-radius: 100%;
-  object-fit: cover;
-  margin-right: 10px;
-  border: 2px solid rgba(0, 0, 0, 0.25);
-`;
-
 export const PersonContentChat = styled.div`
-  
+  @media (max-width: 800px) {
+    text-align: center;
+    display: inline-block;
+    flex: 1;
+  }
 `;
 
 
@@ -102,37 +128,25 @@ export const BoxChatMensage = styled.div`
   height: 350px;
   max-height: 300px;
   position: sticky;
-  top: 0;  // Fixa o componente no topo
+  top: 0;
   overflow: auto;
-  border-radius: 10px;
+  border-radius: 20px;
   background-color: #ffffff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s; // Adicionei uma transição na sombra
 
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 4px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555;
+  &:hover {
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
   }
 
   @media (max-width: 800px) {
-    width: 100%;
+    width: 100%; // Ocupa a largura total no mobile
     padding: 15px;
-    border-radius: 0;
-    box-shadow: none;
+    border-radius: 0; // Remova a borda no mobile
+    box-shadow: none; // Remova a sombra no mobile
     order: 1;
-    position: relative;  // Remove a posição fixa no mobile
-    top: auto;  // Remove a posição fixa no mobile
+    position: relative;
+    top: auto;
   }
 `;
 
@@ -142,20 +156,21 @@ export const MessageBot = styled.div`
 
 export const MenssageNameBot = styled.div`
   font-weight: 500;
-  background: rgb(217, 253, 211);
-  padding: 8px;
+  background: #4CAF50;
+  padding: 12px;
   width: auto;
   box-sizing: border-box;
-  margin: 10px 0;
-  border-radius: 8px;
-  color: #333;  // Adapte a cor conforme necessário
+  margin: 15px 0;
+  border-radius: 15px;
+  color: white;
 `;
 
 export const MenssagePerson = styled.div`
   text-align: right;
-  margin: 10px 0;
-  color: #333;  // Adapte a cor conforme necessário
+  margin: 15px 0;
+  color: #333;
 `;
+
 
 export const ContentInput = styled.div`
   width: 100%;

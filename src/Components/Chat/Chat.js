@@ -144,11 +144,14 @@ const Chat = () => {
       botMessages2,
       botMessages3,
       botMessages4,
+      botMessages5,
     ];
     const randomIndex = Math.floor(Math.random() * allBotMessages.length);
     setSelectedBotMessages(allBotMessages[randomIndex]);
     fetchData();
   }, []);
+
+  
 
   const simulateTyping = () => {
     setBotTyping(true);
@@ -180,7 +183,6 @@ const Chat = () => {
     if (inputMessage) {
       const newUserMessage = { sender: "user", text: inputMessage };
       setUserMessages([...userMessages, newUserMessage]);
-      setAllConversations([...allConversations, newUserMessage]);
 
       setInputMessage(""); // Limpa o input
       simulateTyping();
@@ -245,7 +247,7 @@ const Chat = () => {
   }
   return (
     <ContentChat>
-      <TitleChat>Chat</TitleChat>
+      <TitleChat>Match</TitleChat>
       <BoxContentMensage>
         {dataChat
           ? dataChat.map((item, index) => (
