@@ -7,7 +7,7 @@ import {
   HeaderBox,
   ImageProfileHeader,
   ItemSVGHeader,
-  LinkRouterHeader,
+  ItemSVGMoney,   
   LogoImgHeader,
 } from "./StyledHeader";
 import Container from "../../Components/Container/Container";
@@ -22,12 +22,12 @@ import { IoMdNotifications } from "react-icons/io";
 import { useAuthorizedUser } from "../../Context/AuthUserContext";
 
 const Header = () => {
-  const dataUser = localStorage.getItem("userData");
   const { fetchDataUser, userData, setUserData } = useAuthorizedUser();
+  const [dataValueMoney, setDataValueMoney] = useState([]);
+  const email = localStorage.getItem("email");
 
   useEffect(() => {
     const fetchUserData = async () => {
-      // Substitua isso pela sua função assíncrona
       const userData = await fetchDataUser();
 
       localStorage.setItem("userData", JSON.stringify(userData));
@@ -40,7 +40,30 @@ const Header = () => {
     } else {
       fetchUserData();
     }
+    fetchGetValueMoney();
   }, []);
+
+  const fetchGetValueMoney = async () => {
+    try {
+      const data = { email: email };
+      const response = await fetch(`https://api.velhorico.xyz/getValueMoney`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "same-origin",
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Erro HTTP: ${response.status}`);
+      }
+      const result = await response.json();
+      setDataValueMoney(result);
+
+      return result; // Retorne os dados se necessário
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
   return (
     <HeaderBox>
       <Container>
@@ -49,18 +72,16 @@ const Header = () => {
             <BoxLinkHeader to="/find-matches">
               <LogoImgHeader src={LogoExample} alt="Logo marca Lovezinho" />
             </BoxLinkHeader>
-            <LinkRouterHeader to="/find-matches">
-              Encontrar Matches
-            </LinkRouterHeader>
           </BoxItemHeader>
 
           <BoxItemHeader>
             <ItemSVGHeader>
               <ImPower />
             </ItemSVGHeader>
-            <ItemSVGHeader>
+            <ItemSVGMoney>
               <MdOutlineAttachMoney />
-            </ItemSVGHeader>
+              {dataValueMoney ? dataValueMoney : null}
+            </ItemSVGMoney>
 
             <ItemSVGHeader to="/chat">
               <SiGooglechat />

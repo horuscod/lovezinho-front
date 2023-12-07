@@ -30,27 +30,25 @@ export const LogoImgHeader = styled.img`
 `;
 
 export const LinkRouterHeader = styled(Link)`
-    background-color: #4caf50; 
-    border: none; 
-    color: white; 
-    padding: 10px 20px; 
-    text-align: center; 
-    text-decoration: none; 
-    display: inline-block; 
-    font-size: 16px; 
-    cursor: pointer; 
-    border-radius: 5px; 
-    transition: background-color 0.3s; 
-    font-weight: 600;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  font-weight: 600;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 
-    &:hover {
-      background-color: #45a049; /* Mudar a cor de fundo ao passar o mouse */
-      text-decoration: underline; /* Adicionar sublinhado ao passar o mouse */
-    }
-    
-    
+  &:hover {
+    background-color: #45a049; /* Mudar a cor de fundo ao passar o mouse */
+    text-decoration: underline; /* Adicionar sublinhado ao passar o mouse */
+  }
 `;
 
 export const ItemSVGHeader = styled(Link)`
@@ -72,6 +70,19 @@ export const ItemSVGHeader = styled(Link)`
   color: #8c8c8c;
 `;
 
+export const ItemSVGMoney = styled(Link)`
+  height: 20px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #7d60d0;
+  border-radius: 20px;
+  padding: 2px 5px;
+  margin: 0 5px;
+  border: 2px solid #7d60d0;
+  font-wight: 600;
+
+`;
 /* Profile Header */
 
 export const BoxImageProfileHeader = styled(Link)`
