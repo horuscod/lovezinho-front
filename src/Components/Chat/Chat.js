@@ -23,7 +23,7 @@ const Chat = () => {
   const [selectedBotMessages, setSelectedBotMessages] = useState([]);
   const [acceptMoney, setAcceptMoney] = useState(false);
 
-  const [allConversations, setAllConversations] = useState([]);
+  
 
   const [botTyping, setBotTyping] = useState(false);
   const [displayMatch, setDisplayMatch] = useState({
