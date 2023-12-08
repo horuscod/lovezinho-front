@@ -56,7 +56,7 @@ const Login = () => {
   return (
     <Container>
       <Form>
-        <h1>Faça o seu Login 👋</h1>
+        <h1>Faça o seu Login ❤️ </h1>
         <Input
           name="email"
           placeholder="Digite o seu e-mail"

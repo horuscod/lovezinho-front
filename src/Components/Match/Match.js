@@ -111,7 +111,7 @@ const Match = () => {
 
   const currentItem = dataOldMan[currentIndex];
   const nextItems = dataOldMan.slice(currentIndex + 1, currentIndex + 7);
-  console.log(dataOldMan);
+  console.log("DataOldman", dataOldMan);
 
   return (
     <BoxContentMatch>
@@ -138,14 +138,14 @@ const Match = () => {
       {currentItem && (
         <DetailAbout>
           {/* Substitua os seguintes detalhes pelos dados reais de currentItem */}
-          <DetailInfoName>Sobre: </DetailInfoName>
+          <DetailInfoName>Acerca: </DetailInfoName>
           <detailInfoName2>{currentItem.name}</detailInfoName2>
-          <DetailInfoName>Idade</DetailInfoName>
-          <detailInfoName2>{currentItem.language}</detailInfoName2>
+          <DetailInfoName>Edad</DetailInfoName>
+          <detailInfoName2>{currentItem.age}</detailInfoName2>
           <DetailInfoName>Altura</DetailInfoName>
           <detailInfoName2>{currentItem.height}</detailInfoName2>
-          <DetailInfoName>Profissão</DetailInfoName>
-          <detailInfoName2>{currentItem.height}</detailInfoName2>
+          <DetailInfoName>Profesión</DetailInfoName>
+          <detailInfoName2>{currentItem.profession}</detailInfoName2>
         </DetailAbout>
       )}
       {/* Coluna 3*/}
@@ -159,10 +159,10 @@ const Match = () => {
           <Overlay />
           <ModalMatchOkay>
             <ModalContent>
-              <TitleMensage> Deu Match</TitleMensage>
-              Clique no botão abaixo e comece a conversar agora!
+              <TitleMensage> Dio Match</TitleMensage>
+              ¡Haz clic en el botón de abajo y comienza a chatear ahora!
             </ModalContent>
-            <Button to="/chat">INICIAR CONVERSA</Button>
+            <Button to="/chat">INICIAR CONVERSACIÓN</Button>
           </ModalMatchOkay>
         </>
       ) : null}

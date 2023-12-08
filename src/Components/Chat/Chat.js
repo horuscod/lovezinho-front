@@ -21,12 +21,9 @@ const Chat = () => {
   const [userMessages, setUserMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
   const [selectedBotMessages, setSelectedBotMessages] = useState([]);
-  const [acceptMoney, setAcceptMoney] = useState(false);
-
-  
-
   const [botTyping, setBotTyping] = useState(false);
-  const [displayMatch, setDisplayMatch] = useState({
+  const [dataChat, setDataChat] = useState([]);
+  const [currentMatch, setCurrentMatch] = useState({
     image: "",
     name: "",
     lastMessage: "",
@@ -151,52 +148,38 @@ const Chat = () => {
     fetchData();
   }, []);
 
-  
+  useEffect(() => {
+    const storedUserMessages = localStorage.getItem("userMessages");
+    if (storedUserMessages) {
+      setUserMessages(JSON.parse(storedUserMessages));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("userMessages", JSON.stringify(userMessages));
+  }, [userMessages]);
 
   const simulateTyping = () => {
     setBotTyping(true);
-
     setTimeout(() => {
       setBotTyping(false);
       const nextBotMessage =
         selectedBotMessages[
-        Math.floor(userMessages.length / 2) % selectedBotMessages.length
+          Math.floor(userMessages.length / 2) % selectedBotMessages.length
         ];
       setUserMessages((prevUserMessages) => [
         ...prevUserMessages,
         { sender: "bot", text: nextBotMessage },
       ]);
     }, 6000);
-  }
-
-  const currentMessage = (url, name, lastMessage) => {
-    console.log('entrou currentMessage')
-    setDisplayMatch({
-      image: url,
-      name: name,
-      lastMessage: lastMessage,
-    });
-
   };
-
-  const handleSendMessage = () => {
-    if (inputMessage) {
-      const newUserMessage = { sender: "user", text: inputMessage };
-      setUserMessages([...userMessages, newUserMessage]);
-
-      setInputMessage(""); // Limpa o input
-      simulateTyping();
-      setAcceptMoney(true);
-    }
-  };
-
-  const [dataChat, setDataChat] = useState([]);
-  const emailUser = localStorage.getItem("email");
 
   const fetchData = () => {
     if (dataChat.length > 0) {
       return;
     }
+
+    const emailUser = localStorage.getItem("email");
 
     if (!emailUser) {
       console.error("Email do usuário não encontrado.");
@@ -215,75 +198,68 @@ const Chat = () => {
       })
       .then((data) => {
         setDataChat(data[0]);
-        console.log(data[0]);
       })
       .catch((error) => {
         console.error("", error);
       });
   };
 
-  const data = {
-    email: emailUser,
+  const handleSendMessage = () => {
+    if (inputMessage) {
+      const newUserMessage = { sender: "user", text: inputMessage };
+      setUserMessages([...userMessages, newUserMessage]);
+      setInputMessage("");
+      simulateTyping();
+    }
   };
 
-  const addNewValueInUser = () => {
-    fetch(`https://api.velhorico.xyz/newValueChat`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    })
-      .then(() => {
-        console.log("Okay valor atualizado");
-      })
-      .catch((error) => {
-        console.error("", error);
-
-        console.log("erro");
-      });
+  const handleMatchClick = (urlImageMatch, nameMatch, InitMensage) => {
+    setCurrentMatch({
+      image: urlImageMatch,
+      name: nameMatch,
+      lastMessage: InitMensage,
+    });
   };
 
-  if (acceptMoney) {
-    setInterval(addNewValueInUser, 60000);
-  }
   return (
     <ContentChat>
       <TitleChat>Match</TitleChat>
       <BoxContentMensage>
         {dataChat
           ? dataChat.map((item, index) => (
-            <ItemPersonChat
-              key={index}
-              onClick={() => currentMessage(
-                item.urlImageMatch,
-                item.nameMatch,
-                item.InitMensage
-              )}
-            >
-              <ImagePersonChat src={item.urlImageMatch} />
-              <PersonContentChat>
-                <NamePersonChat>{item.nameMatch}</NamePersonChat>
-                <LastMensageChat>{item.InitMensage}</LastMensageChat>
-              </PersonContentChat>
-            </ItemPersonChat>
-          ))
+              <ItemPersonChat
+                key={index}
+                onClick={() =>
+                  handleMatchClick(
+                    item.urlImageMatch,
+                    item.nameMatch,
+                    item.InitMensage
+                  )
+                }
+              >
+                <ImagePersonChat src={item.urlImageMatch} />
+                <PersonContentChat>
+                  <NamePersonChat>{item.nameMatch}</NamePersonChat>
+                  <LastMensageChat>{item.InitMensage}</LastMensageChat>
+                </PersonContentChat>
+              </ItemPersonChat>
+            ))
           : null}
       </BoxContentMensage>
 
-      {displayMatch.image && (
+      {currentMatch.image && (
         <div>
-          {/* Renderize as informações de displayMatch conforme necessário */}
-          <ImagePersonChat src={displayMatch.image} />
+          <ImagePersonChat src={currentMatch.image} />
           <PersonContentChat>
-            <NamePersonChat>{displayMatch.name}</NamePersonChat>
-            <LastMensageChat>{displayMatch.lastMessage}</LastMensageChat>
+            <NamePersonChat>{currentMatch.name}</NamePersonChat>
+            <LastMensageChat>{currentMatch.lastMessage}</LastMensageChat>
           </PersonContentChat>
         </div>
       )}
 
       <BoxChatMensage>
         <MessageBot>
-          {botTyping && <MenssageNameBot>Digitando...</MenssageNameBot>}
-
+          {botTyping && <MenssageNameBot>Escribiendo...</MenssageNameBot>}
           {userMessages.map((message, index) =>
             message.sender === "user" ? (
               <MenssagePerson key={index}>{message.text}</MenssagePerson>
@@ -291,7 +267,6 @@ const Chat = () => {
               <MenssageNameBot key={index}>{message.text}</MenssageNameBot>
             )
           )}
-
           <ContentInput>
             <InputMensage
               type="text"

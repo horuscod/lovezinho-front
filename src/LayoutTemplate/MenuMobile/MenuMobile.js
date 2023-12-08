@@ -29,7 +29,7 @@ const MenuMobile = () => {
       </ItemMenuMobile>
       <ItemMenuMobile to="/saque">
         <GiMoneyStack />
-        <ItemTitleMenu>Saque</ItemTitleMenu>
+        <ItemTitleMenu>Withdrawal</ItemTitleMenu>
       </ItemMenuMobile>
     </BoxMenu>
   );

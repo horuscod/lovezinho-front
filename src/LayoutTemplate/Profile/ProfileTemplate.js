@@ -41,12 +41,11 @@ const ProfileTemplate = () => {
               <BoxImageProfileUser src={userData.imageProfileURL} />
 
               <BoxContentPopularity>
-                PopularidadeMuito baixo Aumentar
+              PopularidadMuy bajo Aumento
               </BoxContentPopularity>
             </BoxContentImage>
           </BoxContentLittle>
           <BoxContentInformation>
-            <MensageToProfile>Carregue pelo menos 5 imagens.</MensageToProfile>
             <BoxSimpleInfoProfile>
               <HeaderBoxSimpleInfoProfile>
                 <ProfileName>{userData.name}</ProfileName>
@@ -58,23 +57,20 @@ const ProfileTemplate = () => {
                   Brasil
                 </ProfileItemIcon>
                 <ProfileItemIcon>
-                  <FaHeart />0 Likes
+                  <FaHeart />10 Likes
                 </ProfileItemIcon>
                 <ProfileItemIcon>
-                  <GrView />0 Views
+                  <GrView />49 Views
                 </ProfileItemIcon>
               </ContentBoxSimpleInfoProfile>
             </BoxSimpleInfoProfile>
             <BoxImagesProfile>
               <BoxImagemItem />
               <BoxImagemItem />
-              <BoxImagemItem />
-              <BoxImagemItem />
-              <BoxImagemItem />
             </BoxImagesProfile>
             <BoxInformationProfile>
               <HeaderBoxSimpleInfoProfile>
-                <ProfileName>Informações do perfil</ProfileName>
+                <ProfileName>Información del perfil</ProfileName>
               </HeaderBoxSimpleInfoProfile>
               <RowInformationProfile>
                 <BoxItemInformation>
@@ -83,7 +79,7 @@ const ProfileTemplate = () => {
               </RowInformationProfile>
               <RowInformationProfile>
                 <BoxItemInformation>
-                  <LineTitle>Aparência</LineTitle>
+                  <LineTitle>Apariencia</LineTitle>
                 </BoxItemInformation>
               </RowInformationProfile>
             </BoxInformationProfile>
