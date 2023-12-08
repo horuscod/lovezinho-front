@@ -15,7 +15,8 @@ export const ContainerContent = styled.div`
     flex-direction: column;
     align-items: center;
   }
-`
+`;
+
 export const TitlePage = styled.div`
   font-size: 18px;
   margin: 0 0 14px;
@@ -25,18 +26,19 @@ export const TitlePage = styled.div`
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 `;
+
 export const LineCards = styled.div`
   display: flex;
   margin: 35px 0;
   justify-content: space-between;
   flex-wrap: wrap;
-  
-    @media (max-width: 800px) {
-      display: flex;
-      justify-content: center;
-      flex-direction: column;
-      align-items: center;
-    }
+
+  @media (max-width: 800px) {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 export const ItemCard = styled.div`
@@ -46,25 +48,34 @@ export const ItemCard = styled.div`
   border-radius: 5px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-  padding: 20px 15px 50px 15px;
+  padding: 20px 15px 15px 15px; /* Ajustado o padding */
   text-align: center;
   position: sticky;
-  width: 190px; /* Ajuste conforme necessário */
-  margin-right: 10px; /* Ajuste a margem conforme necessário */
-  margin-bottom: 35px;
+  width: 90%;
+  margin: 0 auto 35px;
+  position: relative;
 `;
 
 export const ImageCardLike = styled.img`
-  width: 160px;
+  width: 100%;
   height: 160px;
-  border-radius: 100%;
+  border-radius: 5px;
   background: #ccc;
-  margin-bottom: 35px;
-  margin-left: auto;
-  margin-right: auto;
+  margin-bottom: 15px;
   object-fit: cover;
-  
 `;
+
+export const CardOverlay = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Sombra preta com 50% de opacidade */
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding: 10px;
+`;
+
 
 export const NamePersonLike = styled.div`
   font-weight: 600;
@@ -73,19 +84,24 @@ export const NamePersonLike = styled.div`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-bottom: 10px;
+  color: #fff; /* Cor do texto branca */
 `;
 
+export const VerifiedIcon = styled.img`
+  width: 20px;
+  height: 20px;
+  margin-left: 5px;
+`;
 export const LabelLastLike = styled.div`
   line-height: normal;
   font-size: 14px;
-  color: #737373;
+  color: #fff; /* Cor do texto branca */
 `;
 
 export const ButtonUnlike = styled.div`
   position: absolute;
-  left: 90px;
-  right: 0;
+  left: 50%;
+  transform: translateX(-50%);
   bottom: -20px;
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.1);
   background-color: #fff;

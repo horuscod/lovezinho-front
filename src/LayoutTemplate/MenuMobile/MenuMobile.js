@@ -4,13 +4,18 @@ import { FaHeart } from "react-icons/fa";
 import { FaFire } from "react-icons/fa";
 import { SiGooglechat } from "react-icons/si";
 import { CgProfile } from "react-icons/cg";
-import { GiMoneyStack } from "react-icons/gi";
+import { AiOutlineQuestionCircle } from "react-icons/ai";
+
 
 
 
 const MenuMobile = () => {
   return (
     <BoxMenu>
+      <ItemMenuMobile to="/about">
+        <AiOutlineQuestionCircle />
+        <ItemTitleMenu>Uso</ItemTitleMenu>
+      </ItemMenuMobile>
       <ItemMenuMobile to="/find-matches">
         <FaFire />
         <ItemTitleMenu>Match</ItemTitleMenu>
@@ -26,10 +31,6 @@ const MenuMobile = () => {
       <ItemMenuMobile to="/profile">
         <CgProfile />
         <ItemTitleMenu>Profile</ItemTitleMenu>
-      </ItemMenuMobile>
-      <ItemMenuMobile to="/saque">
-        <GiMoneyStack />
-        <ItemTitleMenu>Withdrawal</ItemTitleMenu>
       </ItemMenuMobile>
     </BoxMenu>
   );

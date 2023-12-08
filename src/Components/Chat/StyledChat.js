@@ -17,9 +17,9 @@ export const ContentChat = styled.div`
   box-sizing: border-box;
 
   @media (max-width: 800px) {
-    width: 42%;
+    width: 100%; /* Ocupa a largura total no mobile */
     flex-direction: column;
-    align-items: center;  // ou flex-start, dependendo do seu design
+    align-items: center;
   }
 `;
 
@@ -105,6 +105,8 @@ export const PersonContentChat = styled.div`
   @media (max-width: 800px) {
     text-align: center;
     display: inline-block;
+    max-width: 100%;
+    overflow: hidden;
     flex: 1;
   }
 `;
@@ -123,9 +125,8 @@ export const LastMensageChat = styled.div`
 `;
 
 export const BoxChatMensage = styled.div`
-  width: 50%;
+  width: 100%;
   padding: 20px;
-  height: 350px;
   max-height: 300px;
   position: sticky;
   top: 0;
@@ -133,17 +134,16 @@ export const BoxChatMensage = styled.div`
   border-radius: 20px;
   background-color: #ffffff;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s; // Adicionei uma transição na sombra
+  transition: box-shadow 0.3s;
 
   &:hover {
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
   }
 
   @media (max-width: 800px) {
-    width: 100%; // Ocupa a largura total no mobile
     padding: 15px;
-    border-radius: 0; // Remova a borda no mobile
-    box-shadow: none; // Remova a sombra no mobile
+    border-radius: 0;
+    box-shadow: none;
     order: 1;
     position: relative;
     top: auto;
