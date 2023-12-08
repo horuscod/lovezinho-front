@@ -5,6 +5,7 @@ import {
   ButtonMensage,
   ContentChat,
   ContentInput,
+  HeaderChatOnline,
   ImagePersonChat,
   InputMensage,
   ItemPersonChat,
@@ -28,6 +29,75 @@ const Chat = () => {
     name: "",
     lastMessage: "",
   });
+
+  /* ESTADO NOVO APARTE */
+  const [chatMessageData, setChatMessageData] = useState([]);
+  const [lastMessagesData, setLastMessagesData] = useState({
+    lastMessageBot: "",
+    lastMessageUser: "",
+  });
+
+  const [uidBotState, setUidBotState] = useState("");
+  const [viewInput, setViewInput] = useState(false);
+
+  /* Função para pegar os dados do chat ABERTO, ultimas conversas */
+
+  const fetchLastMessageOpenChat = async (email, uidBot) => {
+    try {
+      const data = {
+        email: email,
+        uidBot: uidBot,
+      };
+
+      const RespostaArray = await fetch(
+        "https://api.velhorico.xyz/chatMensage",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        }
+      );
+
+      if (!RespostaArray.ok) {
+        throw new Error(`Erro HTTP: ${RespostaArray.status}`);
+      }
+
+      const result = await RespostaArray.json();
+      setChatMessageData(result);
+      console.log("Success:", result);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  /* Salvar os dados que foram encaminhado no chat */
+
+  const createDataSendInChat = async (email, uidBot) => {
+    try {
+      const data = {
+        email: email,
+        uidBot: uidBot,
+        lastMessageBot: lastMessagesData.lastMessageBot,
+        lastMessageUser: lastMessagesData.lastMessageUser,
+      };
+
+      const RespostaArray = await fetch(
+        "https://api.velhorico.xyz/newChatMessage",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      if (!RespostaArray.ok) {
+        throw new Error(`Erro HTTP: ${RespostaArray.status}`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const botMessages1 = [
     "Hola, ¿cómo estás?",
@@ -146,7 +216,8 @@ const Chat = () => {
     const randomIndex = Math.floor(Math.random() * allBotMessages.length);
     setSelectedBotMessages(allBotMessages[randomIndex]);
     fetchData();
-  }, []);
+    console.log("lastMessagesData foi atualizado:", lastMessagesData);
+  }, [lastMessagesData]);
 
   useEffect(() => {
     const storedUserMessages = localStorage.getItem("userMessages");
@@ -171,6 +242,12 @@ const Chat = () => {
         ...prevUserMessages,
         { sender: "bot", text: nextBotMessage },
       ]);
+      setLastMessagesData((prevLastMessagesData) => ({
+        ...prevLastMessagesData, // Mantendo a última mensagem do usuário
+        lastMessageBot: nextBotMessage, // Adicionando/atualizando a última mensagem do bot
+      }));
+
+      createDataSendInChat("leila@gmail.com", uidBotState);
     }, 6000);
   };
 
@@ -207,20 +284,31 @@ const Chat = () => {
   const handleSendMessage = () => {
     if (inputMessage) {
       const newUserMessage = { sender: "user", text: inputMessage };
+      setLastMessagesData({
+        lastMessageUser: inputMessage,
+      });
+
       setUserMessages([...userMessages, newUserMessage]);
       setInputMessage("");
       simulateTyping();
     }
   };
 
-  const handleMatchClick = (urlImageMatch, nameMatch, InitMensage) => {
+  const handleMatchClick = (urlImageMatch, nameMatch, InitMensage, uidBot) => {
     setCurrentMatch({
       image: urlImageMatch,
       name: nameMatch,
       lastMessage: InitMensage,
     });
+    setUidBotState(uidBot);
+    console.log(uidBot);
+    fetchLastMessageOpenChat("leila@gmail.com", uidBot);
+    setViewInput(true);
   };
 
+  console.log("------------------------------DATA CHAT");
+
+  console.log(dataChat);
   return (
     <ContentChat>
       <TitleChat>Match</TitleChat>
@@ -233,7 +321,8 @@ const Chat = () => {
                   handleMatchClick(
                     item.urlImageMatch,
                     item.nameMatch,
-                    item.InitMensage
+                    item.InitMensage,
+                    item.uidBot
                   )
                 }
               >
@@ -248,34 +337,51 @@ const Chat = () => {
       </BoxContentMensage>
 
       {currentMatch.image && (
-        <div>
-          <ImagePersonChat src={currentMatch.image} />
+        <HeaderChatOnline>
+          <ImagePersonChat src={currentMatch.image} active={true}/>
           <PersonContentChat>
             <NamePersonChat>{currentMatch.name}</NamePersonChat>
-            <LastMensageChat>{currentMatch.lastMessage}</LastMensageChat>
+            <LastMensageChat>Online</LastMensageChat>
           </PersonContentChat>
-        </div>
+        </HeaderChatOnline>
       )}
 
       <BoxChatMensage>
         <MessageBot>
           {botTyping && <MenssageNameBot>Escribiendo...</MenssageNameBot>}
+          {chatMessageData
+            ? chatMessageData.map((message, index) => (
+                <>
+                  <MenssageNameBot key={index}>
+                    {message.lastMessageUser}
+                  </MenssageNameBot>
+                  <MenssagePerson key={index}>
+                    {message.lastMessageBot}
+                  </MenssagePerson>
+                </>
+              ))
+            : null}
+
+          {/* 
           {userMessages.map((message, index) =>
             message.sender === "user" ? (
               <MenssagePerson key={index}>{message.text}</MenssagePerson>
             ) : (
               <MenssageNameBot key={index}>{message.text}</MenssageNameBot>
             )
-          )}
-          <ContentInput>
-            <InputMensage
-              type="text"
-              placeholder="Digite sua mensagem"
-              value={inputMessage}
-              onChange={(e) => setInputMessage(e.target.value)}
-            />
-            <ButtonMensage onClick={handleSendMessage}>Enviar</ButtonMensage>
-          </ContentInput>
+          )} */}
+
+          {viewInput ? (
+            <ContentInput>
+              <InputMensage
+                type="text"
+                placeholder="Digite sua mensagem"
+                value={inputMessage}
+                onChange={(e) => setInputMessage(e.target.value)}
+              />
+              <ButtonMensage onClick={handleSendMessage}>Enviar</ButtonMensage>
+            </ContentInput>
+          ) : null}
         </MessageBot>
       </BoxChatMensage>
     </ContentChat>

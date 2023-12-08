@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-
-
 export const ContentChat = styled.div`
   display: flex;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -15,11 +13,10 @@ export const ContentChat = styled.div`
   margin: 20px;
   min-height: 450px;
   box-sizing: border-box;
-
-  @media (max-width: 800px) {
-    width: 42%;
-    flex-direction: column;
-    align-items: center;  // ou flex-start, dependendo do seu design
+  flex-direction: column;
+  align-items: center;
+  @media (min-width: 800px) {
+    /* Só para Desktop */
   }
 `;
 
@@ -61,9 +58,7 @@ export const BoxContentMensage = styled.div`
     border-right: none;
     order: 2;
   }
-
 `;
-
 
 export const ItemPersonChat = styled.div`
   padding: 15px;
@@ -99,6 +94,11 @@ export const ImagePersonChat = styled.img`
     height: 70px;
     margin-right: 10px;
   }
+  ${(props) =>
+    props.active
+      ? `  border: 3px solid #4caf50;
+  `
+      : null}
 `;
 
 export const PersonContentChat = styled.div`
@@ -109,17 +109,16 @@ export const PersonContentChat = styled.div`
   }
 `;
 
-
 export const NamePersonChat = styled.div`
   font-size: 18px;
   font-weight: 600;
-  color: #333;  // Adapte a cor conforme necessário
+  color: #333; // Adapte a cor conforme necessário
 `;
 
 export const LastMensageChat = styled.div`
   font-size: 12px;
   font-weight: 300;
-  color: #2f2f2f;  // Adapte a cor conforme necessário
+  color: #2f2f2f; // Adapte a cor conforme necessário
 `;
 
 export const BoxChatMensage = styled.div`
@@ -150,13 +149,11 @@ export const BoxChatMensage = styled.div`
   }
 `;
 
-export const MessageBot = styled.div`
-    
-`;
+export const MessageBot = styled.div``;
 
 export const MenssageNameBot = styled.div`
   font-weight: 500;
-  background: #4CAF50;
+  background: #4caf50;
   padding: 12px;
   width: auto;
   box-sizing: border-box;
@@ -170,7 +167,6 @@ export const MenssagePerson = styled.div`
   margin: 15px 0;
   color: #333;
 `;
-
 
 export const ContentInput = styled.div`
   width: 100%;
@@ -186,7 +182,7 @@ export const InputMensage = styled.input`
   font-size: 14px;
 
   @media (max-width: 800px) {
-    width: calc(100% - 20px);  // Ajuste conforme necessário
+    width: calc(100% - 20px); // Ajuste conforme necessário
   }
 `;
 
@@ -215,4 +211,12 @@ export const ButtonMensage = styled.div`
   @media (max-width: 800px) {
     font-size: 14px;
   }
+`;
+
+/* Chat MOBILE - APOS ATIVO */
+export const HeaderChatOnline = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  margin: 10px 0;
 `;

@@ -79,12 +79,13 @@ const Match = () => {
       if (nextIndex === 4) {
         console.log("Quinta pessoa clicada: ", lastClickedPerson);
         setShowModal(true);
-        const { imageProfileURL, name } = lastClickedPerson;
+        const { imageProfileURL, name, uid } = lastClickedPerson;
         const emailLocal = localStorage.getItem("email");
         fetch("https://api.velhorico.xyz/newMatch", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
+            uidBot: uid,
             email: emailLocal,
             imageProfileBot: imageProfileURL,
             nameProfileBot: name,
