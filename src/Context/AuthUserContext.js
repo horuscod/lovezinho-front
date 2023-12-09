@@ -17,17 +17,17 @@ export function AuthorizedUserProvider({ children }) {
   /* DADOS ATUALIZADO */
   const [dataPerson, setDataPerson] = useState([]);
   const [dataPersonPremium, setDataPersonPremium] = useState([]);
+  const [dataOldMan, setDataOldMan] = useState([]);
 
   /* Chamada para a primeira rederização do componente */
   useEffect(() => {
     createDataPremium();
+    createDataOldMan();
   }, []);
 
   /* Chamada quando atualiza o componente authorizedUser */
 
   useEffect(() => {
-    console.log("-----------Data person");
-    console.log(dataPerson);
     if (dataPerson.length != 0) {
       setAuthorizedUser(true);
     }
@@ -68,6 +68,8 @@ export function AuthorizedUserProvider({ children }) {
     }
   };
 
+  /* Dados do data Premium */
+
   useEffect(() => {}, [dataPersonPremium]);
 
   const createDataPremium = async () => {
@@ -90,6 +92,29 @@ export function AuthorizedUserProvider({ children }) {
     }
   };
 
+  /* Dados para carregar os velhos que poderão dar um match */
+
+  useEffect(() => {
+    console.log("-----dados do velho");
+    console.log(dataOldMan);
+  }, [dataOldMan]);
+
+  const createDataOldMan = async () => {
+    try {
+      const response = await fetch(`https://api.velhorico.xyz/findAllOldMan`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        credentials: "same-origin",
+      });
+      if (!response.ok) {
+        throw new Error(`Erro HTTP: ${response.status}`);
+      }
+      const result = await response.json();
+      setDataOldMan(result);
+    } catch (error) {
+      console.log("Erro ao tentar criar o data Old verifique:" + error);
+    }
+  };
   const saveToLocalStorage = (data) => {
     localStorage.setItem("userData", JSON.stringify(data));
   };
@@ -181,6 +206,7 @@ export function AuthorizedUserProvider({ children }) {
         goToLogin,
         dataPerson,
         dataPersonPremium,
+        dataOldMan,
         authorizedUser,
         setAuthorizedUser,
         loginUser,
