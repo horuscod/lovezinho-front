@@ -30,10 +30,10 @@ export const TitleChat = styled.div`
 
 export const BoxContentMensage = styled.div`
   display: flex;
-  overflow-x: auto; // Adiciona uma barra de rolagem horizontal quando necessário
-  white-space: nowrap; // Impede que os itens quebrem para a próxima linha
-  -webkit-overflow-scrolling: touch; // Adiciona suporte à rolagem suave no iOS
-  scrollbar-width: thin; // Estilo da barra de rolagem (pode variar em alguns navegadores)
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
   scrollbar-color: #888 #f1f1f1;
 
   ::-webkit-scrollbar {
@@ -53,11 +53,15 @@ export const BoxContentMensage = styled.div`
     background: #555;
   }
 
-  @media (max-width: 800px) {
+  @media (min-width: 800px) {
     width: 100%;
     border-right: none;
     order: 2;
   }
+
+  width: auto; // Permite que a caixa se ajuste ao conteúdo
+  max-width: 290px;
+  overflow-x: scroll;
 `;
 
 export const ItemPersonChat = styled.div`

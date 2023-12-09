@@ -18,6 +18,8 @@ import {
   TitleChat,
 } from "./StyledChat";
 
+import { useAuthorizedUser } from "../../Context/AuthUserContext";
+
 const Chat = () => {
   const [userMessages, setUserMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
@@ -31,6 +33,7 @@ const Chat = () => {
   });
 
   /* ESTADO NOVO APARTE */
+  const { dataPerson } = useAuthorizedUser();
   const [chatMessageData, setChatMessageData] = useState([]);
   const [lastMessagesData, setLastMessagesData] = useState({
     lastMessageBot: "",
@@ -40,7 +43,43 @@ const Chat = () => {
   const [uidBotState, setUidBotState] = useState("");
   const [viewInput, setViewInput] = useState(false);
 
+  useEffect(() => {
+    createDataChat();
+  }, []);
+
+  useEffect(() => {
+    console.log("----------DATA CHAT");
+    console.log(dataChat);
+  }, [dataChat]);
+
+  const createDataChat = async () => {
+    try {
+      const email = dataPerson[0].email;
+      const response = await fetch(
+        `https://api.velhorico.xyz/getAllChat/${email}`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json", auth: "lovezinho" },
+          credentials: "same-origin",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Erro HTTP: ${response.status}`);
+      }
+      const result = await response.json();
+      setDataChat(result[0]);
+    } catch (error) {
+      console.log("Erro ao tentar buscar usuário");
+    }
+  };
+
   /* Função para pegar os dados do chat ABERTO, ultimas conversas */
+
+  useEffect(() => {
+    fetchLastMessageOpenChat(dataPerson[0].email, uidBotState);
+    setViewInput(true);
+  }, [uidBotState]);
 
   const fetchLastMessageOpenChat = async (email, uidBot) => {
     try {
@@ -53,7 +92,9 @@ const Chat = () => {
         "https://api.velhorico.xyz/chatMensage",
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json", "auth": "lovezinho" },
+          credentials: "include",
+          auth: "lovezinho",
           body: JSON.stringify(data),
         }
       );
@@ -64,7 +105,6 @@ const Chat = () => {
 
       const result = await RespostaArray.json();
       setChatMessageData(result);
-      console.log("Success:", result);
     } catch (error) {
       console.error("Error:", error);
     }
@@ -72,22 +112,40 @@ const Chat = () => {
 
   /* Salvar os dados que foram encaminhado no chat */
 
-  const createDataSendInChat = async (email, uidBot) => {
-    try {
+  useEffect(() => {
+    console.log("---------Data Ultimas mensagens");
+    console.log(lastMessagesData);
+    if (
+      lastMessagesData.lastMessageBot === "" &&
+      lastMessagesData.lastMessageUser === ""
+    ) {
+      console.log("---------Entrou no IF");
+      console.log(lastMessagesData);
+    } else {
+
+      console.log('entrou no else aqui ')
       const data = {
-        email: email,
-        uidBot: uidBot,
+        email: dataPerson[0].email,
+        uidBot: uidBotState,
         lastMessageBot: lastMessagesData.lastMessageBot,
         lastMessageUser: lastMessagesData.lastMessageUser,
       };
+      createDataSendInChat(data);
+    }
+  }, [lastMessagesData]);
 
+  const createDataSendInChat = async (data) => {
+    try {
       const RespostaArray = await fetch(
         "https://api.velhorico.xyz/newChatMessage",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "auth": "lovezinho",
           },
+          credentials: "include",
+          auth: "lovezinho",
           body: JSON.stringify(data),
         }
       );
@@ -215,20 +273,8 @@ const Chat = () => {
     ];
     const randomIndex = Math.floor(Math.random() * allBotMessages.length);
     setSelectedBotMessages(allBotMessages[randomIndex]);
-    fetchData();
     console.log("lastMessagesData foi atualizado:", lastMessagesData);
   }, [lastMessagesData]);
-
-  useEffect(() => {
-    const storedUserMessages = localStorage.getItem("userMessages");
-    if (storedUserMessages) {
-      setUserMessages(JSON.parse(storedUserMessages));
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("userMessages", JSON.stringify(userMessages));
-  }, [userMessages]);
 
   const simulateTyping = () => {
     setBotTyping(true);
@@ -246,39 +292,7 @@ const Chat = () => {
         ...prevLastMessagesData, // Mantendo a última mensagem do usuário
         lastMessageBot: nextBotMessage, // Adicionando/atualizando a última mensagem do bot
       }));
-
-      createDataSendInChat("leila@gmail.com", uidBotState);
     }, 6000);
-  };
-
-  const fetchData = () => {
-    if (dataChat.length > 0) {
-      return;
-    }
-
-    const emailUser = localStorage.getItem("email");
-
-    if (!emailUser) {
-      console.error("Email do usuário não encontrado.");
-      return;
-    }
-
-    fetch(`https://api.velhorico.xyz/getAllChat/${emailUser}`, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setDataChat(data[0]);
-      })
-      .catch((error) => {
-        console.error("", error);
-      });
   };
 
   const handleSendMessage = () => {
@@ -302,13 +316,8 @@ const Chat = () => {
     });
     setUidBotState(uidBot);
     console.log(uidBot);
-    fetchLastMessageOpenChat("leila@gmail.com", uidBot);
-    setViewInput(true);
   };
 
-  console.log("------------------------------DATA CHAT");
-
-  console.log(dataChat);
   return (
     <ContentChat>
       <TitleChat>Match</TitleChat>
@@ -338,7 +347,7 @@ const Chat = () => {
 
       {currentMatch.image && (
         <HeaderChatOnline>
-          <ImagePersonChat src={currentMatch.image} active={true}/>
+          <ImagePersonChat src={currentMatch.image} active={true} />
           <PersonContentChat>
             <NamePersonChat>{currentMatch.name}</NamePersonChat>
             <LastMensageChat>Online</LastMensageChat>
@@ -349,7 +358,7 @@ const Chat = () => {
       <BoxChatMensage>
         <MessageBot>
           {botTyping && <MenssageNameBot>Escribiendo...</MenssageNameBot>}
-          {chatMessageData
+          {chatMessageData.length > 0
             ? chatMessageData.map((message, index) => (
                 <>
                   <MenssageNameBot key={index}>
@@ -361,15 +370,6 @@ const Chat = () => {
                 </>
               ))
             : null}
-
-          {/* 
-          {userMessages.map((message, index) =>
-            message.sender === "user" ? (
-              <MenssagePerson key={index}>{message.text}</MenssagePerson>
-            ) : (
-              <MenssageNameBot key={index}>{message.text}</MenssageNameBot>
-            )
-          )} */}
 
           {viewInput ? (
             <ContentInput>

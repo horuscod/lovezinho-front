@@ -38,8 +38,9 @@ export function AuthorizedUserProvider({ children }) {
       const data = { email: email };
       const response = await fetch(`https://api.velhorico.xyz/getByOneUser`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "same-origin",
+        headers: { "Content-Type": "application/json", auth: "lovezinho" },
+        credentials: "include",
+        auth: "lovezinho",
         body: JSON.stringify(data),
       });
 
@@ -78,8 +79,9 @@ export function AuthorizedUserProvider({ children }) {
         `https://api.velhorico.xyz/allUsersPremium`,
         {
           method: "GET",
-          headers: { "Content-Type": "application/json" },
-          credentials: "same-origin",
+          headers: { "Content-Type": "application/json", auth: "lovezinho" },
+          credentials: "include",
+          auth: "lovezinho",
         }
       );
       if (!response.ok) {
@@ -103,8 +105,9 @@ export function AuthorizedUserProvider({ children }) {
     try {
       const response = await fetch(`https://api.velhorico.xyz/findAllOldMan`, {
         method: "GET",
-        headers: { "Content-Type": "application/json" },
-        credentials: "same-origin",
+        headers: { "Content-Type": "application/json", auth: "lovezinho" },
+        credentials: "include",
+        auth: "lovezinho",
       });
       if (!response.ok) {
         throw new Error(`Erro HTTP: ${response.status}`);
@@ -153,8 +156,9 @@ export function AuthorizedUserProvider({ children }) {
 
       const response = await fetch(`https://api.velhorico.xyz/getByOneUser`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "same-origin",
+        headers: { "Content-Type": "application/json", auth: "lovezinho" },
+        credentials: "include",
+        auth: "lovezinho",
         body: JSON.stringify(data),
       });
 
@@ -186,7 +190,8 @@ export function AuthorizedUserProvider({ children }) {
         {
           method: "GET",
           headers: { "Content-Type": "application/json" },
-          credentials: "same-origin",
+          credentials: "include",
+          auth: "lovezinho",
         }
       );
 
