@@ -18,7 +18,6 @@ import {
   AuthorizedUserProvider,
   useAuthorizedUser,
 } from "./Context/AuthUserContext";
-import DownloadButton from "./Components/DownloadButton/DownloadButton";
 
 function App() {
   return (
@@ -29,12 +28,11 @@ function App() {
 }
 
 function MainContent() {
-  const { authorizedUser, setAuthorizedUser } = useAuthorizedUser();
-  const userData = localStorage.getItem("userData");
+  const { authorizedUser } = useAuthorizedUser();
 
   return (
     <Router>
-      {authorizedUser || userData ? (
+      {authorizedUser ? (
         <>
           <Routes>
             <Route exact path="/" element={<Home />} />

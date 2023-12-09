@@ -1,4 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { app } from "../Config/FirebaseConfig.js";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
+const auth = getAuth(app);
 
 const AuthorizedUserContext = createContext();
 export function useAuthorizedUser() {
@@ -7,7 +11,61 @@ export function useAuthorizedUser() {
 
 export function AuthorizedUserProvider({ children }) {
   const [authorizedUser, setAuthorizedUser] = useState(null);
+  const [userData, setUserData] = useState(null);
   const [dataChat, setDataChat] = useState([]);
+
+  /* DADOS ATUALIZADO */
+  const [dataPerson, setDataPerson] = useState([]);
+
+  /* Chamada para a primeira rederização do componente */
+  useEffect(() => {}, []);
+
+  /* Chamada quando atualiza o componente authorizedUser */
+
+  useEffect(() => {
+
+    console.log('-----------Data person')
+    console.log(dataPerson)
+    if (dataPerson.length != 0) {
+      setAuthorizedUser(true);
+    }
+  }, [dataPerson]);
+
+  const createDataLocal = async (email) => {
+    try {
+      const data = { email: email };
+      const response = await fetch(`https://api.velhorico.xyz/getByOneUser`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "same-origin",
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Erro HTTP: ${response.status}`);
+      }
+      const result = await response.json();
+      setDataPerson(result);
+    } catch (error) {
+      console.log("Erro ao tentar buscar usuário");
+    }
+  };
+
+  const goToLogin = async (email, password) => {
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      const userEmail = userCredential.user.email;
+      createDataLocal(userEmail);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   const saveToLocalStorage = (data) => {
     localStorage.setItem("userData", JSON.stringify(data));
   };
@@ -16,7 +74,7 @@ export function AuthorizedUserProvider({ children }) {
     localStorage.removeItem("userData");
   };
 
-  const [userData, setUserData] = useState(() => {
+  /*  const [userData, setUserData] = useState(() => {
     const localUserData = localStorage.getItem("userData");
     return localUserData
       ? JSON.parse(localUserData)
@@ -33,7 +91,7 @@ export function AuthorizedUserProvider({ children }) {
           urlImageBot: "",
         };
   });
-
+ */
   const loginUser = (data) => {
     saveToLocalStorage(data);
   };
@@ -96,6 +154,8 @@ export function AuthorizedUserProvider({ children }) {
   return (
     <AuthorizedUserContext.Provider
       value={{
+        goToLogin,
+        dataPerson,
         authorizedUser,
         setAuthorizedUser,
         loginUser,
