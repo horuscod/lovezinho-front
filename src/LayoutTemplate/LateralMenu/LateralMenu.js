@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   BoxContentProfile,
   BoxContentProfileInfo,
@@ -17,12 +17,9 @@ import {
 } from "./StyledLateralMenu";
 
 import { WiDirectionUp } from "react-icons/wi";
-
 import { GiLovers } from "react-icons/gi";
 import { HiMiniUsers } from "react-icons/hi2";
-import { GrView } from "react-icons/gr";
 import { FaHeart } from "react-icons/fa";
-import { BsFillArrowThroughHeartFill } from "react-icons/bs";
 import { BiSolidDislike } from "react-icons/bi";
 import { FaFire } from "react-icons/fa";
 
@@ -30,53 +27,16 @@ import ImageDefault from "../../../public/imgs/d-avatar.webp";
 import { useAuthorizedUser } from "../../Context/AuthUserContext";
 
 const LateralMenu = () => {
-  const { userData } = useAuthorizedUser();
-  const dataUserPremium = [];
-
-  useEffect(() => {
-    getAllUsersPremium();
-  }, []);
-
-  const getAllUsersPremium = () => {
-    fetch(`https://api-velho-rico-597ac8e8746d.herokuapp.com/allUsersPremium`, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        console.log("vai ter resposta");
-        return response.json();
-      })
-      .then((data) => {
-        console.log("RESPOTA DO PREMIUM");
-        console.log(data);
-        dataUserPremium.push(...data);
-        console.log(dataUserPremium);
-        sessionStorage.setItem("dataPremium", JSON.stringify(data));
-      })
-      .catch((error) => {
-        console.error(
-          "There has been a problem with your fetch operation:",
-          error
-        );
-      });
-  };
-
-  const SessionDataPremiumString = sessionStorage.getItem("dataPremium");
-  const SessionDataPremium = SessionDataPremiumString
-    ? JSON.parse(SessionDataPremiumString)
-    : [];
+  const { dataPerson, dataPersonPremium } = useAuthorizedUser();
 
   return (
     <BoxLateral>
       <BoxContentProfile>
         <BoxImageProfile
-          src={userData ? userData.imageProfileURL : ImageDefault}
+          src={dataPerson ? dataPerson[0].imageProfileURL : ImageDefault}
         />
         <BoxContentProfileInfo>
-          <NameProfile>{userData.name}</NameProfile>
+          <NameProfile>{dataPerson[0].name}</NameProfile>
           <PopularProfile>Popularidade: Muito baixo</PopularProfile>
         </BoxContentProfileInfo>
       </BoxContentProfile>
@@ -115,8 +75,8 @@ const LateralMenu = () => {
           <ItemLabelMenu>Usuários Premium</ItemLabelMenu>
         </ItemMenu>
         <ContentImagesPremium>
-          {SessionDataPremium && SessionDataPremium.length > 0
-            ? SessionDataPremium.map((item, index) => (
+          {dataPersonPremium.length > 0
+            ? dataPersonPremium.slice(0, 12).map((item, index) => (
                 <BoxImagePremium key={index}>
                   <ImagePremium src={item.imageProfileURL} />
                 </BoxImagePremium>

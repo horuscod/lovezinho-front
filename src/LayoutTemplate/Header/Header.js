@@ -22,24 +22,11 @@ import { IoMdNotifications } from "react-icons/io";
 import { useAuthorizedUser } from "../../Context/AuthUserContext";
 
 const Header = () => {
-  const { fetchDataUser, userData, setUserData } = useAuthorizedUser();
+  const { dataPerson } = useAuthorizedUser();
   const [dataValueMoney, setDataValueMoney] = useState([]);
-  const email = localStorage.getItem("email");
+  const email = dataPerson[0].email;
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      const userData = await fetchDataUser();
-
-      localStorage.setItem("userData", JSON.stringify(userData));
-      setUserData(userData);
-    };
-
-    const localDataUser = localStorage.getItem("userData");
-    if (localDataUser) {
-      setUserData(JSON.parse(localDataUser));
-    } else {
-      fetchUserData();
-    }
     fetchGetValueMoney();
   }, []);
 
@@ -92,7 +79,7 @@ const Header = () => {
 
             <BoxImageProfileHeader to="/profile">
               <ImageProfileHeader
-                src={userData ? userData.imageProfileURL : null}
+                src={dataPerson ? dataPerson[0].imageProfileURL : null}
                 alt="Imagem do perfil"
               />
             </BoxImageProfileHeader>

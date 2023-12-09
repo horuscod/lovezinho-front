@@ -16,16 +16,18 @@ export function AuthorizedUserProvider({ children }) {
 
   /* DADOS ATUALIZADO */
   const [dataPerson, setDataPerson] = useState([]);
+  const [dataPersonPremium, setDataPersonPremium] = useState([]);
 
   /* Chamada para a primeira rederização do componente */
-  useEffect(() => {}, []);
+  useEffect(() => {
+    createDataPremium();
+  }, []);
 
   /* Chamada quando atualiza o componente authorizedUser */
 
   useEffect(() => {
-
-    console.log('-----------Data person')
-    console.log(dataPerson)
+    console.log("-----------Data person");
+    console.log(dataPerson);
     if (dataPerson.length != 0) {
       setAuthorizedUser(true);
     }
@@ -63,6 +65,28 @@ export function AuthorizedUserProvider({ children }) {
       createDataLocal(userEmail);
     } catch (error) {
       console.error("Error:", error);
+    }
+  };
+
+  useEffect(() => {}, [dataPersonPremium]);
+
+  const createDataPremium = async () => {
+    try {
+      const response = await fetch(
+        `https://api.velhorico.xyz/allUsersPremium`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+          credentials: "same-origin",
+        }
+      );
+      if (!response.ok) {
+        throw new Error(`Erro HTTP: ${response.status}`);
+      }
+      const result = await response.json();
+      setDataPersonPremium(result);
+    } catch (error) {
+      console.log("Teve um erro ao tentar retornar os dados Premium" + error);
     }
   };
 
@@ -156,6 +180,7 @@ export function AuthorizedUserProvider({ children }) {
       value={{
         goToLogin,
         dataPerson,
+        dataPersonPremium,
         authorizedUser,
         setAuthorizedUser,
         loginUser,
