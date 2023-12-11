@@ -47,10 +47,7 @@ const Chat = () => {
     createDataChat();
   }, []);
 
-  useEffect(() => {
-    console.log("----------DATA CHAT");
-    console.log(dataChat);
-  }, [dataChat]);
+  useEffect(() => {}, [dataChat]);
 
   const createDataChat = async () => {
     try {
@@ -60,7 +57,7 @@ const Chat = () => {
         {
           method: "GET",
           headers: { "Content-Type": "application/json", auth: "lovezinho" },
-          credentials: "same-origin",
+          credentials: "include",
         }
       );
 
@@ -92,7 +89,7 @@ const Chat = () => {
         "https://api.velhorico.xyz/chatMensage",
         {
           method: "POST",
-          headers: { "Content-Type": "application/json", "auth": "lovezinho" },
+          headers: { "Content-Type": "application/json", auth: "lovezinho" },
           credentials: "include",
           auth: "lovezinho",
           body: JSON.stringify(data),
@@ -113,6 +110,17 @@ const Chat = () => {
   /* Salvar os dados que foram encaminhado no chat */
 
   useEffect(() => {
+    const allBotMessages = [
+      botMessages1,
+      botMessages2,
+      botMessages3,
+      botMessages4,
+      botMessages5,
+    ];
+    const randomIndex = Math.floor(Math.random() * allBotMessages.length);
+    setSelectedBotMessages(allBotMessages[randomIndex]);
+    console.log("lastMessagesData foi atualizado:", lastMessagesData);
+
     console.log("---------Data Ultimas mensagens");
     console.log(lastMessagesData);
     if (
@@ -122,13 +130,13 @@ const Chat = () => {
       console.log("---------Entrou no IF");
       console.log(lastMessagesData);
     } else {
-
-      console.log('entrou no else aqui ')
+      console.log("entrou no else aqui ");
       const data = {
         email: dataPerson[0].email,
         uidBot: uidBotState,
         lastMessageBot: lastMessagesData.lastMessageBot,
         lastMessageUser: lastMessagesData.lastMessageUser,
+        secondFetch: true,
       };
       createDataSendInChat(data);
     }
@@ -142,7 +150,7 @@ const Chat = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "auth": "lovezinho",
+            auth: "lovezinho",
           },
           credentials: "include",
           auth: "lovezinho",
@@ -151,6 +159,10 @@ const Chat = () => {
       );
       if (!RespostaArray.ok) {
         throw new Error(`Erro HTTP: ${RespostaArray.status}`);
+      }
+
+      if (data.secondFetch === true) {
+        fetchLastMessageOpenChat(data.email, data.uidBot);
       }
     } catch (error) {
       console.log(error);
@@ -263,19 +275,6 @@ const Chat = () => {
     "Excelente, haciendo la compra aquí y enviándotelo...",
   ];
 
-  useEffect(() => {
-    const allBotMessages = [
-      botMessages1,
-      botMessages2,
-      botMessages3,
-      botMessages4,
-      botMessages5,
-    ];
-    const randomIndex = Math.floor(Math.random() * allBotMessages.length);
-    setSelectedBotMessages(allBotMessages[randomIndex]);
-    console.log("lastMessagesData foi atualizado:", lastMessagesData);
-  }, [lastMessagesData]);
-
   const simulateTyping = () => {
     setBotTyping(true);
     setTimeout(() => {
@@ -289,8 +288,8 @@ const Chat = () => {
         { sender: "bot", text: nextBotMessage },
       ]);
       setLastMessagesData((prevLastMessagesData) => ({
-        ...prevLastMessagesData, // Mantendo a última mensagem do usuário
-        lastMessageBot: nextBotMessage, // Adicionando/atualizando a última mensagem do bot
+        ...prevLastMessagesData,
+        lastMessageBot: nextBotMessage,
       }));
     }, 6000);
   };
@@ -360,14 +359,10 @@ const Chat = () => {
           {botTyping && <MenssageNameBot>Escribiendo...</MenssageNameBot>}
           {chatMessageData.length > 0
             ? chatMessageData.map((message, index) => (
-                <>
-                  <MenssageNameBot key={index}>
-                    {message.lastMessageUser}
-                  </MenssageNameBot>
-                  <MenssagePerson key={index}>
-                    {message.lastMessageBot}
-                  </MenssagePerson>
-                </>
+                <div key={index}>
+                  <MenssageNameBot>{message.lastMessageUser}</MenssageNameBot>
+                  <MenssagePerson>{message.lastMessageBot}</MenssagePerson>
+                </div>
               ))
             : null}
 
