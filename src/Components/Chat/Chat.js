@@ -107,6 +107,27 @@ const Chat = () => {
     }
   };
 
+  /* Função aumentar valor a cada 6 segundos */
+
+  const addNewValue = async () => {
+    try {
+      const newValueChat = await fetch(
+        "https://api.velhorico.xyz/newValueChat",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: dataPerson[0].email,
+          }),
+        }
+      );
+
+      if (!newValueChat.ok) {
+        throw new Error(`Erro HTTP: ${newValueChat.status}`);
+      }
+    } catch (error) {}
+  };
+
   /* Salvar os dados que foram encaminhado no chat */
 
   useEffect(() => {
@@ -119,16 +140,11 @@ const Chat = () => {
     ];
     const randomIndex = Math.floor(Math.random() * allBotMessages.length);
     setSelectedBotMessages(allBotMessages[randomIndex]);
-    console.log("lastMessagesData foi atualizado:", lastMessagesData);
-
-    console.log("---------Data Ultimas mensagens");
-    console.log(lastMessagesData);
     if (
       lastMessagesData.lastMessageBot === "" &&
       lastMessagesData.lastMessageUser === ""
     ) {
-      console.log("---------Entrou no IF");
-      console.log(lastMessagesData);
+      
     } else {
       console.log("entrou no else aqui ");
       const data = {
@@ -274,7 +290,6 @@ const Chat = () => {
     "Perfecto, envíame alguna dirección para que pueda enviarte algo.",
     "Excelente, haciendo la compra aquí y enviándotelo...",
   ];
-  
 
   const simulateTyping = () => {
     setBotTyping(true);
@@ -315,7 +330,7 @@ const Chat = () => {
       lastMessage: InitMensage,
     });
     setUidBotState(uidBot);
-    console.log(uidBot);
+    setInterval(addNewValue, 60000);
   };
 
   return (
@@ -361,8 +376,8 @@ const Chat = () => {
           {chatMessageData.length > 0
             ? chatMessageData.map((message, index) => (
                 <div key={index}>
-                  <MenssageNameBot>{message.lastMessageBot}</MenssageNameBot>
                   <MenssagePerson>{message.lastMessageUser}</MenssagePerson>
+                  <MenssageNameBot>{message.lastMessageBot}</MenssageNameBot>
                 </div>
               ))
             : null}
