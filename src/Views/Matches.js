@@ -1,50 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import MainLayout from "../LayoutTemplate/MainLayout/MainLayout";
 import CardsLike from "../Components/CardsLike/CardsLike";
+import { useAuthorizedUser } from "../Context/AuthUserContext";
 
 const Matches = () => {
-  const [dataOldMan, setDataOldMan] = useState([]);
-  const emailUser = localStorage.getItem("email");
-
-  const fetchData = () => {
-    // Verificar se já existem dados carregados
-    if (dataOldMan.length > 0) {
-      return; // Se já houver dados, não faz a requisição
-    }
-
-    if (!emailUser) {
-      console.error("Email do usuário não encontrado.");
-      return;
-    }
-
-    fetch(`https://api.velhorico.xyz/getAllMatch/${emailUser}`, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setDataOldMan(data);
-      })
-      .catch((error) => {
-        console.error("", error);
-      });
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
+  const { dataPerson } = useAuthorizedUser();
   return (
     <MainLayout>
       <CardsLike
         titlePage="Match"
-        data={dataOldMan.length > 0 ? dataOldMan[0].matchsArray : []}
+        data={
+          dataPerson[0].matchsArray.length > 0 ? dataPerson[0].matchsArray : []
+        }
       />
     </MainLayout>
   );

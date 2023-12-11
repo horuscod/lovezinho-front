@@ -19,8 +19,12 @@ const CardsLike = ({ titlePage, data }) => {
       <LineCards>
         {data.map((item, index) => (
           <ItemCard key={index}>
-            <ImageCardLike src={item.urlImageMatch} />
-            <NamePersonLike>{item.nameMatch}</NamePersonLike>
+            <ImageCardLike
+              src={item.urlImageMatch ? item.urlImageMatch : item.urlImageLike}
+            />
+            <NamePersonLike>
+              {item.nameMatch ? item.nameMatch : item.nameLike}
+            </NamePersonLike>
             <LabelLastLike>2 dias atrás</LabelLastLike>
             <ButtonUnlike>
               <FaHeart />
