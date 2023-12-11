@@ -274,6 +274,7 @@ const Chat = () => {
     "Perfecto, envíame alguna dirección para que pueda enviarte algo.",
     "Excelente, haciendo la compra aquí y enviándotelo...",
   ];
+  
 
   const simulateTyping = () => {
     setBotTyping(true);
