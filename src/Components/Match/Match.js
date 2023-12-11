@@ -40,41 +40,94 @@ const Match = () => {
 
   const handleLike = async () => {
     const nextIndex = currentIndex + 1;
+    const emailLocal = dataPerson[0].email;
+    const uidUser = dataPerson[0].uid;
 
     if (nextIndex < shuffledData.length) {
       const lastClickedPerson = shuffledData[currentIndex];
+      const { imageProfileURL, name, uid } = lastClickedPerson;
 
-      setCurrentIndex(nextIndex);
-
+      // Lógica específica para a quinta pessoa
       if (nextIndex === 4) {
         console.log("Quinta pessoa clicada: ", lastClickedPerson);
         setShowModal(true);
-        const { imageProfileURL, name, uid } = lastClickedPerson;
-        const emailLocal = dataPerson[0].email;
-        fetch("https://api.velhorico.xyz/newMatch", {
+
+        try {
+          const matchResponse = await fetch(
+            "https://api.velhorico.xyz/newMatch",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                uidBot: uid,
+                email: emailLocal,
+                imageProfileBot: imageProfileURL,
+                nameProfileBot: name,
+              }),
+            }
+          );
+
+          if (!matchResponse.ok) {
+            throw new Error(`Erro HTTP: ${matchResponse.status}`);
+          }
+
+          const matchData = await matchResponse.json();
+          console.log("Dados do match enviados com sucesso!", matchData);
+        } catch (error) {
+          console.error("Erro na requisição de match:", error);
+        }
+      }
+
+      // Lógica para um like normal
+      try {
+        const likeResponse = await fetch("https://api.velhorico.xyz/newLike", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             uidBot: uid,
-            email: emailLocal,
+            uidUser: uidUser,
             imageProfileBot: imageProfileURL,
             nameProfileBot: name,
           }),
-        })
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error(`Erro HTTP: ${response.status}`);
-            }
-            return response.json();
-          })
-          .then((data) => {
-            console.log("Dados enviados com sucesso!", data);
-          })
-          .catch((error) => {
-            console.error("Erro na requisição:", error);
-          });
+        });
+
+        if (!likeResponse.ok) {
+          throw new Error(`Erro HTTP: ${likeResponse.status}`);
+        }
+      } catch (error) {
+        console.error("Erro na requisição de like:", error);
       }
-    } else {
+
+      setCurrentIndex(nextIndex);
+    }
+  };
+
+  const handleUnLike = async () => {
+    try {
+      const nextIndex = currentIndex + 1;
+      const lastClickedPerson = shuffledData[currentIndex];
+      if (nextIndex < shuffledData.length) {
+        const { imageProfileURL, name, uid } = lastClickedPerson;
+        const uidUser = dataPerson[0].uid;
+        const response = await fetch("https://api.velhorico.xyz/newUnlike", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            uidBot: uid,
+            uidUser: uidUser,
+            imageProfileBot: imageProfileURL,
+            nameProfileBot: name,
+          }),
+        });
+
+        if (response.ok) {
+          setCurrentIndex(nextIndex);
+        } else {
+          console.error("Falha na requisição:", response.status);
+        }
+      }
+    } catch (error) {
+      console.error("Erro na execução:", error);
     }
   };
 
@@ -102,7 +155,7 @@ const Match = () => {
             <ButtonLike onClick={handleLike}>
               <FaHeart />
             </ButtonLike>
-            <ButtonUnlike>
+            <ButtonUnlike onClick={handleUnLike}>
               <IoClose />
             </ButtonUnlike>
           </ContentButtons>
