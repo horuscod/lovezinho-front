@@ -12,13 +12,13 @@ export function useAuthorizedUser() {
 export function AuthorizedUserProvider({ children }) {
   const [authorizedUser, setAuthorizedUser] = useState(null);
   const [userData, setUserData] = useState(null);
-  const [dataChat, setDataChat] = useState([]);
 
   /* DADOS ATUALIZADO */
   const [dataPerson, setDataPerson] = useState([]);
   const [dataPersonPremium, setDataPersonPremium] = useState([]);
   const [dataOldMan, setDataOldMan] = useState([]);
 
+  let userEmail = "";
   /* Chamada para a primeira rederização do componente */
   useEffect(() => {
     createDataPremium();
@@ -61,9 +61,9 @@ export function AuthorizedUserProvider({ children }) {
         email,
         password
       );
-
-      const userEmail = userCredential.user.email;
+      userEmail = userCredential.user.email;
       createDataLocal(userEmail);
+      return userEmail;
     } catch (error) {
       console.error("Error:", error);
     }
@@ -118,91 +118,53 @@ export function AuthorizedUserProvider({ children }) {
       console.log("Erro ao tentar criar o data Old verifique:" + error);
     }
   };
-  const saveToLocalStorage = (data) => {
-    localStorage.setItem("userData", JSON.stringify(data));
-  };
 
-  const clearLocalStorage = () => {
-    localStorage.removeItem("userData");
-  };
+  /* ATUALIZAÇÃO DE DADOS SAQUE */
 
-  /*  const [userData, setUserData] = useState(() => {
-    const localUserData = localStorage.getItem("userData");
-    return localUserData
-      ? JSON.parse(localUserData)
-      : {
-          name: "",
-          email: "",
-          imageProfileURL: "",
-          photoURL: "",
-          typeProfile: "",
-          uid: "",
-          uidAuth: "",
-          cupons: "",
-          location: "",
-          urlImageBot: "",
-        };
-  });
- */
-  const loginUser = (data) => {
-    saveToLocalStorage(data);
-  };
-
-  const fetchDataUser = async () => {
+  const saveWithDraw = async (
+    accNumber,
+    accAgency,
+    accAddress,
+    accCPF,
+    uid,
+    email
+  ) => {
     try {
-      const email = localStorage.getItem("email");
-      const data = { email: email };
-      console.log("____________AUTH DATA");
+      console.log(accNumber);
+      console.log(accAgency);
+      console.log(accAddress);
+      console.log(accCPF);
 
-      const response = await fetch(`https://api.velhorico.xyz/getByOneUser`, {
+      console.log(uid);
+
+      const data = {  
+        accNumber: accNumber,
+        accAgency: accAgency,
+        accAddress: accAddress,
+        accCPF: accCPF,
+        uid: uid,
+      };
+      const response = await fetch(`https://api.velhorico.xyz/updateWithDraw`, {
         method: "POST",
         headers: { "Content-Type": "application/json", auth: "lovezinho" },
         credentials: "include",
         auth: "lovezinho",
         body: JSON.stringify(data),
       });
-
       if (!response.ok) {
         throw new Error(`Erro HTTP: ${response.status}`);
       }
 
-      const result = await response.json();
-      console.log("Success:", result);
-
-      localStorage.setItem("userData", JSON.stringify(result[0]));
-      return result; // Retorne os dados se necessário
+      createDataLocal(email);
     } catch (error) {
-      console.error("Error:", error);
+      console.log("Erro ao salvar dados formulário" + error);
+      console.log(userEmail);
     }
   };
 
   const logout = () => {
     setAuthorizedUser(null);
     setUserData({});
-    clearLocalStorage();
-  };
-
-  const findAllChat = async () => {
-    try {
-      const getEmail = localStorage.getItem("email");
-      const response = await fetch(
-        `https://api.velhorico.xyz/getAllChat/${getEmail}`,
-        {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-          auth: "lovezinho",
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error(`Erro HTTP: ${response.status}`);
-      }
-      const result = await response.json();
-      setDataChat(result);
-    } catch (error) {
-      console.error("Error:", error);
-    }
   };
 
   return (
@@ -212,16 +174,12 @@ export function AuthorizedUserProvider({ children }) {
         dataPerson,
         dataPersonPremium,
         dataOldMan,
+        saveWithDraw,
         authorizedUser,
         setAuthorizedUser,
-        loginUser,
         logout,
         userData,
         setUserData,
-        fetchDataUser,
-        dataChat,
-        findAllChat,
-        setDataChat,
       }}
     >
       {children}

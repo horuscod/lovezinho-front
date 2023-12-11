@@ -1,51 +1,47 @@
-import React, { useState } from "react";
-import {
-  ContainerFormsWithDraw,
-  Form,
-  Label,
-  ButtonWithDraw,
-  Input,
-} from "./styles.js";
+import React, { useState, useEffect } from "react";
+import { ContainerFormsWithDraw, Form, Label, Input } from "./styles.js";
 import { useAuthorizedUser } from "../../../Context/AuthUserContext.js";
+import Button from "../../Button/index.js";
 
 const Saque = () => {
-  const { dataPerson } = useAuthorizedUser();
-  const [formData, setFormData] = useState({
-    name: "",
-    accountNumber: "",
-    agency: "",
-    address: "",
-    cpf: "",
-  });
+  const { dataPerson, saveWithDraw } = useAuthorizedUser();
+  const [accNumber, setAccNumber] = useState("");
+  const [accAgency, setAccAgency] = useState("");
+  const [accAddress, setAccAddress] = useState("");
+  const [accCPF, setAccCPF] = useState("");
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
-  };
+  useEffect(() => {
+    if (dataPerson.length > 0) {
+      setAccNumber(dataPerson[0].accNumber || "");
+      setAccAgency(dataPerson[0].accAgency || "");
+      setAccAddress(dataPerson[0].accAddress || "");
+      setAccCPF(dataPerson[0].accCPF || "");
+    }
+  }, [dataPerson]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Aqui você pode enviar os dados para o backend ou realizar outras operações
-    console.log("Dados enviados:", formData);
-    // Limpar os dados do formulário
-    setFormData({
-      name: "",
-      accountNumber: "",
-      agency: "",
-      address: "",
-      cpf: "",
-    });
+  const saveInformationForm = async () => {
+    try {
+      const saveData = await saveWithDraw(
+        accNumber,
+        accAgency,
+        accAddress,
+        accCPF,
+        dataPerson[0].uid,
+        dataPerson[0].email
+      );
+    } catch (error) {
+      console.log("Ocorreu um erro" + error);
+    }
   };
 
   return (
     <ContainerFormsWithDraw>
-      <Form onSubmit={handleSubmit}>
+      <Form>
         <Label>
           Nome:
           <Input
             type="text"
             value={dataPerson.length > 0 ? dataPerson[0].name : ""}
-            onChange={handleChange}
             placeholder="Digite seu nome"
           />
         </Label>
@@ -54,8 +50,8 @@ const Saque = () => {
           <Input
             type="text"
             name="accountNumber"
-            value={dataPerson.length > 0 ? dataPerson[0].accountNumber : ""}
-            onChange={handleChange}
+            value={accNumber}
+            onChange={(e) => setAccNumber(e.target.value)}
             placeholder="Digite seu numero da conta"
           />
         </Label>
@@ -64,8 +60,8 @@ const Saque = () => {
           <Input
             type="text"
             name="agency"
-            value={dataPerson.length > 0 ? dataPerson[0].accountAgency : ""}
-            onChange={handleChange}
+            value={accAgency}
+            onChange={(e) => setAccAgency(e.target.value)}
             placeholder="Digite sua agencia"
           />
         </Label>
@@ -74,8 +70,8 @@ const Saque = () => {
           <Input
             type="text"
             name="address"
-            value={dataPerson.length > 0 ? dataPerson[0].accountAddress : ""}
-            onChange={handleChange}
+            value={accAddress}
+            onChange={(e) => setAccAddress(e.target.value)}
             placeholder="Digite seu endereço"
           />
         </Label>
@@ -84,12 +80,15 @@ const Saque = () => {
           <Input
             type="text"
             name="cpf"
-            value={dataPerson.length > 0 ? dataPerson[0].cpf : ""}
-            onChange={handleChange}
+            value={accCPF}
+            onChange={(e) => setAccCPF(e.target.value)}
             placeholder="Digite seu CPF"
           />
         </Label>
-        <ButtonWithDraw type="submit">Cadastrar Dados Bancários</ButtonWithDraw>
+        <Button
+          text="Cadastrar Dados Bancários"
+          onClick={saveInformationForm}
+        />
       </Form>
     </ContainerFormsWithDraw>
   );
