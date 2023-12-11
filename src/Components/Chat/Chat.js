@@ -307,7 +307,7 @@ const Chat = () => {
         ...prevLastMessagesData,
         lastMessageBot: nextBotMessage,
       }));
-    }, 6000);
+    }, 4000);
   };
 
   const handleSendMessage = () => {
