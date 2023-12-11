@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   BoxContentImage,
   BoxContentMatch,
@@ -25,14 +25,24 @@ import { IoClose } from "react-icons/io5";
 
 const Match = () => {
   const { dataOldMan, dataPerson } = useAuthorizedUser();
+  const [shuffledData, setShuffledData] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showModal, setShowModal] = useState(false);
   /* Função que embaralha o Array */
+  const shuffleArray = (array) => {
+    let newArr = [...array];
+    for (let i = newArr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
+    }
+    return newArr;
+  };
 
   const handleLike = async () => {
     const nextIndex = currentIndex + 1;
-    if (nextIndex < dataOldMan.length) {
-      const lastClickedPerson = dataOldMan[currentIndex];
+
+    if (nextIndex < shuffledData.length) {
+      const lastClickedPerson = shuffledData[currentIndex];
 
       setCurrentIndex(nextIndex);
 
@@ -68,8 +78,14 @@ const Match = () => {
     }
   };
 
-  const currentItem = dataOldMan[currentIndex];
-  const nextItems = dataOldMan.slice(currentIndex + 1, currentIndex + 7);
+  useEffect(() => {
+    if (dataOldMan && dataOldMan.length > 0) {
+      setShuffledData(shuffleArray(dataOldMan));
+    }
+  }, [dataOldMan]);
+
+  const currentItem = shuffledData[currentIndex];
+  const nextItems = shuffledData.slice(currentIndex + 1, currentIndex + 7);
 
   return (
     <BoxContentMatch>
