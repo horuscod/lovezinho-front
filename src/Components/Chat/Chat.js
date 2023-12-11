@@ -360,8 +360,8 @@ const Chat = () => {
           {chatMessageData.length > 0
             ? chatMessageData.map((message, index) => (
                 <div key={index}>
-                  <MenssageNameBot>{message.lastMessageUser}</MenssageNameBot>
-                  <MenssagePerson>{message.lastMessageBot}</MenssagePerson>
+                  <MenssageNameBot>{message.lastMessageBot}</MenssageNameBot>
+                  <MenssagePerson>{message.lastMessageUser}</MenssagePerson>
                 </div>
               ))
             : null}
