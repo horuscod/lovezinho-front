@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import {
-  Container,
   ContainerFormsWithDraw,
   Form,
-  SubContainerSign,
   Label,
   ButtonWithDraw,
+  Input,
 } from "./styles.js";
-import Input from "../../Input/Input.js";
+import { useAuthorizedUser } from "../../../Context/AuthUserContext.js";
 
 const Saque = () => {
+  const { dataPerson } = useAuthorizedUser();
   const [formData, setFormData] = useState({
     name: "",
     accountNumber: "",
@@ -44,8 +44,7 @@ const Saque = () => {
           Nome:
           <Input
             type="text"
-            name="name"
-            value={formData.name}
+            value={dataPerson.length > 0 ? dataPerson[0].name : ""}
             onChange={handleChange}
             placeholder="Digite seu nome"
           />
@@ -55,7 +54,7 @@ const Saque = () => {
           <Input
             type="text"
             name="accountNumber"
-            value={formData.accountNumber}
+            value={dataPerson.length > 0 ? dataPerson[0].accountNumber : ""}
             onChange={handleChange}
             placeholder="Digite seu numero da conta"
           />
@@ -65,7 +64,7 @@ const Saque = () => {
           <Input
             type="text"
             name="agency"
-            value={formData.agency}
+            value={dataPerson.length > 0 ? dataPerson[0].accountAgency : ""}
             onChange={handleChange}
             placeholder="Digite sua agencia"
           />
@@ -75,7 +74,7 @@ const Saque = () => {
           <Input
             type="text"
             name="address"
-            value={formData.address}
+            value={dataPerson.length > 0 ? dataPerson[0].accountAddress : ""}
             onChange={handleChange}
             placeholder="Digite seu endereço"
           />
@@ -85,7 +84,7 @@ const Saque = () => {
           <Input
             type="text"
             name="cpf"
-            value={formData.cpf}
+            value={dataPerson.length > 0 ? dataPerson[0].cpf : ""}
             onChange={handleChange}
             placeholder="Digite seu CPF"
           />

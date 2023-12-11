@@ -60,10 +60,12 @@ export const Label = styled.label`
 `;
 
 export const Input = styled.input`
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-top: 4px;
+  width: 100%;
+  box-sizing: border-box;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 8px;
+  padding: 16px 20px;
+  font-size: 20px;
 `;
 
 export const ButtonWithDraw = styled.div`
