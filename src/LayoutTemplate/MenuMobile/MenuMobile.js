@@ -27,7 +27,7 @@ const MenuMobile = () => {
         <CgProfile />
         <ItemTitleMenu>Profile</ItemTitleMenu>
       </ItemMenuMobile>
-      <ItemMenuMobile to="/saque">
+      <ItemMenuMobile to="/withDraw">
         <GiMoneyStack />
         <ItemTitleMenu>Withdrawal</ItemTitleMenu>
       </ItemMenuMobile>

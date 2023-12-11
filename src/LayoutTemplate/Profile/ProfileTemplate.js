@@ -30,15 +30,14 @@ import { GrView } from "react-icons/gr";
 import { useAuthorizedUser } from "../../Context/AuthUserContext.js";
 import MenuMobile from "../MenuMobile/MenuMobile.js";
 const ProfileTemplate = () => {
-  const { userData } = useAuthorizedUser();
-  console.log("userData:", userData);
+  const { dataPerson } = useAuthorizedUser();
   return (
     <BackgroundBody>
       <BoxContainer>
         <ProfileBox>
           <BoxContentLittle>
             <BoxContentImage>
-              <BoxImageProfileUser src={userData.imageProfileURL} />
+              <BoxImageProfileUser src={dataPerson[0].imageProfileURL} />
 
               <BoxContentPopularity>
               PopularidadMuy bajo Aumento
@@ -48,7 +47,7 @@ const ProfileTemplate = () => {
           <BoxContentInformation>
             <BoxSimpleInfoProfile>
               <HeaderBoxSimpleInfoProfile>
-                <ProfileName>{userData.name}</ProfileName>
+                <ProfileName>{dataPerson[0].name}</ProfileName>
               </HeaderBoxSimpleInfoProfile>
 
               <ContentBoxSimpleInfoProfile>
