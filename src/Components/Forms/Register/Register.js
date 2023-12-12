@@ -28,14 +28,13 @@ const Register = () => {
     }
     setLoading(true);
     try {
-      const response = await fetch(
-        "https://api-velho-rico-597ac8e8746d.herokuapp.com/newUserByForms",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(form),
-        }
-      );
+      const response = await fetch("https://api.velhorico.xyz/newUserByForms", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", auth: "lovezinho" },
+        credentials: "include",
+        auth: "lovezinho",
+        body: JSON.stringify(form),
+      });
 
       if (!response.ok) {
         throw new Error(`Erro HTTP: ${response.status}`);
