@@ -164,8 +164,9 @@ export const DetailButton = styled.div``;
 
 export const CollumNextMatch = styled.div`
   width: 100%;
-  display: flex;
+  display: none;
   overview: hidden;
+
   @media (min-width: 800px) {
     width: 10%;
     display: block;
