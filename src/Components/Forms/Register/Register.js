@@ -75,7 +75,7 @@ const Register = () => {
 
   return (
     <Container>
-      <Form onSubmit={handleSubmit}>
+      <Form>
         <h1>Faça o seu Cadastro 👋</h1>
         <Input
           name="name"
@@ -109,7 +109,7 @@ const Register = () => {
           valid={confirmPassword}
           mensageValid="Por Favor Preencha o campo"
         />
-        <Button type="submit" text="Efetuar Cadastro!" />
+        <Button text="Efetuar Cadastro!" onClick={handleSubmit}/>
         <SubContainerSign>
           <p>Já possui conta?</p>
           <NavLink to="/">Login</NavLink>
