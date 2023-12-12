@@ -313,9 +313,10 @@ const Chat = () => {
   const handleSendMessage = () => {
     if (inputMessage) {
       const newUserMessage = { sender: "user", text: inputMessage };
-      setLastMessagesData({
+      
+      /*setLastMessagesData({
         lastMessageUser: inputMessage,
-      });
+      });*/
 
       setUserMessages([...userMessages, newUserMessage]);
       setInputMessage("");
@@ -372,15 +373,33 @@ const Chat = () => {
 
       <BoxChatMensage>
         <MessageBot>
-          {botTyping && <MenssageNameBot>Escribiendo...</MenssageNameBot>}
+          
           {chatMessageData.length > 0
-            ? chatMessageData.map((message, index) => (
-                <div key={index}>
-                  <MenssagePerson>{message.lastMessageUser}</MenssagePerson>
-                  <MenssageNameBot>{message.lastMessageBot}</MenssageNameBot>
-                </div>
-              ))
-            : null}
+            && chatMessageData.map((message, index) => (
+              <div key={index}>
+                {message.lastMessageUser && (
+                    <MenssagePerson>{message.lastMessageUser}</MenssagePerson>
+                  )}
+                {message.lastMessageBot && (
+                    <MenssageNameBot>{message.lastMessageBot}</MenssageNameBot>
+                  )}
+              </div>
+            ))}
+
+
+          {/* Renderizar as mensagens do usuário e do bot intercaladas */}
+          {userMessages.map((message, index) => (
+            <React.Fragment key={index}>
+              {message.sender === "user" && (
+                <MenssagePerson>{message.text}</MenssagePerson>
+              )}
+              {message.sender === "bot" && (
+                <MenssageNameBot>{message.text}</MenssageNameBot>
+              )}
+            </React.Fragment>
+          ))}             
+
+          {botTyping && <MenssageNameBot>Escribiendo...</MenssageNameBot>}
 
           {viewInput ? (
             <ContentInput>
