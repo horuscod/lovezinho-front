@@ -47,7 +47,7 @@ const Chat = () => {
     createDataChat();
   }, []);
 
-  useEffect(() => {}, [dataChat]);
+  useEffect(() => {}, [chatMessageData]);
 
   const createDataChat = async () => {
     try {
@@ -144,7 +144,6 @@ const Chat = () => {
       lastMessagesData.lastMessageBot === "" &&
       lastMessagesData.lastMessageUser === ""
     ) {
-      
     } else {
       console.log("entrou no else aqui ");
       const data = {
@@ -313,10 +312,10 @@ const Chat = () => {
   const handleSendMessage = () => {
     if (inputMessage) {
       const newUserMessage = { sender: "user", text: inputMessage };
-      
-      /*setLastMessagesData({
+
+      setLastMessagesData({
         lastMessageUser: inputMessage,
-      });*/
+      });
 
       setUserMessages([...userMessages, newUserMessage]);
       setInputMessage("");
@@ -332,7 +331,15 @@ const Chat = () => {
     });
     setUidBotState(uidBot);
     setInterval(addNewValue, 60000);
+    setUserMessages([]);
   };
+
+  useEffect(() => {
+    if (userMessages.length > 0) {
+      if (userMessages[0] && userMessages[1]) {
+      }
+    }
+  }, [userMessages]);
 
   return (
     <ContentChat>
@@ -373,31 +380,39 @@ const Chat = () => {
 
       <BoxChatMensage>
         <MessageBot>
-          
-          {chatMessageData.length > 0
-            && chatMessageData.map((message, index) => (
+          {chatMessageData.length > 0 &&
+            chatMessageData.map((message, index) => (
               <div key={index}>
-                {message.lastMessageUser && (
-                    <MenssagePerson>{message.lastMessageUser}</MenssagePerson>
-                  )}
-                {message.lastMessageBot && (
-                    <MenssageNameBot>{message.lastMessageBot}</MenssageNameBot>
-                  )}
+                <MenssagePerson>{message.lastMessageUser}</MenssagePerson>
+                <MenssageNameBot>{message.lastMessageBot}</MenssageNameBot>
               </div>
             ))}
 
+          {userMessages.length > 0 &&
+            userMessages.map((message, index) => {
+              // Verifique se a mensagem já foi renderizada em chatMessageData
+              const isDuplicated = chatMessageData.some(
+                (chatMessage) =>
+                  chatMessage.lastMessageUser === message.text ||
+                  chatMessage.lastMessageBot === message.text
+              );
+
+              if (!isDuplicated) {
+                return (
+                  <React.Fragment key={index}>
+                    {message.sender === "user" && (
+                      <MenssagePerson>{message.text}</MenssagePerson>
+                    )}
+                    {message.sender === "bot" && (
+                      <MenssageNameBot>{message.text}</MenssageNameBot>
+                    )}
+                  </React.Fragment>
+                );
+              }
+              return null;
+            })}
 
           {/* Renderizar as mensagens do usuário e do bot intercaladas */}
-          {userMessages.map((message, index) => (
-            <React.Fragment key={index}>
-              {message.sender === "user" && (
-                <MenssagePerson>{message.text}</MenssagePerson>
-              )}
-              {message.sender === "bot" && (
-                <MenssageNameBot>{message.text}</MenssageNameBot>
-              )}
-            </React.Fragment>
-          ))}             
 
           {botTyping && <MenssageNameBot>Escribiendo...</MenssageNameBot>}
 
