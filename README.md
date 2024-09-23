@@ -3,6 +3,8 @@
 ### Passo 2: Rode npm install 
 ### Passo 3: Rode npm start
 
+FIGMA LAYOUT VISUAL: https://www.figma.com/design/0rxWZg56VDtBiRm3N2FwE9/Layout-APP---Meu-Velho-Rico?node-id=0-1&m=dev&t=PUF5d44lOCVZyQmV-1
+
 # Estrutura de Pasta para entendimento 
 ### SRC - Pasta principal 
 ### Components - Pasta de Componentes
